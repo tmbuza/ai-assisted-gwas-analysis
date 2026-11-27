@@ -1,13 +1,44 @@
-# Meet the inputs
+# Meet the GLGC data
 
-::: {.callout-important}
-This real-study section is a scaffold. No real dataset or real findings are bundled yet.
-:::
+## Identify the exact release
 
-Before creating `data/real-study/summary-statistics.tsv`, record the original citation, study accession, file URL, access date, license, checksum, phenotype, population descriptors, sample size, build, effect units and model.
+The source is the HDL **joint GWAS/Metabochip** file, `jointGwasMc_HDL.txt.gz`, linked from the authors' [release page](https://csg.sph.umich.edu/willer/public/lipids2013/) [@GLGCRelease]. The Metabochip-only file is a different analysis. The paper examines several lipid traits; this guide uses HDL only [@Willer2013].
 
-Keep the original source files outside the prepared folder. Map their columns in a reproducible importer. Check whether source p-values are Wald, score, likelihood-ratio, mixed-model or another test; do not replace them by beta/SE-derived values.
+The prepared input is `data/glgc-hdl/summary-statistics.tsv.gz`, accompanied by `study-metadata.json`. Gzip compression is supported directly; do not rename it to `.tsv` without decompressing it.
 
-Document whether N is actual or effective sample size, and whether a quality metric is INFO, R² or something else. Missing columns may require extending the importer/workflow, rather than filling defaults.
+## Source-to-guide mapping
+
+| Source column | Prepared field | Preparation |
+|---|---|---|
+| `SNP_hg19` | `chromosome`, `position` | Parse hg19/GRCh37 coordinate |
+| `rsid` | `variant_id` | Preserve rsID; derive coordinate/allele ID where source rsID is unavailable |
+| `A1`, `A2` | `effect_allele`, `other_allele` | Convert base letters to uppercase |
+| `beta`, `se` | `beta`, `standard_error` | Preserve source estimates |
+| `P-value` | `p_value` | Preserve text, including extreme scientific notation |
+| `Freq.A1.1000G.EUR` | `effect_allele_frequency` | Retain reference-panel frequency and declare its basis |
+| `N` | `sample_size` | Preserve reported values, including decimals |
+| Not supplied | INFO unavailable | Do not create a replacement quality score |
+
+The importer retains 551 valid rows with derived coordinate/allele IDs. A derived ID is a traceable label, not a newly assigned biological rsID.
+
+## Preparation and provenance
+
+The source has 2,447,441 rows. Preparation excludes 186,081 with unavailable reference frequency, leaving 2,261,360. No p-value selection, chromosome restriction within autosomes or random row sampling is used for preparation.
+
+`data/provenance/glgc-hdl/preparation-audit.json` records counts, source URL and checksums. `preparation-exclusions.tsv.gz` lists excluded source identifiers and reasons. The original release already excludes some low-N records; this guide cannot recover records the authors did not release.
+
+## Reproduce the inputs when needed
+
+The completed package includes the prepared input. Maintainers can fetch the exact source and reproduce it:
+
+```bash
+python scripts/python/prepare_glgc.py
+```
+
+The download is approximately 59 MB. Its SHA-256 is checked against the verified release; a changed file is rejected for investigation. The original compressed source is cached in ignored `source/glgc2013/`. Citation and data-use information remain with the source records; this guide does not assign a new license to the authors' data.
+
+## Values to locate
+
+Find rs3764261: GRCh37 chromosome 16, position 56,993,324; A/C; beta 0.2412; SE 0.0039; source p `1.39e-769`; A1 reference frequency 0.2942; reported N 177,533. The p-value is positive even though converting it to an ordinary Python float would underflow.
 
 [Next: Check the inputs](03-check-the-inputs.qmd)

@@ -1,0 +1,20 @@
+{
+  "study_id": "GLGC_2013_HDL_joint",
+  "trait": "HDL cholesterol",
+  "population": "European-ancestry discovery meta-analysis",
+  "genome_build": "GRCh37",
+  "effect_type": "beta",
+  "effect_units": "inverse-normal-transformed HDL units per A1 allele",
+  "summary_scope": "genome_wide",
+  "source": "https://csg.sph.umich.edu/abecasis/public/lipids2013/jointGwasMc_HDL.txt.gz",
+  "synthetic": false,
+  "info_available": false,
+  "sample_size_type": "source_reported",
+  "frequency_basis": "1000 Genomes EUR reference",
+  "source_p_method": "Stouffer meta-analysis with genomic control; not beta/SE Wald p-values",
+  "effect_coding": "A1 is the trait-increasing allele in this release; nonnegative betas reflect source coding.",
+  "source_sha256": "7d03f9691db53ddd78d8545f85ebd11bf8a4d6686e334e44509b1ec447355278",
+  "publication_doi": "10.1038/ng.2797",
+  "original_source_rows": 2447441,
+  "preparation": "Full autosomal release with available reference frequency. No p-value selection or chromosome subsampling. INFO absent, filter skipped. Source N decimals and p strings preserved."
+}

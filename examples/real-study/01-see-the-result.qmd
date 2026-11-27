@@ -1,19 +1,73 @@
-# Preview the planned outputs
+# Preview the GLGC results
 
-::: {.callout-important}
-This real-study section is a scaffold. No real dataset or real findings are bundled yet.
-:::
+The figures below come from the verified HDL release and the documented preparation/filtering steps. Read them alongside `results/glgc-hdl/tables/`. Ten PNG figure families answer different questions.
 
-The planned real-data outputs use the same ten figure families as synthetic practice. No real-study figures are displayed yet.
+## Association landscape
 
-| Core output | Study-specific verification |
-|---|---|
-| Manhattan | Full variant coverage, build and coordinates |
-| Q–Q and lambda | Genome-wide coverage, source test definition, no hits-only selection |
-| Effect forest | Effect allele, units, SE and post-selection limits |
-| Frequency / INFO / N | Source definitions, missingness and any prior filtering |
-| Position zoom | Valid positions; LD and gene tracks require additional matched resources |
+![GLGC HDL Manhattan plot with the full association range and a 0–50 detail view.](../../results/glgc-hdl/figures/manhattan.png){width=100%}
 
-Expanded regional LD plots and cross-study comparisons will be added only when suitable references and harmonization are available.
+Autosomes alternate dark blue and orange. The strongest retained source association is **rs247616**, chromosome 16 at **56,989,590** on GRCh37, with **p=1.15e-802**. A full-range panel preserves that extreme value; the detail panel makes weaker signals visible. Triangles mark values above the detail panel's display limit. Neither panel alters source values.
 
-[Next: Meet the inputs](02-meet-the-data.qmd)
+The plot contains all retained rows with p≤1e-5 plus 50,000 reproducibly sampled background rows. Calculations and the count of **3,285 variants at p≤5e-8** use all 2,058,079 retained rows. Do not count visible dots or interpret 3,285 as independent loci.
+
+## Distribution of p-values
+
+![Full-tail and central GLGC HDL Q–Q views.](../../results/glgc-hdl/figures/qq.png){width=100%}
+
+The upper tail departs strongly from the simple reference. Lambda GC is **1.018789** for the retained file. These are post-release diagnostics: the source already used genomic control, and the joint design includes a custom array. A lambda near one does not prove absence of confounding or complete calibration.
+
+Plot ranks are drawn from the full sorted retained file, and expected values use its full count. The shaded band assumes independent uniform null p-values; it is pointwise, not simultaneous or LD-adjusted.
+
+## Selected effect estimates
+
+![Top retained source associations, with positions, effect/other alleles and nominal 95% Wald intervals.](../../results/glgc-hdl/figures/effect-forest.png){width=100%}
+
+The top twelve rows cluster on chromosome 16. This demonstrates why twelve small-p variants need not be twelve distinct findings. A1 is the increasing allele in this release, so the displayed betas are positive. Their units are the transformed HDL trait scale, **not mg/dL**. Intervals are derived as beta ±1.96×SE; they do not recreate the corrected meta-analysis test or adjust for selecting top rows.
+
+## Frequency and unavailable quality information
+
+![Reference-frequency distributions and an explicit notice that INFO was not supplied.](../../results/glgc-hdl/figures/frequency-info.png){width=100%}
+
+Input and retained histograms use identical bins. The frequency filter uses **1000 Genomes EUR reference MAF**. The right panel intentionally reports unavailable INFO instead of inventing a distribution. Absence of this field does not establish either good or poor imputation quality.
+
+## Effect and frequency
+
+![Source beta versus reference-panel minor allele frequency.](../../results/glgc-hdl/figures/effect-frequency.png){width=100%}
+
+Orange points meet the configured source p-value reference. Most smaller effects sit near zero, while some larger effects are visible. The plot is not an estimate of genetic architecture: effect coding, precision, source ascertainment and the display sample matter.
+
+## Per-variant support
+
+![Distribution of the source-reported per-variant N values.](../../results/glgc-hdl/figures/sample-size.png){width=100%}
+
+N varies across variants as contributing data differ. The source includes some decimal N values; they are preserved as reported. Do not round them into invented participant counts or assume they are effective N without source confirmation.
+
+## Filtering audit
+
+![Sequential counts for reference-frequency filtering, with INFO explicitly not applied.](../../results/glgc-hdl/figures/filter-audit.png){width=100%}
+
+**203,281 prepared rows (8.99%)** fail the reference MAF threshold. The third stage removes none because INFO is unavailable. The separate source-preparation audit accounts for the earlier 186,081 rows with unavailable reference frequency.
+
+## Precision with frequency context
+
+![Standard error versus source-reported N, coloured by reference MAF.](../../results/glgc-hdl/figures/precision-sample-size.png){width=100%}
+
+SE varies at similar N. Reference frequency provides useful context, but it is not the study frequency and this scatter does not fit a precision model. Source meta-analysis methods and contributing cohorts also affect interpretation.
+
+## Source p-values versus a derived Wald calculation
+
+![Source association strength compared with the beta/SE-derived normal Wald calculation.](../../results/glgc-hdl/figures/p-consistency.png){width=100%}
+
+These values do **not** agree as closely as in synthetic practice. That is expected: the paper describes a weighted Stouffer meta-analysis and genomic control, whereas the check uses the reported beta divided by its SE [@Willer2013]. Do not overwrite source p-values with the derived values to force agreement.
+
+For rs3764261, source −log10(p) is **768.856985**, while derived Wald −log10(p) is **832.466119**. Both can be calculated correctly while answering different statistical questions.
+
+## Regional position view
+
+![Retained associations within 250 kb of rs247616 on chromosome 16.](../../results/glgc-hdl/figures/regional-position.png){width=100%}
+
+This view contains **430 retained variants**. It locates a strong association cluster but supplies no LD colours, causal probabilities or gene assignments. Build-matched annotation and suitable LD data would be separate follow-up inputs.
+
+**Your task:** choose three figures that would support a short report. For each, name a checked number, its table and a limitation.
+
+[Next: Meet the data](02-meet-the-data.qmd)

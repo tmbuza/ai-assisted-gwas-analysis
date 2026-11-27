@@ -1,63 +1,92 @@
 # Appendix
 
-## Reference calculations
+## Vocabulary for reading a GWAS table
 
-For a quantitative-trait beta estimate with standard error SE:
+| Term | Meaning here |
+|---|---|
+| Variant row | An association summary for a genomic variant, not a participant |
+| Genome build | Coordinate reference; positions from different builds are not interchangeable |
+| Effect allele | The allele to which beta and its frequency refer; not automatically minor, reference or harmful |
+| Beta | Change on the stated quantitative-trait scale per copy of the effect allele |
+| SE | Standard error on the beta scale |
+| Source p-value | The released association-test result, retained separately from derived checks |
+| EAF / MAF | Effect-allele frequency / smaller of EAF and 1−EAF |
+| INFO | A source-defined imputation-quality metric when supplied |
+| LD | Correlation among variants; position alone does not measure it |
+| Locus / causal gene | A regional or biological interpretation requiring more than a list of small-p rows |
+
+## Reference arithmetic
+
+For a quantitative beta estimate and positive SE:
 
 $$
 z=\frac{\beta}{SE},\qquad CI_{95\%}=\beta\pm 1.959964\,SE.
 $$
 
-The derived two-sided normal Wald p-value is $2\Phi(-|z|)$. These calculations do not establish that a source used a Wald test. Preserve source p-values and compare methods when values disagree.
+The derived two-sided normal Wald p-value is $2\Phi(-|z|)$. It does not establish which test produced a source p-value. Preserve source methods and source values.
 
-The plotted association strength is $-\log_{10}(p)$. Smaller p means a higher plotted point, not necessarily a larger effect. A small effect can have a small p-value when precision is high.
+The plotted strength is $-\log_{10}(p)$. Smaller p produces a higher point, not necessarily a larger effect. Precision and sample support influence significance.
 
-MAF is $\min(EAF,1-EAF)$. Effect allele is not necessarily minor allele, reference allele or a risk allele. Reversing effect and other alleles changes the beta sign and EAF interpretation.
+| Verification row | z | Source −log10(p) | Derived Wald −log10(p) |
+|---|---:|---:|---:|
+| SYN000001 | 6 | 8.704834 | 8.704834 |
+| rs3764261 | 61.846154 | 768.856985 | 832.466119 |
 
-## Interpret the diagnostics
+The synthetic source uses the same normal formula. The GLGC source uses corrected meta-analysis results [@Willer2013; @GLGCRelease]. Both rows illustrate correct arithmetic; they do not imply the same test definition.
 
-- The threshold line is a configurable reference, not proof of causality or a replacement for a multiple-testing plan.
-- Q–Q expectations use $(i-0.5)/m$ for sorted p-values. The shaded band uses beta order-statistic quantiles under independent uniform null p-values. It is pointwise, not a simultaneous band; it does not model LD.
-- Lambda uses chi-square(1) transforms of source p-values. It can reflect true polygenic signal, sample size, model/calibration problems and other factors; it does not by itself measure population stratification. No genomic-control correction is applied.
-- A forest plot of selected top variants has selection bias and correlated rows. Its intervals are nominal, not adjusted for selection or simultaneous coverage.
-- Positions alone do not supply LD or identify causal genes. The synthetic regional plot has invented coordinates.
+### Very small positive p-values
 
-## Core and later analyses
+Binary64 cannot represent every probability in a released GWAS file. The guide retains source p-value strings, using decimal logarithms for extreme values. Thus `1.39e-769` remains a positive source result; it is not replaced by zero or floored at an arbitrary minimum. Read `p_value` as text when independently inspecting such rows.
 
-| Available now | Requires further verified inputs / methods |
+The verifier uses a stable normal-tail approximation for large z. An ordinary floating-point Wald probability may underflow, while its log remains finite. Compare named log quantities and state their test definitions.
+
+## Frequencies, support and missing quality fields
+
+MAF is $\min(EAF,1-EAF)$. Changing the named allele reverses beta and replaces EAF by 1−EAF when the allele pair is properly aligned. It does not change MAF or a two-sided normal test.
+
+Reference-panel frequency is not the frequency measured in every study cohort. The GLGC release supplies 1000 Genomes EUR frequency; the guide labels its basis and records exclusions for unavailable values. Other sources require their own documentation.
+
+N is a per-variant source field, not the number of association rows. Some GLGC N values contain decimals; the guide preserves reported values without claiming why they are non-integer. It does not assume actual N and effective N are interchangeable.
+
+If INFO is absent, metadata explicitly declares that absence and the filter is not applied. A missing distribution is not evidence of good imputation. Never fill an absent quality field with 1 merely to pass validation.
+
+## Filtering and display
+
+The importer audit describes source-to-prepared transformations. The workflow audit describes MAF/INFO filtering of prepared rows. Their denominators differ; report both.
+
+Summary calculations use every retained row. Dense scatters retain all p≤1e-5 rows and reproducibly sample at most 50,000 other background rows by default. The exact displayed rows and policy are recorded. Do not estimate variant counts from visible dots.
+
+For Q–Q, ranks are selected from the full sorted distribution. With $m$ retained rows and rank $i$, the reference probability is $(i-0.5)/m$. The shaded interval uses beta order-statistic quantiles under independent uniform null p-values. It is pointwise, not a simultaneous or LD-adjusted band. Dense points need not imply independent tests.
+
+## Lambda and multiple testing
+
+Lambda GC is the median chi-square(1) value transformed from source p-values divided by the chi-square(1) null median [@Devlin1999]. It is a diagnostic, not a correction applied by this guide or a proof of study validity. Source correction, true signal, sample size, variant selection, correlation and model issues influence interpretation.
+
+The default p≤5×10⁻⁸ line is a declared reference for this worked example. A new study needs a justified multiple-testing plan. Threshold-crossing variants are not automatically independent loci, and a new threshold is not justified merely by counting a teaching subset.
+
+A top-variant forest plot has selection bias and nearby rows may be correlated. Its nominal intervals are not simultaneous intervals or intervals adjusted for selection. The GLGC source test is not reconstructed by those intervals.
+
+## What requires additional evidence
+
+| Current result | Additional work before a stronger claim |
 |---|---|
-| Summary-statistics validation and filtering | Participant and genotype QC |
-| Manhattan, Q–Q, source p/beta/SE checks | Association model fitting and ancestry PCs |
-| Per-variant N, MAF and INFO summaries | LD clumping and independent loci |
-| Position-only regional zoom | Population-matched LD, gene tracks and fine mapping |
-| Selected effect estimates | Replication, allele harmonization and meta-analysis |
+| A regional association cluster | Appropriate LD and study definitions before counting independent signals |
+| A position near a gene | Build-matched annotation and biological evidence before causal-gene assignment |
+| A small p-value | Effect units, source method, replication and study limits |
+| A trait association | Separate causal design before an intervention or clinical conclusion |
+| A useful synthetic demonstration | Verified real data before a biological finding |
 
-## Sources and standards
+Summary-statistics QC benefits from source-level organization, explicit diagnostics and documented decisions [@Winkler2014]. The simplified TSV/JSON contract here is not a full GWAS-SSF validator [@GWASSSF].
 
-The GWAS Catalog distinguishes published significant association records from full variant-level summary statistics. Its metadata and source files are the starting point for selecting a real case study. This scaffold's simplified TSV/JSON contract is not a GWAS-SSF validator.
+## Reproducibility and scope
 
-- [GWAS Catalog: summary-statistics methods and metadata](https://www.ebi.ac.uk/gwas/docs/methods/summary-statistics/)
-- [GWAS Catalog: full summary-statistics downloads](https://www.ebi.ac.uk/gwas/downloads/summary-statistics)
-- [Official GWAS-SSF specification](https://github.com/gwas-catalog/summary-statistics-standard)
-- [SciPy normal distribution](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html)
-- [SciPy beta distribution](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.beta.html)
+Keep prepared inputs, original source records, importer, parameters, analysis code, environment and report. SHA-256 hashes identify files; they do not validate scientific meaning. Version ranges and a run record do not constitute an exact portable environment lock.
 
-Keep exact inputs, parameter files, source notes, scripts and software versions. The run record stores hashes and installed versions; the starter's bounded dependencies do not constitute an exact environment lock.
+The synthetic design is documented in `data/provenance/SIMULATION-DESIGN.md`. It uses invented coordinates, a frequency mixture, variable coverage and simulated local correlation. Its SE approximation is $[2N\,MAF(1-MAF)\,INFO]^{-1/2}$ except the fixed reference row. It supplies no empirical LD or genotype-model truth.
 
-## Synthetic v2 design
+The real-data case inspects one published HDL release. It does not reproduce all lipid traits, original cohort QC, meta-analysis, LD analysis, enrichment or functional experiments from the paper.
 
-The generator uses a documented mixture of lower-frequency and common
-variants, variable fictional chromosome spans/densities, and mostly high
-per-variant coverage with a smaller lower-coverage component. INFO can be
-lower at low MAF. Except for the fixed reference row:
+## References {.unnumbered}
 
-$$SE=\left[2N\,MAF(1-MAF)\,INFO\right]^{-1/2}.$$
-
-This is a teaching approximation for standardized quantitative effects,
-not an estimator fitted to genotype data. Smooth signal profiles and locally
-correlated latent noise illustrate nearby association clusters. They do not
-provide a real LD reference or fine-mapping truth. If the named effect allele
-is the major allele, the generator reverses beta and replaces MAF by 1−MAF
-for EAF; p-values remain unchanged. See `data/provenance/SIMULATION-DESIGN.md`.
-
-Further QC reading: [Winkler et al. (2014), quality control of GWAS summary-statistics meta-analyses](https://doi.org/10.1038/nprot.2014.071). The v2 mixture is a teaching design, not an implementation of that full protocol.
+::: {#refs}
+:::

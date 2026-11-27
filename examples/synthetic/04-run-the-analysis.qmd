@@ -12,7 +12,7 @@ The command overwrites named results in `results/synthetic/`. Preserve separate 
 |---|---|
 | `variant-qc.tsv` | Every input row, filter flags and palindromic flags |
 | `filter-summary.tsv` | Sequential filtering counts |
-| `variant-results.tsv` | Retained rows, source p-values, beta/SE z-scores and Wald intervals |
+| `variant-results.tsv` | Retained rows, exact source p text, source/derived log strengths and nominal intervals |
 | `top-variants.tsv` | Smallest source p-values; not LD-independent loci |
 | `manhattan-display.tsv` | Plot positions and association strengths |
 | `qq-display.tsv` | Expected/observed values and pointwise null envelope |
@@ -46,3 +46,10 @@ or effect direction. The dashed grey line shows the p-value reference.
 
 The Q–Q figure includes full-tail and central views. Forest labels include
 position and effect/other alleles; they do not identify independent loci.
+
+
+Large-file display policies are shared with the real case study. All 15,760
+synthetic retained rows are displayed because this dataset is below the
+background cap. Source p-values remain text; the engine saves source and
+derived Wald log strengths separately. [Shared workflow](../../01-run-the-workflow.qmd)
+explains the full-file calculations and large-file outputs.

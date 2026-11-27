@@ -8,3 +8,10 @@ reports/
 
 /.quarto/
 **/*.quarto_ipynb
+
+# Cached original releases and large regenerable full-row outputs
+source/
+results/glgc-hdl/tables/variant-qc.tsv.gz
+results/glgc-hdl/tables/variant-results.tsv.gz
+*.zip
+*.gz*

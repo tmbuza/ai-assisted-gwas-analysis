@@ -1,13 +1,31 @@
-# Start here
+# GLGC HDL: a published human GWAS
 
-::: {.callout-important}
-This real-study section is a scaffold. No real dataset or real findings are bundled yet.
+::: {.callout-note icon=false}
+## Our question
+
+Where are the strongest variant associations with HDL cholesterol in this release, and how do effect coding, frequency information and meta-analysis methods change their interpretation?
 :::
 
-The real-study case study is **not yet selected or bundled**. Complete synthetic practice now; return here after a source has passed the verification checklist.
+This example analyses the **joint GWAS and Metabochip HDL-cholesterol release** from the Global Lipids Genetics Consortium [@Willer2013; @GLGCRelease]. It is a full genome-wide association file, not a short list of published hits.
 
-The first case study should be a quantitative trait with full genome-wide summary statistics, beta and SE on a documented scale, effect alleles/frequencies, N, build and source quality information. A short table of published significant hits cannot support the same Q–Q or calibration diagnostics.
+## The data path
 
-See `data/provenance/REAL-STUDY-PLAN.md` for acceptance criteria. We will not fill this section with invented measurements or present simulated figures as real findings.
+| Stage | Variant rows | Meaning |
+|---|---:|---|
+| Original release | 2,447,441 | Published HDL file before this guide's preparation |
+| Prepared input | 2,261,360 | Autosomal SNVs with available source reference frequency |
+| Retained analysis | 2,058,079 | Prepared rows meeting reference MAF ≥0.01 |
 
-[Next: Preview the planned outputs](01-see-the-result.qmd)
+Preparation excludes 186,081 rows whose reference frequency is unavailable. The analysis then excludes 203,281 rows below the frequency threshold. These are variant counts, not participant counts. No source rows were selected because of their p-values.
+
+## Three important differences from synthetic practice
+
+1. **Frequency is from a reference panel.** It describes 1000 Genomes EUR A1 frequency, not measured frequency across all meta-analysis participants.
+2. **INFO is unavailable.** The guide does not invent scores; its INFO filter is explicitly not applied.
+3. **Source p-values are meta-analysis results.** A derived beta/SE Wald value is a check on a different calculation and need not reproduce them.
+
+A1 is coded as the trait-increasing allele in this release. Its nonnegative betas do not mean all possible allele substitutions increase HDL.
+
+The authors' association models and meta-analysis are upstream of this guide. We inspect their released summaries; we do not repeat participant QC, refit the models, count LD-independent loci or make causal/clinical claims.
+
+[Next: Preview the results](01-see-the-result.qmd)

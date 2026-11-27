@@ -1,0 +1,73 @@
+{
+  "inputs_sha256": {
+    "data/glgc-hdl/summary-statistics.tsv.gz": "9922816b2bc7828663c77a5d2c94a74eb743c2720f5edc28436d82ceeb85324f",
+    "data/glgc-hdl/study-metadata.json": "eb4f69ee2d530e1d47bf8a3bd8652a111efcc26c230f63790bfa4b160f44c614",
+    "config/default.json": "df56e9e0e833d3bfe2b70cc7c9b32c7f01d950d8ab9492d2f61c31f8d760dd6f"
+  },
+  "code_sha256": {
+    "prepare_glgc.py": "96b9ff7a1b4d4050b3551ecd4511e34a90dc94dd67bfe403c07bb793a9dcc9c0",
+    "common.py": "9f6e4e8f7c8a7907bd1698269136a072f8a4a034f3b3b6e9eee1f01da2b1a4fa",
+    "verify_variant.py": "334d659307189dee98e256983e2a288b7c71cacc9797b800c2b2d5583446385f",
+    "run_workflow.py": "5190e36f73e9ea813be704341a7df6ca956ac17661f35052b40eb9b5de80f23d",
+    "prepare_synthetic.py": "6d942e729072c95e07eb863c016740eaf6c93b41309fd1fcb2434489f458b318"
+  },
+  "config": {
+    "minimum_maf": 0.01,
+    "minimum_info": 0.8,
+    "association_threshold": 5e-08,
+    "top_n": 12,
+    "maximum_background_points": 50000
+  },
+  "study_metadata": {
+    "study_id": "GLGC_2013_HDL_joint",
+    "trait": "HDL cholesterol",
+    "population": "European-ancestry discovery meta-analysis",
+    "genome_build": "GRCh37",
+    "effect_type": "beta",
+    "effect_units": "inverse-normal-transformed HDL units per A1 allele",
+    "summary_scope": "genome_wide",
+    "source": "https://csg.sph.umich.edu/abecasis/public/lipids2013/jointGwasMc_HDL.txt.gz",
+    "synthetic": false,
+    "info_available": false,
+    "sample_size_type": "source_reported",
+    "frequency_basis": "1000 Genomes EUR reference",
+    "source_p_method": "Stouffer meta-analysis with genomic control; not beta/SE Wald p-values",
+    "effect_coding": "A1 is the trait-increasing allele in this release; nonnegative betas reflect source coding.",
+    "source_sha256": "7d03f9691db53ddd78d8545f85ebd11bf8a4d6686e334e44509b1ec447355278",
+    "publication_doi": "10.1038/ng.2797",
+    "original_source_rows": 2447441,
+    "preparation": "Full autosomal release with available reference frequency. No p-value selection or chromosome subsampling. INFO absent, filter skipped. Source N decimals and p strings preserved."
+  },
+  "summary": {
+    "input_variants": 2261360,
+    "retained_variants": 2058079,
+    "excluded_variants": 203281,
+    "at_or_below_p_threshold_variants": 3285,
+    "palindromic_retained": 13033,
+    "info_filter_applied": false,
+    "plotted_scatter_variants": 55346,
+    "max_absolute_wald_log10_p_difference": 87.93750037240943,
+    "lambda_gc": 1.0187894858388167,
+    "lambda_definition": "median(chi2.isf(source p,1))/chi2.ppf(0.5,1); 1-df diagnostic only",
+    "qq_envelope": "95% pointwise under independent Uniform(0,1) p-values; not simultaneous and not LD-adjusted"
+  },
+  "display_policy": {
+    "background_rows_plotted": 50000,
+    "all_rows_with_source_p_at_most_1e_minus_5_plotted": 5346,
+    "statistics_use_all_retained_rows": true,
+    "qq_reference_uses_full_retained_variant_count": true
+  },
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.0",
+    "matplotlib": "3.10.8",
+    "seaborn": "0.13.2"
+  },
+  "limitations": [
+    "No genotype association model, LD clumping, fine mapping, causal inference or ancestry correction is performed.",
+    "Top variants are correlated candidates, not independent loci.",
+    "95% intervals are unadjusted post-selection descriptive intervals."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "synthetic": {
+    "prepared_rows": 22000,
+    "retained_rows": 15760,
+    "all_saved_source_log_p_and_intervals_checked": true,
+    "independent_stable_wald_sample_checks": 158,
+    "retained_source_log_p_over_300": 0,
+    "lambda_and_threshold_count_checked": true,
+    "input_and_code_hashes_verified": true
+  },
+  "glgc-hdl": {
+    "prepared_rows": 2261360,
+    "retained_rows": 2058079,
+    "all_saved_source_log_p_and_intervals_checked": true,
+    "independent_stable_wald_sample_checks": 20581,
+    "retained_source_log_p_over_300": 27,
+    "lambda_and_threshold_count_checked": true,
+    "input_and_code_hashes_verified": true
+  },
+  "branches": {
+    "invalid_rows_rejected": true,
+    "extreme_positive_p_preserved": true,
+    "unavailable_INFO_not_fabricated": true,
+    "selected_variant_QQ_and_lambda_suppressed": true
+  }
+}

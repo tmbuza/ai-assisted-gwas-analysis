@@ -1,0 +1,48 @@
+# Write the report
+
+A report should answer the question, show the evidence and explain the limits of the analysis. Aim for a short account that another learner can reproduce.
+
+## A practical structure
+
+| Section | Include |
+|---|---|
+| Question and data | Trait, source/citation, variant counts, population, genome build and effect units |
+| Methods | Preparation, exclusions, parameters, source test and display policy |
+| Verification | Named variant, source p text, derived calculations and agreement checks |
+| Results | Selected figures with checked values and source table names |
+| Limitations | Relative to this source, selection, uncertainty, ancestry, LD and causal claims |
+| Reproducibility | Commands, paths, input/code hashes, environment and analysis date |
+
+## Create a report
+
+Create `reports/` if it does not exist. Save a plain-text QMD there, for example `reports/synthetic-report.qmd`. Start with the template in `templates/` or the final lesson of the corresponding example. Replace every bracketed prompt.
+
+```bash
+quarto render reports/synthetic-report.qmd --to html
+```
+
+Paths in report templates start `../results/` because reports are one folder below the project root. A report does not have to be added to the book chapters in `_quarto.yml` to render on its own.
+
+## Choose figures for a reason
+
+The workflow supplies ten figure families, but a report need not repeat them all. Use Manhattan and a regional view to describe location, Q–Q to discuss a distribution, an effect plot for direction/uncertainty, and QC diagnostics where they answer a question. Include a table when exact numbers matter more than a plot.
+
+**Example of checked wording:** “SYN000001 had beta 0.12 per A allele relative to G, SE 0.02 and z=6. Its synthetic Wald p-value was approximately 1.97×10⁻⁹. This is a fictional calculation example.”
+
+For GLGC, a p-value difference is not automatically an error: the source test is a corrected meta-analysis, whereas the displayed beta/SE check is an approximate normal Wald calculation.
+
+## Use AI with evidence
+
+A useful prompt is: “Using only these checked variant values and source-method notes, draft a concise descriptive result. Name the effect allele and units. Separate numerical evidence from claims requiring LD, replication or causal analysis.”
+
+Review every number, allele, citation and limitation. Do not accept invented gene names, independent-locus counts or clinical recommendations.
+
+## Final review
+
+- Do the figure, input version, table and report all refer to the same run?
+- Are exact source p-values preserved when they are below ordinary floating-point range?
+- Are reference frequencies and unavailable INFO clearly described?
+- Is a count of associated variants distinguished from independent loci?
+- Are selection bias and nominal confidence intervals acknowledged?
+
+Learner reports are ignored by Git. Reusable templates, guide pages, scripts, inputs and published guide figures belong to the project.

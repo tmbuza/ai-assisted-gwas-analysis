@@ -1,6 +1,9 @@
 {
-  "release": "synthetic_v2_png",
-  "rendered_pages": 24,
+  "rendered_pages": 26,
   "broken_local_links": [],
-  "published_pngs_match_final_outputs": true
+  "report_figures_resolved": {
+    "synthetic": 6,
+    "glgc-hdl": 5
+  },
+  "published_images_match_results": true
 }

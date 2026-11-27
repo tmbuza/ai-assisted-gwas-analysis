@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Meet the inputs – AI-Assisted GWAS Analysis with Python</title>
+<title>Meet the GLGC data – AI-Assisted GWAS Analysis with Python</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -69,6 +124,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="../../assets/css/cdi.css">
@@ -83,7 +139,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/real-study/00-start-here.html">Real study — planned</a></li><li class="breadcrumb-item"><a href="../../examples/real-study/02-meet-the-data.html"><span class="chapter-title">Meet the inputs</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/real-study/00-start-here.html">Human lipid study: GLGC HDL</a></li><li class="breadcrumb-item"><a href="../../examples/real-study/02-meet-the-data.html"><span class="chapter-title">Meet the GLGC data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -113,20 +169,41 @@ ul.task-list li input[type="checkbox"] {
   <a href="../../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">AI-Assisted GWAS Analysis with Python</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../00-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Required setup</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Synthetic practice</span></a>
+ <span class="menu-text">Required setup and workflow</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../00-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Required setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../01-run-the-workflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the workflow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../02-write-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Synthetic practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../examples/synthetic/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Synthetic GWAS: start here</span></a>
@@ -166,54 +243,8 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Real study — planned</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/real-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Start here</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/real-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview the planned outputs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/real-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Meet the inputs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/real-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/real-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/real-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../examples/real-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Your own study</span></a>
+ <span class="menu-text">Human lipid study: GLGC HDL</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -221,37 +252,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Start here</span></a>
+  <a href="../../examples/real-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">GLGC HDL: a published human GWAS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview the planned outputs</span></a>
+  <a href="../../examples/real-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview the GLGC results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the inputs</span></a>
+  <a href="../../examples/real-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Meet the GLGC data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
+  <a href="../../examples/real-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the GLGC inputs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
+  <a href="../../examples/real-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the GLGC analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
+  <a href="../../examples/real-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain the GLGC results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../examples/my-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  <a href="../../examples/real-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the GLGC report</span></a>
   </div>
 </li>
       </ul>
@@ -259,12 +290,58 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Your own study</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/my-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Your own study: define the question</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/my-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview your outputs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/my-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepare your inputs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/my-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check your inputs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/my-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run your analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/my-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain your results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../examples/my-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write your report</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../99-appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Appendix</span></a>
@@ -277,15 +354,25 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#identify-the-exact-release" id="toc-identify-the-exact-release" class="nav-link active" data-scroll-target="#identify-the-exact-release">Identify the exact release</a></li>
+  <li><a href="#source-to-guide-mapping" id="toc-source-to-guide-mapping" class="nav-link" data-scroll-target="#source-to-guide-mapping">Source-to-guide mapping</a></li>
+  <li><a href="#preparation-and-provenance" id="toc-preparation-and-provenance" class="nav-link" data-scroll-target="#preparation-and-provenance">Preparation and provenance</a></li>
+  <li><a href="#reproduce-the-inputs-when-needed" id="toc-reproduce-the-inputs-when-needed" class="nav-link" data-scroll-target="#reproduce-the-inputs-when-needed">Reproduce the inputs when needed</a></li>
+  <li><a href="#values-to-locate" id="toc-values-to-locate" class="nav-link" data-scroll-target="#values-to-locate">Values to locate</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/real-study/00-start-here.html">Real study — planned</a></li><li class="breadcrumb-item"><a href="../../examples/real-study/02-meet-the-data.html"><span class="chapter-title">Meet the inputs</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../examples/real-study/00-start-here.html">Human lipid study: GLGC HDL</a></li><li class="breadcrumb-item"><a href="../../examples/real-study/02-meet-the-data.html"><span class="chapter-title">Meet the GLGC data</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Meet the inputs</span></h1>
+<h1 class="title"><span class="chapter-title">Meet the GLGC data</span></h1>
 </div>
 
 
@@ -302,25 +389,97 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Important
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>This real-study section is a scaffold. No real dataset or real findings are bundled yet.</p>
-</div>
-</div>
-<p>Before creating <code>data/real-study/summary-statistics.tsv</code>, record the original citation, study accession, file URL, access date, license, checksum, phenotype, population descriptors, sample size, build, effect units and model.</p>
-<p>Keep the original source files outside the prepared folder. Map their columns in a reproducible importer. Check whether source p-values are Wald, score, likelihood-ratio, mixed-model or another test; do not replace them by beta/SE-derived values.</p>
-<p>Document whether N is actual or effective sample size, and whether a quality metric is INFO, R² or something else. Missing columns may require extending the importer/workflow, rather than filling defaults.</p>
+<section id="identify-the-exact-release" class="level2">
+<h2 class="anchored" data-anchor-id="identify-the-exact-release">Identify the exact release</h2>
+<p>The source is the HDL <strong>joint GWAS/Metabochip</strong> file, <code>jointGwasMc_HDL.txt.gz</code>, linked from the authors’ <a href="https://csg.sph.umich.edu/willer/public/lipids2013/">release page</a> <span class="citation" data-cites="GLGCRelease">(<a href="../../99-appendix.html#ref-GLGCRelease" role="doc-biblioref">Global Lipids Genetics Consortium n.d.</a>)</span>. The Metabochip-only file is a different analysis. The paper examines several lipid traits; this guide uses HDL only <span class="citation" data-cites="Willer2013">(<a href="../../99-appendix.html#ref-Willer2013" role="doc-biblioref">Willer et al. 2013</a>)</span>.</p>
+<p>The prepared input is <code>data/glgc-hdl/summary-statistics.tsv.gz</code>, accompanied by <code>study-metadata.json</code>. Gzip compression is supported directly; do not rename it to <code>.tsv</code> without decompressing it.</p>
+</section>
+<section id="source-to-guide-mapping" class="level2">
+<h2 class="anchored" data-anchor-id="source-to-guide-mapping">Source-to-guide mapping</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Source column</th>
+<th>Prepared field</th>
+<th>Preparation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>SNP_hg19</code></td>
+<td><code>chromosome</code>, <code>position</code></td>
+<td>Parse hg19/GRCh37 coordinate</td>
+</tr>
+<tr class="even">
+<td><code>rsid</code></td>
+<td><code>variant_id</code></td>
+<td>Preserve rsID; derive coordinate/allele ID where source rsID is unavailable</td>
+</tr>
+<tr class="odd">
+<td><code>A1</code>, <code>A2</code></td>
+<td><code>effect_allele</code>, <code>other_allele</code></td>
+<td>Convert base letters to uppercase</td>
+</tr>
+<tr class="even">
+<td><code>beta</code>, <code>se</code></td>
+<td><code>beta</code>, <code>standard_error</code></td>
+<td>Preserve source estimates</td>
+</tr>
+<tr class="odd">
+<td><code>P-value</code></td>
+<td><code>p_value</code></td>
+<td>Preserve text, including extreme scientific notation</td>
+</tr>
+<tr class="even">
+<td><code>Freq.A1.1000G.EUR</code></td>
+<td><code>effect_allele_frequency</code></td>
+<td>Retain reference-panel frequency and declare its basis</td>
+</tr>
+<tr class="odd">
+<td><code>N</code></td>
+<td><code>sample_size</code></td>
+<td>Preserve reported values, including decimals</td>
+</tr>
+<tr class="even">
+<td>Not supplied</td>
+<td>INFO unavailable</td>
+<td>Do not create a replacement quality score</td>
+</tr>
+</tbody>
+</table>
+<p>The importer retains 551 valid rows with derived coordinate/allele IDs. A derived ID is a traceable label, not a newly assigned biological rsID.</p>
+</section>
+<section id="preparation-and-provenance" class="level2">
+<h2 class="anchored" data-anchor-id="preparation-and-provenance">Preparation and provenance</h2>
+<p>The source has 2,447,441 rows. Preparation excludes 186,081 with unavailable reference frequency, leaving 2,261,360. No p-value selection, chromosome restriction within autosomes or random row sampling is used for preparation.</p>
+<p><code>data/provenance/glgc-hdl/preparation-audit.json</code> records counts, source URL and checksums. <code>preparation-exclusions.tsv.gz</code> lists excluded source identifiers and reasons. The original release already excludes some low-N records; this guide cannot recover records the authors did not release.</p>
+</section>
+<section id="reproduce-the-inputs-when-needed" class="level2">
+<h2 class="anchored" data-anchor-id="reproduce-the-inputs-when-needed">Reproduce the inputs when needed</h2>
+<p>The completed package includes the prepared input. Maintainers can fetch the exact source and reproduce it:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> scripts/python/prepare_glgc.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The download is approximately 59 MB. Its SHA-256 is checked against the verified release; a changed file is rejected for investigation. The original compressed source is cached in ignored <code>source/glgc2013/</code>. Citation and data-use information remain with the source records; this guide does not assign a new license to the authors’ data.</p>
+</section>
+<section id="values-to-locate" class="level2">
+<h2 class="anchored" data-anchor-id="values-to-locate">Values to locate</h2>
+<p>Find rs3764261: GRCh37 chromosome 16, position 56,993,324; A/C; beta 0.2412; SE 0.0039; source p <code>1.39e-769</code>; A1 reference frequency 0.2942; reported N 177,533. The p-value is positive even though converting it to an ordinary Python float would underflow.</p>
 <p><a href="../../examples/real-study/03-check-the-inputs.html">Next: Check the inputs</a></p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-GLGCRelease" class="csl-entry" role="listitem">
+Global Lipids Genetics Consortium. n.d. <span>“Global Lipids Genetics Consortium Results (2013).”</span> Accessed November 27, 2026. <a href="https://csg.sph.umich.edu/willer/public/lipids2013/">https://csg.sph.umich.edu/willer/public/lipids2013/</a>.
+</div>
+<div id="ref-Willer2013" class="csl-entry" role="listitem">
+Willer, Cristen J., Ellen M. Schmidt, Sebanti Sengupta, et al. 2013. <span>“Discovery and Refinement of Loci Associated with Lipid Levels.”</span> <em>Nature Genetics</em> 45: 1274–83. <a href="https://doi.org/10.1038/ng.2797">https://doi.org/10.1038/ng.2797</a>.
+</div>
+</div>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -409,11 +568,8 @@ Important
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -729,13 +885,13 @@ Important
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../examples/real-study/01-see-the-result.html" class="pagination-link" aria-label="Preview the planned outputs">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Preview the planned outputs</span></span>
+      <a href="../../examples/real-study/01-see-the-result.html" class="pagination-link" aria-label="Preview the GLGC results">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Preview the GLGC results</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../examples/real-study/03-check-the-inputs.html" class="pagination-link" aria-label="Check the inputs">
-        <span class="nav-page-text"><span class="chapter-title">Check the inputs</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../examples/real-study/03-check-the-inputs.html" class="pagination-link" aria-label="Check the GLGC inputs">
+        <span class="nav-page-text"><span class="chapter-title">Check the GLGC inputs</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -744,4 +900,5 @@ Important
 
 
 
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

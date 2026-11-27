@@ -1,17 +1,52 @@
-# Verify and explain
+# Verify and explain the GLGC results
 
-::: {.callout-important}
-This real-study section is a scaffold. No real dataset or real findings are bundled yet.
-:::
+## Verify a named association
 
-Choose a retained source variant with a well-documented effect allele and model. Run:
+After the full run:
 
 ```bash
-python scripts/python/verify_variant.py data/real-study results/real-study SOURCE_VARIANT_ID
+python scripts/python/verify_variant.py data/glgc-hdl results/glgc-hdl rs3764261
 ```
 
-Replace the final argument with a real retained ID. The verifier checks saved derived quantities; source p-values can differ legitimately from derived normal Wald p-values. Explain any discrepancy using source methods.
+The verifier reads the prepared row and saved results, then uses independent standard-library calculations, including a stable normal-tail approximation for very large z.
 
-Independently verify a negative beta, an allele pair, one excluded record and a named peak. Confirm whether multiple small-p variants represent correlated candidates. Do not call top rows independent loci without LD-based evidence.
+| Quantity | Checked value |
+|---|---:|
+| Effect / other allele | A / C |
+| Source beta | 0.2412 |
+| Source SE | 0.0039 |
+| Derived z | 61.8461538462 |
+| Source p-value text | 1.39e-769 |
+| Source −log10(p) | 768.856985200 |
+| Derived normal Wald −log10(p) | 832.466118689 |
+| Nominal 95% Wald interval | 0.2335561405–0.2488438595 |
+| Reference MAF | 0.2942 |
+
+All saved derived quantities should agree with independent calculations. Agreement checks the arithmetic, not whether the source test should equal the derived test.
+
+## Explain the p-value difference
+
+The source uses a corrected meta-analysis result; the paper describes weighted Stouffer meta-analysis and genomic control [@Willer2013]. The beta/SE calculation is a normal Wald approximation. Their different p-values are therefore not automatically a programming error.
+
+**Checked wording:** “For rs3764261, A relative to C had a source beta of 0.2412 on the transformed HDL scale. The source p-value was 1.39×10⁻⁷⁶⁹. A nominal interval derived from the reported beta and SE was 0.2336–0.2488. This calculation does not identify a causal variant or establish a clinical benefit from raising HDL.”
+
+## Verify the counts
+
+- Source: **2,447,441** rows.
+- Excluded during preparation for unavailable reference frequency: **186,081**.
+- Prepared input: **2,261,360**.
+- Excluded by reference MAF: **203,281**, or **8.9893%** of prepared rows.
+- Retained: **2,058,079**.
+- Retained source p≤5e-8: **3,285 variants**.
+
+Check the importer audit, filtering table and analysis summary separately. The INFO stage is not applied. Do not combine its unavailable status with a claim that all records passed quality assessment.
+
+## Read the regional evidence
+
+`region-display.tsv` contains 430 retained variants within ±250 kb of rs247616. Several strong rows cluster in one region. The plot supplies no LD estimates, so neither the regional row count nor the twelve-row forest plot gives a count of independent signals.
+
+## Your evidence check
+
+Write three observations with an exact value, source table and limitation. Include one observation about source-method context rather than just signal strength. A defensible next step might be build-matched annotation, appropriate LD resources or a replication dataset—not a causal claim from the Manhattan plot.
 
 [Next: Write the report](06-export-the-report.qmd)

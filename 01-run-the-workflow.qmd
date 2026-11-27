@@ -1,0 +1,53 @@
+# Run the workflow
+
+Use this page after setup as a command reference. If this is your first run, follow [synthetic practice](examples/synthetic/00-start-here.qmd) in order.
+
+## Define the analysis before running
+
+Record the trait, source, population descriptors, genome build, effect allele and effect units. Decide whether the input contains genome-wide background associations or only selected variants. The latter cannot support global Q–Q or lambda diagnostics.
+
+The workflow checks prepared files; it cannot establish that source allele orientation, phenotype processing or upstream model adjustment was correct.
+
+## Use one input/output pair
+
+| Example | Input folder | Output folder | Verification variant |
+|---|---|---|---|
+| Synthetic | `data/synthetic` | `results/synthetic` | `SYN000001` |
+| Published HDL | `data/glgc-hdl` | `results/glgc-hdl` | `rs3764261` |
+| Your study | `data/my-study` | `results/my-study` | A retained source ID you choose |
+
+For any row, substitute its paths into this sequence:
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/synthetic --output-dir results/synthetic --check-only
+python scripts/python/run_workflow.py --data-dir data/synthetic --output-dir results/synthetic
+python scripts/python/verify_variant.py data/synthetic results/synthetic SYN000001
+```
+
+`--check-only` does not refresh outputs. The full run writes named results and replaces earlier versions. Use a separate output folder when comparing analyses.
+
+## Parameters are visible
+
+`config/default.json` contains the reference p-value, minimum MAF, minimum INFO, number of rows in the effect plot and maximum plotted background points. Change a copy of this file when needed:
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/my-study --output-dir results/my-study --config config/my-study.json
+```
+
+The default INFO filter is applied only when metadata declares INFO available. For GLGC, it is explicitly not applied. The GLGC frequency filter uses the supplied reference-panel frequency, not a fabricated study frequency.
+
+## Large files: analysis and display are different
+
+All valid prepared rows enter QC and all retained rows enter summaries, threshold counts, top-variant selection and lambda. Dense scatter plots show all retained p≤1e-5 rows plus a reproducible sample of at most 50,000 remaining background rows. The plotted rows are saved in `scatter-display.tsv`.
+
+The Q–Q plot uses selected ranks from the full sorted p-value distribution. Its expectations and envelope use the full retained count. It does not recompute a Q–Q reference from a hits-enriched scatter sample.
+
+For inputs exceeding 100,000 rows, full QC/results tables are compressed as `.tsv.gz`. Read them with a gzip-aware tool; do not edit them in a spreadsheet. PNGs and small display/summary tables remain easy to inspect.
+
+## Verify before explaining
+
+Use the full table or the provided frozen verification rows, not a figure alone. Check a named variant, a filtering count and one figure observation. For the published example, source meta-analysis p-values legitimately differ from the derived normal Wald calculation.
+
+The run record stores metadata, parameters, software versions, input and script hashes, and the plotting policy. Keep source-preparation notes with it. These records describe a run; they do not establish causal interpretation.
+
+[Next: Write the report](02-write-the-report.qmd)

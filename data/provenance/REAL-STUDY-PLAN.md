@@ -1,28 +1,7 @@
-# Real-study acceptance plan
+# Verified real-study source: GLGC HDL
 
-Status: not selected. This is the next content-development milestone.
+The completed case study uses the GLGC 2013 joint GWAS/Metabochip HDL release. The source URL, checksum, original/prepared counts and exclusions are recorded in glgc-hdl/preparation-audit.json. See data/glgc-hdl/README.md and examples/real-study/ for the finished workflow and interpretation.
 
-Start with a published quantitative trait and full genome-wide summary statistics from a primary consortium or the GWAS Catalog. Do not use a Catalog significant-associations export as if it were full summary statistics.
+The original release has 2,447,441 rows. Preparation retains the 2,261,360 with valid autosomal coordinates and available reference frequency. Missing rsIDs are labelled by source coordinate and allele pair; the original source file remains the authority. No p-value threshold or random row subset is used to prepare the analysis input.
 
-Before selection, verify:
-
-- Original publication and exact study/trait/model accession.
-- Accessible source file and accompanying metadata; permitted redistribution and attribution.
-- Complete background associations, not a p-value-selected hit list.
-- Genome build, effect allele, other allele, beta and SE scale, source test, frequency and N definitions.
-- Source imputation-quality field and its definition; if absent, design an explicit compatible extension rather than fabricate a score.
-- Population descriptors, relatedness/ancestry adjustment, study exclusions and sample overlap.
-- A practical import strategy for file size, compression and missing data.
-- An importer that keeps source values, hashes and a row-count/exclusion audit.
-- A named independently checked variant and verified figure interpretations.
-
-Core full-file calculations can be retained for large sources while using a documented plotting strategy. Do not silently downsample, remove the null background, or use a selected subset for genome-wide calibration. This starter currently reads its table in memory; a multi-million-row source may need chunked import and plot aggregation before the real lesson is completed.
-
-Regional LD colouring needs an appropriate population/build-matched LD reference and harmonized variants. Fine mapping, credible sets and polygenic scores need separately justified inputs and methods. Do not infer them from position alone.
-
-Authoritative starting points:
-- https://www.ebi.ac.uk/gwas/docs/methods/summary-statistics/
-- https://www.ebi.ac.uk/gwas/downloads/summary-statistics
-- https://github.com/gwas-catalog/summary-statistics-standard
-
-The lesson contract is intentionally simpler than GWAS-SSF. Standard-compliant files may contain unsupported missing values, indels or effect types; a documented importer is required.
+The guide preserves reference-frequency meaning, unavailable INFO, reported N decimals and source p-value text. Source methods are documented in the paper and authors' release page. Source data-use terms and citation requirements remain applicable.

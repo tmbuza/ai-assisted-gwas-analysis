@@ -1,3 +1,3 @@
-# Your study inputs
+# Your quantitative-trait GWAS inputs
 
-Add documented summary-statistics.tsv and study-metadata.json here, following the guide. Retain source values and provenance. Do not use the synthetic answers as results for your study.
+Add documented summary-statistics.tsv (or .tsv.gz) and study-metadata.json. Follow examples/my-study/02-meet-the-data.qmd. Preserve source provenance, p-value text, effect units, build and allele orientation. No own-study data or findings are supplied here.

@@ -1,13 +1,68 @@
-# Write the report
+# Write your report
 
-Create `reports/my-study-report.qmd` using the synthetic report structure. Replace all fictional content with your question, source, counts, verification values, results and limitations. Paths from `reports/` to your figures begin `../results/my-study/figures/`.
+Create `reports/my-study-report.qmd`. The template below is also available in `templates/my-study-report.qmd`. Replace every prompt using your own checked evidence; remove any section that does not apply.
+
+````markdown
+---
+title: "My GWAS summary-statistics report"
+format:
+  html:
+    toc: true
+---
+
+## Question and data
+
+[State the trait, source/citation, population, build, effect units and source test.]
+[Report original, prepared and retained variant counts separately from N.]
+
+## Methods
+
+[Describe the importer, exclusions, MAF/INFO settings and frequency basis.]
+[State whether the source is genome-wide or selected, and describe the plotting policy.]
+[Explain source p preservation and the separate normal Wald check.]
+
+## Verification
+
+[Name a variant, effect/other alleles, beta, SE, source p text, log strength and interval.]
+[Record whether independent verification agreed and explain any source-test difference.]
+
+## Results
+
+![My association landscape.](../results/my-study/figures/manhattan.png)
+
+[Quote checked values and identify their saved table.]
+
+![My selected effect estimates.](../results/my-study/figures/effect-forest.png)
+
+[Discuss units, allele orientation, uncertainty and nearby rows.]
+
+![My filter audit.](../results/my-study/figures/filter-audit.png)
+
+[Explain exclusions, missing quality fields and denominators.]
+
+[Add Q–Q only if it was appropriate and generated. Add other figures only when useful.]
+
+## Limitations and next step
+
+[Discuss source/model, selection, frequency and LD limitations relevant to these data.]
+[Do not claim independent loci, causal genes, clinical risk or causality from these plots.]
+[Name a concrete follow-up and the extra inputs it requires.]
+
+## Reproducibility
+
+Inputs: data/my-study/. Outputs: results/my-study/.
+Parameters and hashes: results/my-study/tables/run-record.json.
+[Record the preparation script, analysis date, code version and references.]
+````
+
+Render from the project root:
 
 ```bash
 quarto render reports/my-study-report.qmd --to html
 ```
 
-Include Q–Q only if it was appropriate and generated. Open the HTML and check every image, numerical claim and allele label. Keep learner reports out of Git; the provided `.gitignore` ignores `reports/`.
+Open the HTML and inspect figure paths, units, allele labels, counts, citations and remaining prompts. A report need not repeat every available figure. Choose evidence that answers your stated question.
 
-**Ready to share:** another reader can trace the results to the inputs and methods, and can identify which conclusions need replication, LD information or further analysis.
+**Ready to share:** another person can trace the numerical claims, reproduce the commands and identify the study-specific limits. Keep the learner report in ignored `reports/`; maintain reusable templates and source instructions in the project.
 
 [Return to the guide overview](../../index.qmd)

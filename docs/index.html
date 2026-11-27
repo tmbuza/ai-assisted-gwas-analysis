@@ -69,6 +69,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="assets/css/cdi.css">
@@ -113,20 +114,41 @@ ul.task-list li input[type="checkbox"] {
   <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">AI-Assisted GWAS Analysis with Python</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./00-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Required setup</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Synthetic practice</span></a>
+ <span class="menu-text">Required setup and workflow</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Required setup</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-run-the-workflow.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the workflow</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-write-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Synthetic practice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./examples/synthetic/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Synthetic GWAS: start here</span></a>
@@ -166,54 +188,8 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Real study — planned</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./examples/real-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Start here</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./examples/real-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview the planned outputs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./examples/real-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the inputs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./examples/real-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./examples/real-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./examples/real-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./examples/real-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Your own study</span></a>
+ <span class="menu-text">Human lipid study: GLGC HDL</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -221,37 +197,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Start here</span></a>
+  <a href="./examples/real-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">GLGC HDL: a published human GWAS</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview the planned outputs</span></a>
+  <a href="./examples/real-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview the GLGC results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the inputs</span></a>
+  <a href="./examples/real-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Meet the GLGC data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the inputs</span></a>
+  <a href="./examples/real-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check the GLGC inputs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the analysis</span></a>
+  <a href="./examples/real-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run the GLGC analysis</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain</span></a>
+  <a href="./examples/real-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain the GLGC results</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./examples/my-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the report</span></a>
+  <a href="./examples/real-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write the GLGC report</span></a>
   </div>
 </li>
       </ul>
@@ -259,12 +235,58 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Appendices</span></a>
+ <span class="menu-text">Your own study</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples/my-study/00-start-here.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Your own study: define the question</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples/my-study/01-see-the-result.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Preview your outputs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples/my-study/02-meet-the-data.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepare your inputs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples/my-study/03-check-the-inputs.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Check your inputs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples/my-study/04-run-the-analysis.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Run your analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples/my-study/05-verify-and-explain.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Verify and explain your results</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./examples/my-study/06-export-the-report.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Write your report</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./99-appendix.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Appendix</span></a>
@@ -284,7 +306,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">AI-Assisted GWAS Analysis with Python</h1>
-<p class="subtitle lead">From summary statistics to results you can verify and explain</p>
+<p class="subtitle lead">From GWAS summary statistics to an output you understand and can defend</p>
 </div>
 
 
@@ -307,7 +329,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Start with variant-level association summaries. Check their structure and study context, inspect the figures, verify one result and explain what the evidence supports.</p>
+<p><strong>Move from association tables to results you can check and explain.</strong> Learn with synthetic data, repeat the workflow with a published HDL-cholesterol study, then apply it to your own compatible summary statistics.</p>
 <div class="callout callout-style-default callout-note no-icon callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -323,55 +345,57 @@ One workflow for every dataset
 <li><strong>Preview the results</strong> you will produce.</li>
 <li><strong>Meet the inputs</strong>, including alleles, effect units and genome build.</li>
 <li><strong>Check the inputs</strong> and document exclusions.</li>
-<li><strong>Run the analysis</strong> with recorded parameters.</li>
-<li><strong>Verify and explain</strong> figures using numerical evidence.</li>
-<li><strong>Write the report</strong>, including evidence and limitations.</li>
+<li><strong>Run the analysis</strong> using recorded parameters.</li>
+<li><strong>Verify and explain</strong> the patterns with figures and numbers.</li>
+<li><strong>Write the report</strong>, supporting observations with evidence and explaining the analysis limits.</li>
 </ol>
 </div>
 </div>
+<section id="choose-your-route" class="level2">
+<h2 class="anchored" data-anchor-id="choose-your-route">Choose your route</h2>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th>Route</th>
-<th>Status</th>
-<th>Purpose</th>
+<th>Example</th>
+<th>Inputs</th>
+<th>What you will learn</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td><a href="./examples/synthetic/00-start-here.html">Synthetic practice</a></td>
-<td>Runnable; fictional data and ten figures included</td>
-<td>Learn the workflow and independently verify a variant</td>
+<td>22,000 fictional quantitative-trait variant associations</td>
+<td>Read the plots, understand filtering and verify SYN000001</td>
 </tr>
 <tr class="even">
-<td><a href="./examples/real-study/00-start-here.html">Real study</a></td>
-<td>Scaffold; dataset not yet selected</td>
-<td>Prepare a verified quantitative-trait case study</td>
+<td><a href="./examples/real-study/00-start-here.html">GLGC HDL study</a></td>
+<td>Published joint GWAS/Metabochip summary statistics</td>
+<td>Preserve source p-values, distinguish reference frequency from study frequency, and explain meta-analysis results</td>
 </tr>
 <tr class="odd">
 <td><a href="./examples/my-study/00-start-here.html">Your own study</a></td>
-<td>Input contract and commands provided</td>
-<td>Apply the same checks to compatible data</td>
+<td>Your documented quantitative-trait beta summaries</td>
+<td>Map the input contract, justify settings and produce a checked report</td>
 </tr>
 </tbody>
 </table>
+<p>Start with <a href="./00-setup.html">Required setup</a>. The shared <a href="./01-run-the-workflow.html">workflow</a> and <a href="./02-write-the-report.html">reporting</a> pages provide a reference once you know the steps.</p>
+</section>
+<section id="what-the-figures-answer" class="level2">
+<h2 class="anchored" data-anchor-id="what-the-figures-answer">What the figures answer</h2>
+<ul>
+<li><strong>Manhattan and regional plots:</strong> where are the association signals?</li>
+<li><strong>Q–Q plots:</strong> how does the distribution compare with a simple reference?</li>
+<li><strong>Effect estimates and intervals:</strong> what are the direction, units and uncertainty?</li>
+<li><strong>Frequency, N and quality summaries:</strong> what supports each association and what was excluded?</li>
+<li><strong>Precision and p-value checks:</strong> are the quantities consistent with the declared source model?</li>
+</ul>
+<p>Ten figure families are saved as PNG only. Every observation should be traced to a saved table. A variant row is not a participant; several associated variants are not automatically independent loci.</p>
+</section>
 <section id="scope" class="level2">
 <h2 class="anchored" data-anchor-id="scope">Scope</h2>
-<p>This first version analyses <strong>quantitative-trait beta summary statistics for autosomal single-nucleotide variants</strong>. It does not fit an association model to genotypes. Binary-trait odds ratios, sex chromosomes, indels, fine mapping, LD clumping and polygenic scores need additional methods and inputs.</p>
-<p>A summary-statistics row is a <strong>variant association</strong>, not a participant. Multiple nearby associations can reflect correlated variants; a peak does not identify a causal variant or gene.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Scaffold release
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>The synthetic example runs now. Real-study pages are preparation checkpoints, not completed lessons with biological findings. Expanded teaching content and additional figures will follow after verified data selection.</p>
-</div>
-</div>
+<p>This guide begins with processed <strong>autosomal, biallelic single-nucleotide, quantitative-trait beta summary statistics</strong>. It does not fit genotype association models, perform LD clumping, identify causal variants or predict individual risk. Odds ratios, sex chromosomes, indels and new study designs need explicit extensions.</p>
+<p>AI can help explain an error or improve a draft. You define the question and supply the study context; scripts generate traceable evidence; you verify the arithmetic and decide which claims are justified.</p>
 <p><a href="./00-setup.html">Next: Set up your workspace</a></p>
 
 
@@ -464,11 +488,8 @@ Scaffold release
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
-            // target, if specified
-            link.setAttribute("target", "_blank");
-            if (link.getAttribute("rel") === null) {
-              link.setAttribute("rel", "noopener");
-            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -796,4 +817,5 @@ Scaffold release
 
 
 
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

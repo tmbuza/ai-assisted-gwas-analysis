@@ -1,7 +1,23 @@
-# Preview the planned outputs
+# Preview your outputs
 
-Use the [synthetic preview](../synthetic/01-see-the-result.qmd) to understand the available plots. No own-study plots are displayed before your data have been analysed.
+No own-study figures are displayed until you run and verify your inputs. Use the [synthetic](../synthetic/01-see-the-result.qmd) and [GLGC](../real-study/01-see-the-result.qmd) previews to learn what each plot can answer.
 
-Choose figures that answer your question. Q–Q/lambda require a genome-wide file and are skipped for selected variants. A position-only zoom requires no LD reference but cannot show LD, genes or causality.
+| Figure | Question | Important limit |
+|---|---|---|
+| Manhattan | Where are source associations concentrated? | Nearby variants can be correlated |
+| Q–Q | How does the distribution compare with a reference? | Genome-wide background is required |
+| Effect forest | What are direction, units and nominal intervals? | Top rows are selected and may be nearby |
+| Frequency/INFO | Which values support filtering? | Frequency basis and missing scores matter |
+| Effect-frequency | What patterns accompany frequency and effect? | Display and source selection affect the picture |
+| N / precision | How does reported support relate to SE? | N and frequency do not fully explain the model |
+| Filtering audit | What was excluded and why? | Source preparation and analysis are different stages |
+| P consistency | Does beta/SE reproduce a particular normal calculation? | The source may use another test |
+| Position zoom | What lies around the smallest retained p-value? | Position alone supplies neither LD nor genes |
 
-[Next: Meet the inputs](02-meet-the-data.qmd)
+The engine keeps all rows for calculations and thins only dense scatter backgrounds when needed. Use `scatter-display.tsv` to identify the displayed points. A long association tail receives a full-range/detail Manhattan view.
+
+After analysis, insert verified figure links into your report. From `reports/my-study-report.qmd`, paths begin `../results/my-study/figures/`. Keep the guide free of another dataset's images labelled as your study.
+
+**Your task:** choose three figures that directly address your question and state one number you will check for each.
+
+[Next: Prepare the inputs](02-meet-the-data.qmd)

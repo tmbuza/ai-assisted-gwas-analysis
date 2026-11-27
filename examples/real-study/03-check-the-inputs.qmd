@@ -1,17 +1,33 @@
-# Check the inputs
+# Check the GLGC inputs
 
-::: {.callout-important}
-This real-study section is a scaffold. No real dataset or real findings are bundled yet.
-:::
-
-Once verified files exist, use the shared validator:
+From the main project folder:
 
 ```bash
-python scripts/python/run_workflow.py --data-dir data/real-study --output-dir results/real-study --check-only
+python scripts/python/run_workflow.py --data-dir data/glgc-hdl --output-dir results/glgc-hdl --check-only
 ```
 
-This command is a **future command**; the scaffold intentionally includes no fabricated real-study input file. Expected counts must be filled from the accepted source, not copied from synthetic practice.
+For the bundled release expect:
 
-Record source-to-prepared row counts and each exclusion. Confirm one phenotype/model/ancestry definition per prepared analysis. Review source harmonization records and the declared genome build.
+```text
+Input checks passed: 2,261,360 variant rows; 2,058,079 retained; 22 autosomes represented.
+```
+
+## What must agree
+
+- IDs and coordinates are unique in the prepared file.
+- Allele pairs are distinct uppercase single bases.
+- Estimates, SE, frequency and reported N satisfy the documented ranges.
+- Source p-value text represents a positive value no greater than one.
+- Metadata specifies GRCh37, quantitative beta, reference-panel frequency, reported N and unavailable INFO.
+
+The parser calculates source −log10(p) with decimal arithmetic where needed. It rejects literal zero; it does not turn `1.39e-769` into a floor such as `1e-300`.
+
+## Understand the exclusions
+
+Preparation and analysis are different stages. The 186,081 unavailable-frequency exclusions belong to the importer audit. The analysis applies reference MAF ≥0.01 to the remaining rows, removing 203,281 more.
+
+INFO is declared unavailable, so its threshold is not applied. The empty quality panel is an explicit limitation, not evidence that every variant passes an imputation-quality test. If a different source supplies valid INFO, keep it and apply a justified setting.
+
+Passing these checks establishes compatibility and arithmetic conditions. It does not validate the original phenotype model, allele harmonization, ancestry adjustment or meta-analysis. Read the paper and source notes for those decisions.
 
 [Next: Run the analysis](04-run-the-analysis.qmd)

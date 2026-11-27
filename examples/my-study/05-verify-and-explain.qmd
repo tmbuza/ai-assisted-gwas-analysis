@@ -1,13 +1,29 @@
-# Verify and explain
+# Verify and explain your results
 
-Choose a retained variant and replace `YOUR_VARIANT_ID`:
+Choose a retained source variant. Replace `YOUR_VARIANT_ID`:
 
 ```bash
 python scripts/python/verify_variant.py data/my-study results/my-study YOUR_VARIANT_ID
 ```
 
-Check beta sign against the effect allele, confidence intervals against SE, and source p-values against the source test definition. Reconcile discrepancies instead of editing outputs to match expectations.
+## Check more than a small p-value
 
-Write observations containing a variant ID, effect allele, units, checked number and limitation. A genome-wide association is not a clinical diagnosis or proof of causation.
+- Verify the source allele pair and effect units.
+- Recalculate beta/SE, the nominal interval and source −log10(p).
+- Compare the derived normal Wald strength with the source test definition.
+- Trace one excluded record to its source and filter reason.
+- Reconcile one count and one plotted value with saved evidence.
+
+The verifier checks a retained row. If a variant was excluded, inspect the QC table and preparation audit; do not alter the saved filter flag to make it appear in results.
+
+## Write a defensible observation
+
+“Variant [ID] had beta [value] per [effect allele] relative to [other allele] on [units], with source p [exact value]. The derived nominal interval was [lower, upper]. [State the relevant source-method or selection limitation.]”
+
+Do not equate positive beta with harm, the nearest gene with the causal gene, or multiple nearby small-p rows with independent discoveries. A source-versus-Wald discrepancy can reflect different tests or correction; investigate before calling it an error.
+
+## Plan the next check
+
+Choose a next step that addresses a specific uncertainty: source harmonization review, build-matched annotation, matched LD, replication, a properly specified meta-analysis or another justified method. Explain what it would add. Do not ask AI to invent unavailable evidence.
 
 [Next: Write the report](06-export-the-report.qmd)

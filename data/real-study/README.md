@@ -1,3 +1,3 @@
-# Real-study inputs: pending
+# Published case study
 
-No real data have been bundled. Select and verify a full quantitative-trait GWAS source using ../provenance/REAL-STUDY-PLAN.md. Do not copy synthetic input files here and relabel them as real.
+The completed real case study now uses GLGC HDL. Prepared inputs are in ../glgc-hdl/, results in results/glgc-hdl/, and the seven lessons remain under examples/real-study/. No placeholder data belong in this folder.

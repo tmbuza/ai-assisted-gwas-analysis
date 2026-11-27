@@ -1,7 +1,25 @@
-# Start here
+# Your own study: define the question
 
-Use this route for your own **quantitative-trait beta summary statistics**. This scaffold supports autosomal biallelic SNVs; other effect types and variant classes require a deliberate extension.
+Use this route for compatible quantitative-trait beta summary statistics. Complete synthetic practice first, then use the GLGC example to see why source-method context matters.
 
-Start by writing the trait, comparison, population, effect units, genome build and question. Summary-statistics inspection cannot substitute for upstream sample/genotype QC or a fitted association model.
+::: {.callout-note icon=false}
+## Write your question
 
-[Next: Preview the planned outputs](01-see-the-result.qmd)
+“For [trait] in [documented study population], where are the strongest released variant associations, and what do their effects and uncertainty support?”
+:::
+
+Record the publication/accession, phenotype processing, study design, population descriptors, genome build, effect allele, effect units and source test. Decide whether the file is genome-wide or a selected list.
+
+## Is this workflow suitable?
+
+| Your input | Decision |
+|---|---|
+| Quantitative-trait beta, positive SE, autosomal SNVs and documented metadata | Prepare the contract and proceed |
+| Odds ratios or log-odds | Extend the model and labels first; do not relabel them as quantitative beta |
+| Genotypes and participant phenotypes | This guide starts later; use an appropriate genotype-QC/association pipeline |
+| Selected variants only | Use descriptive plots; Q–Q and lambda will be skipped |
+| Missing study definitions or unknown build | Resolve against the original source before interpretation |
+
+A compatible table can still have unsuitable source assumptions. Do not use the finished synthetic or GLGC answers as findings for your study.
+
+[Next: Preview your outputs](01-see-the-result.qmd)

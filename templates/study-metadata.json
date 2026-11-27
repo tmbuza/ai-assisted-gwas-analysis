@@ -1,11 +1,13 @@
 {
-  "study_id": "REPLACE_WITH_SOURCE_ACCESSION",
-  "trait": "REPLACE_WITH_TRAIT",
-  "population": "REPLACE_WITH_SOURCE_POPULATION_DESCRIPTORS",
+  "study_id": "REPLACE",
+  "trait": "REPLACE",
+  "population": "REPLACE",
   "genome_build": "REPLACE_WITH_GRCh37_OR_GRCh38",
   "effect_type": "beta",
-  "effect_units": "REPLACE_WITH_DOCUMENTED_UNITS",
+  "effect_units": "REPLACE",
   "summary_scope": "REPLACE_WITH_genome_wide_OR_selected_variants",
-  "source": "REPLACE_WITH_URL_CITATION_AND_SOURCE_NOTES",
-  "synthetic": false
+  "source": "REPLACE_WITH_CITATION_AND_URL",
+  "synthetic": false,
+  "info_available": true,
+  "sample_size_type": "integer"
 }

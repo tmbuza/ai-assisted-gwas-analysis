@@ -1,9 +1,37 @@
-# Meet the inputs
+# Prepare your inputs
 
-Place prepared `summary-statistics.tsv` and `study-metadata.json` in `data/my-study/`. Follow the [field contract](../synthetic/02-meet-the-data.qmd).
+Create `data/my-study/summary-statistics.tsv` (or `.tsv.gz`) and `study-metadata.json`. Keep original files and a reproducible column-mapping/preparation record.
 
-Use `templates/study-metadata.json` as a starting point; it is deliberately incomplete. Replace all prompts from source documentation. Never guess the build or effect allele, invent INFO scores, convert odds ratios into quantitative beta, or copy synthetic N.
+## The data contract
 
-Keep source files, their checksums and a record of column mappings. Treat missing required measurements as a reason to extend the importer or choose a compatible analysis.
+| Field | Required meaning |
+|---|---|
+| `variant_id` | Unique identifier traceable to the source |
+| `chromosome`, `position` | Integer autosome 1–22 and positive coordinate in the declared build |
+| `effect_allele`, `other_allele` | Distinct uppercase A/C/G/T bases |
+| `beta`, `standard_error` | Quantitative-trait estimate and positive SE on the same scale |
+| `p_value` | Positive source probability ≤1, preserved as text when needed |
+| `effect_allele_frequency` | Frequency of the named effect allele; state study or reference basis |
+| `sample_size` | Source-reported positive per-variant N |
+| `imputation_info` | Valid source score in [0,1], when available |
+
+Metadata must declare study ID, trait, population, build, quantitative beta, effect units, file scope, source and synthetic status. A starter is supplied in `templates/study-metadata.json`.
+
+Optional declarations have specific meanings:
+
+- `info_available: false`: verified source absence; INFO is not filtered. Omit its column or use `NA` throughout. Do not fill it with 1.
+- `frequency_basis`: describe reference-panel frequency if that is what the source supplies.
+- `sample_size_type: source_reported`: preserve verified source non-integer N. Do not use this to hide malformed data or infer an unknown effective-N definition.
+- `summary_scope: selected_variants`: suppress global Q–Q/lambda. This does not recover omitted background variants.
+
+## Resolve source issues explicitly
+
+Keep source p-values even when a different normal test can be derived from beta/SE. Literal zero is not a valid recovered probability; obtain source log-p or higher-precision values instead of inserting a floor. Extreme positive scientific notation is supported.
+
+Resolve missing frequencies, multiple records at a coordinate, ambiguous allele orientation and unsupported variant classes upstream. Record exclusion reasons and counts. This is a teaching contract, not a complete GWAS-SSF importer [@GWASSSF].
+
+## Provenance note
+
+Record citation/accession, source URL/date/hash, license or data-use terms, phenotype/model definition, cohort/sample-size definitions, build, allele mapping, source test, quality metrics and every preparation exclusion. Original data and identifiers should remain traceable.
 
 [Next: Check the inputs](03-check-the-inputs.qmd)

@@ -1,0 +1,13 @@
+{
+  "input_variants": 2261360,
+  "retained_variants": 2058079,
+  "excluded_variants": 203281,
+  "at_or_below_p_threshold_variants": 3285,
+  "palindromic_retained": 13033,
+  "info_filter_applied": false,
+  "plotted_scatter_variants": 55346,
+  "max_absolute_wald_log10_p_difference": 87.93750037240943,
+  "lambda_gc": 1.0187894858388167,
+  "lambda_definition": "median(chi2.isf(source p,1))/chi2.ppf(0.5,1); 1-df diagnostic only",
+  "qq_envelope": "95% pointwise under independent Uniform(0,1) p-values; not simultaneous and not LD-adjusted"
+}

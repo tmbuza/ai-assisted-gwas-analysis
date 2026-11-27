@@ -1,0 +1,50 @@
+---
+title: "My GWAS summary-statistics report"
+format:
+  html:
+    toc: true
+---
+
+## Question and data
+
+[State the trait, source/citation, population, build, effect units and source test.]
+[Report original, prepared and retained variant counts separately from N.]
+
+## Methods
+
+[Describe the importer, exclusions, MAF/INFO settings and frequency basis.]
+[State whether the source is genome-wide or selected, and describe the plotting policy.]
+[Explain source p preservation and the separate normal Wald check.]
+
+## Verification
+
+[Name a variant, effect/other alleles, beta, SE, source p text, log strength and interval.]
+[Record whether independent verification agreed and explain any source-test difference.]
+
+## Results
+
+![My association landscape.](../results/my-study/figures/manhattan.png)
+
+[Quote checked values and identify their saved table.]
+
+![My selected effect estimates.](../results/my-study/figures/effect-forest.png)
+
+[Discuss units, allele orientation, uncertainty and nearby rows.]
+
+![My filter audit.](../results/my-study/figures/filter-audit.png)
+
+[Explain exclusions, missing quality fields and denominators.]
+
+[Add Q–Q only if it was appropriate and generated. Add other figures only when useful.]
+
+## Limitations and next step
+
+[Discuss source/model, selection, frequency and LD limitations relevant to these data.]
+[Do not claim independent loci, causal genes, clinical risk or causality from these plots.]
+[Name a concrete follow-up and the extra inputs it requires.]
+
+## Reproducibility
+
+Inputs: data/my-study/. Outputs: results/my-study/.
+Parameters and hashes: results/my-study/tables/run-record.json.
+[Record the preparation script, analysis date, code version and references.]

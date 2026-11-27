@@ -84,4 +84,4 @@ quarto render reports/synthetic-report.qmd --to html
 
 Verify that all six referenced figures display and remove unfinished prompts before sharing. The other four figures can be added when they support a specific observation. Learner reports belong in the ignored `reports/` folder; the reusable template remains versioned.
 
-[Next: Real-study preparation](../real-study/00-start-here.qmd)
+[Next: The published GLGC study](../real-study/00-start-here.qmd)

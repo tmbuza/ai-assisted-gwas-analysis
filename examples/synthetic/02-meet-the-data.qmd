@@ -13,7 +13,7 @@
 | `standard_error` | Positive standard error on the same beta scale |
 | `p_value` | Source association p-value, strictly greater than 0 and at most 1 |
 | `effect_allele_frequency` | Frequency of the effect allele, between 0 and 1 |
-| `sample_size` | Positive integer per-variant N |
+| `sample_size` | Positive simulated per-variant N |
 | `imputation_info` | Source imputation score between 0 and 1 |
 
 The metadata records trait, effect units, population, build, source, synthetic status and whether the file is genome-wide or contains selected variants. Missing required measurements must not be invented. A different file may need an explicit importer or an extended analysis contract.
@@ -25,3 +25,9 @@ Palindromic A/T and C/G allele pairs are flagged. They are retained within this 
 Inspect the first rows in your editor. Locate SYN000001 and confirm beta **0.12**, standard error **0.02**, effect allele **A**, other allele **G**, EAF **0.25**, N **20,000** and INFO **0.98**.
 
 [Next: Check the inputs](03-check-the-inputs.qmd)
+
+
+The two input files are a simplified teaching contract. The real GLGC example
+uses the same core fields with explicitly declared reference frequency,
+source-reported N and unavailable INFO. Do not copy those declarations into
+a new study without verifying them against its source.

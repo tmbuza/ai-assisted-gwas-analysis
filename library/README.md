@@ -1,3 +1,3 @@
 # References
 
-Authoritative links are in the guide appendix and data/provenance/REAL-STUDY-PLAN.md. Add the selected publication, dataset accession, citations and data-use terms when the real case study is verified.
+references.bib supplies the guide's in-text citations and appendix bibliography. The original GLGC release and paper are cited separately from this guide's preprocessing and analysis. Source acquisition, hashes and exclusions are in data/provenance/glgc-hdl/.

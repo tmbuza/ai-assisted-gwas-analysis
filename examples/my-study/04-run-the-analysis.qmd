@@ -1,13 +1,25 @@
-# Run the analysis
-
-After successful checks:
+# Run your analysis
 
 ```bash
 python scripts/python/run_workflow.py --data-dir data/my-study --output-dir results/my-study
 ```
 
-Use `--config path/to/your-config.json` for documented parameter changes. Separate output folders when comparing configurations. Read `run-record.json`, then inspect the figures and full QC table before writing results.
+Add `--config config/my-study.json` if you validated that configuration. Use a new output folder for a substantively different analysis; named files are replaced on rerun.
 
-Rendering the guide does not run this command. Your figures are not automatically inserted into lessons; add image links only after verifying them.
+## Inspect the output before writing findings
+
+1. Confirm the input and retained row counts in `analysis-summary.json`.
+2. Read `filter-summary.tsv` and source-preparation notes.
+3. Check source metadata, hashes and display policy in `run-record.json`.
+4. Open the PNG figures and the tables that support your chosen observations.
+5. Confirm that INFO availability, frequency basis, units and effect coding are correctly labelled.
+
+For inputs above 100,000 rows, full QC/results tables use `.tsv.gz`; smaller display/summary tables remain ordinary TSV. Dense plots use a documented background sample, but numerical summaries use the full retained file.
+
+Q–Q and lambda are generated only for a declared genome-wide file. If you rerun a selected-variant file into an existing folder, stale Q–Q outputs are removed. The engine writes PNG only and removes its legacy PDF/SVG copies for its known figure names.
+
+## What remains outside this run
+
+The script does not fit genotype models, estimate LD, perform clumping/fine mapping, establish replication or assign causal genes. If your question needs one of these, specify the necessary additional inputs and method rather than inferring the answer from an association plot.
 
 [Next: Verify and explain](05-verify-and-explain.qmd)

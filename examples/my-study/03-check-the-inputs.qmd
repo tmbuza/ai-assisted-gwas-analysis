@@ -1,11 +1,36 @@
-# Check the inputs
+# Check your inputs
 
-Run:
+From the project root:
 
 ```bash
 python scripts/python/run_workflow.py --data-dir data/my-study --output-dir results/my-study --check-only
 ```
 
-The command will fail until your two input files exist and satisfy the contract. Compare counts and quality ranges with the source, and justify MAF/INFO thresholds. Setting `summary_scope` to `selected_variants` suppresses global calibration diagnostics; it does not recover the omitted associations.
+The command will fail until your prepared inputs exist. Expect your actual row/retained/chromosome counts; there is no universal reference answer.
+
+## Diagnose the problem rather than silence it
+
+| Error or discrepancy | Action |
+|---|---|
+| Missing/duplicate headers or IDs | Reconcile the source mapping and identifiers |
+| Repeated coordinate | Resolve multiallelic or duplicate records upstream |
+| Invalid allele pair | Check variant class, capitalization and source strand conventions |
+| Zero/invalid p | Obtain valid original probability or log-p information |
+| Nonpositive SE | Investigate source coding; do not replace with a small constant |
+| Missing/invalid frequency | Resolve the source or document exclusions |
+| INFO declared unavailable but numbers supplied | Correct the metadata or the prepared score field |
+| Unsupported effect type/build | Extend or prepare the appropriate analysis before use |
+
+Passing validation does not prove correct phenotype coding, build conversion, allele harmonization, population adjustment or cohort independence. Check those against source documentation.
+
+## Review filtering before the full run
+
+Inspect `config/default.json`. Justify its MAF/INFO thresholds for your study. With a custom configuration:
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/my-study --output-dir results/my-study --config config/my-study.json --check-only
+```
+
+Do not remove records solely to force a preferred figure or p-value pattern. Keep a source-to-prepared audit distinct from the analysis filter audit. `--check-only` does not refresh existing figures.
 
 [Next: Run the analysis](04-run-the-analysis.qmd)
