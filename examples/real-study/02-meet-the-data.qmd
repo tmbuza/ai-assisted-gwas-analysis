@@ -1,0 +1,13 @@
+# Meet the inputs
+
+::: {.callout-important}
+This real-study section is a scaffold. No real dataset or real findings are bundled yet.
+:::
+
+Before creating `data/real-study/summary-statistics.tsv`, record the original citation, study accession, file URL, access date, license, checksum, phenotype, population descriptors, sample size, build, effect units and model.
+
+Keep the original source files outside the prepared folder. Map their columns in a reproducible importer. Check whether source p-values are Wald, score, likelihood-ratio, mixed-model or another test; do not replace them by beta/SE-derived values.
+
+Document whether N is actual or effective sample size, and whether a quality metric is INFO, R² or something else. Missing columns may require extending the importer/workflow, rather than filling defaults.
+
+[Next: Check the inputs](03-check-the-inputs.qmd)

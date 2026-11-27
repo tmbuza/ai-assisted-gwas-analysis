@@ -1,0 +1,48 @@
+# Run the analysis
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/synthetic --output-dir results/synthetic
+```
+
+The command overwrites named results in `results/synthetic/`. Preserve separate folders when comparing configurations.
+
+## Outputs to inspect
+
+| File in `tables/` | Contents |
+|---|---|
+| `variant-qc.tsv` | Every input row, filter flags and palindromic flags |
+| `filter-summary.tsv` | Sequential filtering counts |
+| `variant-results.tsv` | Retained rows, source p-values, beta/SE z-scores and Wald intervals |
+| `top-variants.tsv` | Smallest source p-values; not LD-independent loci |
+| `manhattan-display.tsv` | Plot positions and association strengths |
+| `qq-display.tsv` | Expected/observed values and pointwise null envelope |
+| `region-display.tsv` | Variants in the position-only zoom |
+| `maf-histogram-display.tsv` | Shared frequency bins and exact input/retained counts |
+| `precision-display.tsv` | Sample size, SE, MAF and INFO for the precision plot |
+| `p-consistency-display.tsv` | Source/derived −log10(p) and their differences |
+| `analysis-summary.json` | Counts and calibration diagnostic |
+| `run-record.json` | Metadata, configuration, input hashes and software versions |
+
+Ten PNG figures are saved under `figures/`. The [preview](01-see-the-result.qmd) explains each one.
+
+## Calculations and limits
+
+The workflow preserves source p-values. It also derives $z=\beta/SE$ and a two-sided normal Wald p-value for comparison; these need not match p-values from other source models. A discrepancy is a reason to inspect model definitions, not overwrite source results.
+
+The default reference is p≤5×10⁻⁸. This is configurable and does not replace a study-specific multiple-testing plan. It does not identify independent loci. A 0.05/number-of-bundled-rows calculation is not substituted for a genome-wide threshold.
+
+Lambda GC is median chi-square(1) transformed from source p-values, divided by the chi-square(1) null median. It is a diagnostic, not proof of confounding or good calibration, and no genomic-control correction is applied. Q–Q and lambda are skipped for metadata declaring `selected_variants`.
+
+[Next: Verify and explain](05-verify-and-explain.qmd)
+
+## Figure files
+
+Each figure is saved once as PNG. On rerun, the workflow removes old PDF/SVG
+exports for its ten known figure names in the selected output folder.
+
+The Manhattan plot alternates dark blue and orange across autosomes. These
+colours distinguish neighbouring chromosomes; they do not encode significance
+or effect direction. The dashed grey line shows the p-value reference.
+
+The Q–Q figure includes full-tail and central views. Forest labels include
+position and effect/other alleles; they do not identify independent loci.

@@ -1,0 +1,25 @@
+# Synthetic GWAS: start here
+
+::: {.callout-note icon=false}
+## Our question
+
+Which fictional variants show strong association signals, and how do quality filters, effect estimates and uncertainty affect our interpretation?
+:::
+
+The bundled file contains **22,000 fictional variant rows across 22 autosomes**. No real people, genotypes, rsIDs or biological gene assignments are included. `sample_size` is a simulated per-variant value concentrated near a nominal maximum of 20,000, with a smaller lower-coverage component; it is not the number of variants.
+
+The generator uses varied invented chromosome spans and marker densities, a low-frequency/common-variant mixture, and three locally denser signal regions. Local latent noise is correlated by distance. INFO and coverage can be lower for lower-frequency variants, and SE depends on N, frequency and INFO. It also includes a fixed reference variant. These are teaching mechanisms, not a real LD reference or a fitted GWAS model. Filtering retains **15,760 variants** for the bundled input version.
+
+Follow the seven pages in order, using the same setup, analysis and verification commands throughout.
+
+[Next: Preview the results](01-see-the-result.qmd)
+
+## What this version teaches
+
+Most variants have N close to 20,000; a smaller component has lower coverage.
+The frequency histogram no longer assumes a uniform distribution. These
+choices create useful diagnostic patterns, without claiming to reproduce a
+specific population or trait.
+
+The fixed reference is an intentional exception to the simulated SE formula.
+Its beta, SE, EAF, INFO, N and allele pair are preserved for verification.

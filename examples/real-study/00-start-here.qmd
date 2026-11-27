@@ -1,0 +1,13 @@
+# Start here
+
+::: {.callout-important}
+This real-study section is a scaffold. No real dataset or real findings are bundled yet.
+:::
+
+The real-study case study is **not yet selected or bundled**. Complete synthetic practice now; return here after a source has passed the verification checklist.
+
+The first case study should be a quantitative trait with full genome-wide summary statistics, beta and SE on a documented scale, effect alleles/frequencies, N, build and source quality information. A short table of published significant hits cannot support the same Q–Q or calibration diagnostics.
+
+See `data/provenance/REAL-STUDY-PLAN.md` for acceptance criteria. We will not fill this section with invented measurements or present simulated figures as real findings.
+
+[Next: Preview the planned outputs](01-see-the-result.qmd)

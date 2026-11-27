@@ -1,0 +1,63 @@
+# Appendix
+
+## Reference calculations
+
+For a quantitative-trait beta estimate with standard error SE:
+
+$$
+z=\frac{\beta}{SE},\qquad CI_{95\%}=\beta\pm 1.959964\,SE.
+$$
+
+The derived two-sided normal Wald p-value is $2\Phi(-|z|)$. These calculations do not establish that a source used a Wald test. Preserve source p-values and compare methods when values disagree.
+
+The plotted association strength is $-\log_{10}(p)$. Smaller p means a higher plotted point, not necessarily a larger effect. A small effect can have a small p-value when precision is high.
+
+MAF is $\min(EAF,1-EAF)$. Effect allele is not necessarily minor allele, reference allele or a risk allele. Reversing effect and other alleles changes the beta sign and EAF interpretation.
+
+## Interpret the diagnostics
+
+- The threshold line is a configurable reference, not proof of causality or a replacement for a multiple-testing plan.
+- Q–Q expectations use $(i-0.5)/m$ for sorted p-values. The shaded band uses beta order-statistic quantiles under independent uniform null p-values. It is pointwise, not a simultaneous band; it does not model LD.
+- Lambda uses chi-square(1) transforms of source p-values. It can reflect true polygenic signal, sample size, model/calibration problems and other factors; it does not by itself measure population stratification. No genomic-control correction is applied.
+- A forest plot of selected top variants has selection bias and correlated rows. Its intervals are nominal, not adjusted for selection or simultaneous coverage.
+- Positions alone do not supply LD or identify causal genes. The synthetic regional plot has invented coordinates.
+
+## Core and later analyses
+
+| Available now | Requires further verified inputs / methods |
+|---|---|
+| Summary-statistics validation and filtering | Participant and genotype QC |
+| Manhattan, Q–Q, source p/beta/SE checks | Association model fitting and ancestry PCs |
+| Per-variant N, MAF and INFO summaries | LD clumping and independent loci |
+| Position-only regional zoom | Population-matched LD, gene tracks and fine mapping |
+| Selected effect estimates | Replication, allele harmonization and meta-analysis |
+
+## Sources and standards
+
+The GWAS Catalog distinguishes published significant association records from full variant-level summary statistics. Its metadata and source files are the starting point for selecting a real case study. This scaffold's simplified TSV/JSON contract is not a GWAS-SSF validator.
+
+- [GWAS Catalog: summary-statistics methods and metadata](https://www.ebi.ac.uk/gwas/docs/methods/summary-statistics/)
+- [GWAS Catalog: full summary-statistics downloads](https://www.ebi.ac.uk/gwas/downloads/summary-statistics)
+- [Official GWAS-SSF specification](https://github.com/gwas-catalog/summary-statistics-standard)
+- [SciPy normal distribution](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html)
+- [SciPy beta distribution](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.beta.html)
+
+Keep exact inputs, parameter files, source notes, scripts and software versions. The run record stores hashes and installed versions; the starter's bounded dependencies do not constitute an exact environment lock.
+
+## Synthetic v2 design
+
+The generator uses a documented mixture of lower-frequency and common
+variants, variable fictional chromosome spans/densities, and mostly high
+per-variant coverage with a smaller lower-coverage component. INFO can be
+lower at low MAF. Except for the fixed reference row:
+
+$$SE=\left[2N\,MAF(1-MAF)\,INFO\right]^{-1/2}.$$
+
+This is a teaching approximation for standardized quantitative effects,
+not an estimator fitted to genotype data. Smooth signal profiles and locally
+correlated latent noise illustrate nearby association clusters. They do not
+provide a real LD reference or fine-mapping truth. If the named effect allele
+is the major allele, the generator reverses beta and replaces MAF by 1−MAF
+for EAF; p-values remain unchanged. See `data/provenance/SIMULATION-DESIGN.md`.
+
+Further QC reading: [Winkler et al. (2014), quality control of GWAS summary-statistics meta-analyses](https://doi.org/10.1038/nprot.2014.071). The v2 mixture is a teaching design, not an implementation of that full protocol.

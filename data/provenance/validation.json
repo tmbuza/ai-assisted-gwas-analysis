@@ -1,0 +1,25 @@
+{
+  "release": "synthetic_v2_png",
+  "input_variants": 22000,
+  "retained_variants": 15760,
+  "figure_families": 10,
+  "formats": [
+    "png"
+  ],
+  "all_wald_p_values_and_intervals_independently_checked": true,
+  "allele_orientation_and_simulated_precision_verified": true,
+  "fixed_reference_preserved": true,
+  "shared_histogram_bins_and_counts_verified": true,
+  "sequential_filter_percentages_verified": true,
+  "input_and_code_checksums_verified": true,
+  "malformed_cases_rejected": [
+    "zero_p",
+    "negative_se",
+    "duplicate_id",
+    "invalid_info",
+    "same_alleles"
+  ],
+  "selected_variant_qq_suppressed_all_formats": true,
+  "legacy_pdf_svg_exports_removed": true,
+  "numerical_tables_byte_identical_to_v2": true
+}

@@ -1,0 +1,7 @@
+# Preview the planned outputs
+
+Use the [synthetic preview](../synthetic/01-see-the-result.qmd) to understand the available plots. No own-study plots are displayed before your data have been analysed.
+
+Choose figures that answer your question. Q–Q/lambda require a genome-wide file and are skipped for selected variants. A position-only zoom requires no LD reference but cannot show LD, genes or causality.
+
+[Next: Meet the inputs](02-meet-the-data.qmd)

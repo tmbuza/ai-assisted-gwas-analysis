@@ -1,0 +1,7 @@
+# Start here
+
+Use this route for your own **quantitative-trait beta summary statistics**. This scaffold supports autosomal biallelic SNVs; other effect types and variant classes require a deliberate extension.
+
+Start by writing the trait, comparison, population, effect units, genome build and question. Summary-statistics inspection cannot substitute for upstream sample/genotype QC or a fitted association model.
+
+[Next: Preview the planned outputs](01-see-the-result.qmd)

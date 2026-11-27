@@ -1,0 +1,6 @@
+{
+  "minimum_maf": 0.01,
+  "minimum_info": 0.8,
+  "association_threshold": 5e-8,
+  "top_n": 12
+}

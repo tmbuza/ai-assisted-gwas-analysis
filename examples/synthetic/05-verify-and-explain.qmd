@@ -1,0 +1,51 @@
+# Verify and explain
+
+## Recalculate a named variant
+
+For **SYN000001**, beta is 0.12 and SE is 0.02, so $z=6$. Its approximate reference values are:
+
+| Quantity | Value |
+|---|---:|
+| Two-sided normal Wald p-value | 1.97317529008×10⁻⁹ |
+| −log10(source p-value) | 8.70483433181 |
+| 95% Wald interval | 0.0808007203 to 0.1591992797 |
+| MAF | 0.25 |
+
+```bash
+python scripts/python/verify_variant.py data/synthetic results/synthetic SYN000001
+```
+
+The verifier uses `math.erfc` and `statistics.NormalDist` rather than the workflow's SciPy calculations. Every comparison should print `agrees=True`. It checks a retained row; excluded variants remain in `variant-qc.tsv`.
+
+A positive beta describes a higher fictional trait per A allele relative to G. It does not mean “harmful”, nor does it identify a causal mechanism. The confidence interval is not adjusted for selecting a small-p variant.
+
+## Trace a figure to its evidence
+
+1. Compare the Manhattan peaks with `variant-results.tsv`. Count variants below the p reference; do not call that the number of independent loci.
+2. Open `top-variants.tsv`. Check whether several entries are near one another on a chromosome.
+3. Compare input, after-MAF and retained counts in `filter-summary.tsv`.
+4. Read lambda and its definition in `analysis-summary.json`. Explain why simulated true signals and correlation affect interpretation.
+5. Confirm that the position zoom has no LD estimates or gene assignments.
+
+**Evidence sentence:** “For fictional variant SYN000001, beta was 0.12 per A allele relative to G, with an unadjusted 95% Wald interval of 0.0808–0.1592 and p≈1.97×10⁻⁹. These simulated results demonstrate calculation and do not support a biological claim.”
+
+Use AI to improve the explanation only after supplying the checked values, allele definitions and synthetic status.
+
+[Next: Write the report](06-export-the-report.qmd)
+
+## Version 2 audit answers
+
+| Stage | Variants retained | Removed at this step | Percentage of previous step |
+|---|---:|---:|---:|
+| Input | 22,000 | — | — |
+| After MAF ≥0.01 | 16,344 | 5,656 | 25.71% |
+| After MAF + INFO ≥0.8 | 15,760 | 584 | 3.57% |
+
+Overall, 71.64% of input rows remain. A row failing both criteria is removed
+once in these sequential counts. These proportions describe this teaching
+simulation, not an expected exclusion rate for real GWAS.
+
+There are 38 retained variants at p≤5×10⁻⁸. This is a variant count, not an
+independent-locus count. Lambda GC is approximately 1.020763. Explain the
+strong tail alongside the central Q–Q panel without treating lambda as a
+pass/fail proof of study validity.

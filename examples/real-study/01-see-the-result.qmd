@@ -1,0 +1,19 @@
+# Preview the planned outputs
+
+::: {.callout-important}
+This real-study section is a scaffold. No real dataset or real findings are bundled yet.
+:::
+
+The planned real-data outputs use the same ten figure families as synthetic practice. No real-study figures are displayed yet.
+
+| Core output | Study-specific verification |
+|---|---|
+| Manhattan | Full variant coverage, build and coordinates |
+| Q–Q and lambda | Genome-wide coverage, source test definition, no hits-only selection |
+| Effect forest | Effect allele, units, SE and post-selection limits |
+| Frequency / INFO / N | Source definitions, missingness and any prior filtering |
+| Position zoom | Valid positions; LD and gene tracks require additional matched resources |
+
+Expanded regional LD plots and cross-study comparisons will be added only when suitable references and harmonization are available.
+
+[Next: Meet the inputs](02-meet-the-data.qmd)

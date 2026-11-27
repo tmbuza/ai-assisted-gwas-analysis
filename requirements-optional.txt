@@ -1,0 +1,18 @@
+# Optional development environment. This also installs the main requirements.
+# python -m pip install -r requirements-optional.txt
+-r requirements.txt
+
+# Notebook-based exploration.
+jupyterlab>=4,<5
+ipykernel>=6,<8
+
+# Spreadsheet source supplements and development tests.
+openpyxl>=3.1,<4
+pytest>=8,<10
+
+# Indexed VCF/BCF and tabix access; platform-specific installation may apply.
+pysam>=0.22,<1
+
+# Plotly static export. Kaleido v1 requires a suitable Chrome/Chromium install.
+# Plotly HTML output and Matplotlib PNG/PDF/SVG do not need this.
+kaleido>=1,<2

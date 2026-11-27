@@ -1,0 +1,11 @@
+{
+  "study_id": "REPLACE_WITH_SOURCE_ACCESSION",
+  "trait": "REPLACE_WITH_TRAIT",
+  "population": "REPLACE_WITH_SOURCE_POPULATION_DESCRIPTORS",
+  "genome_build": "REPLACE_WITH_GRCh37_OR_GRCh38",
+  "effect_type": "beta",
+  "effect_units": "REPLACE_WITH_DOCUMENTED_UNITS",
+  "summary_scope": "REPLACE_WITH_genome_wide_OR_selected_variants",
+  "source": "REPLACE_WITH_URL_CITATION_AND_SOURCE_NOTES",
+  "synthetic": false
+}

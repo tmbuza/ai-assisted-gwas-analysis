@@ -1,0 +1,11 @@
+{
+  "input_variants": 22000,
+  "retained_variants": 15760,
+  "excluded_variants": 6240,
+  "at_or_below_p_threshold_variants": 38,
+  "palindromic_retained": 5310,
+  "max_absolute_wald_log10_p_difference": 3.2507330161024584e-13,
+  "lambda_gc": 1.0207629210314475,
+  "lambda_definition": "median(chi2.isf(source p,1))/chi2.ppf(0.5,1); 1-df diagnostic only",
+  "qq_envelope": "95% pointwise under independent Uniform(0,1) p-values; not simultaneous and not LD-adjusted"
+}

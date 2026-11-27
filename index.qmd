@@ -1,0 +1,38 @@
+---
+title: "AI-Assisted GWAS Analysis with Python"
+toc: false
+---
+
+Start with variant-level association summaries. Check their structure and study context, inspect the figures, verify one result and explain what the evidence supports.
+
+::: {.callout-note icon=false}
+## One workflow for every dataset
+
+1. **Define the question** and identify the study design.
+2. **Preview the results** you will produce.
+3. **Meet the inputs**, including alleles, effect units and genome build.
+4. **Check the inputs** and document exclusions.
+5. **Run the analysis** with recorded parameters.
+6. **Verify and explain** figures using numerical evidence.
+7. **Write the report**, including evidence and limitations.
+:::
+
+| Route | Status | Purpose |
+|---|---|---|
+| [Synthetic practice](examples/synthetic/00-start-here.qmd) | Runnable; fictional data and ten figures included | Learn the workflow and independently verify a variant |
+| [Real study](examples/real-study/00-start-here.qmd) | Scaffold; dataset not yet selected | Prepare a verified quantitative-trait case study |
+| [Your own study](examples/my-study/00-start-here.qmd) | Input contract and commands provided | Apply the same checks to compatible data |
+
+## Scope
+
+This first version analyses **quantitative-trait beta summary statistics for autosomal single-nucleotide variants**. It does not fit an association model to genotypes. Binary-trait odds ratios, sex chromosomes, indels, fine mapping, LD clumping and polygenic scores need additional methods and inputs.
+
+A summary-statistics row is a **variant association**, not a participant. Multiple nearby associations can reflect correlated variants; a peak does not identify a causal variant or gene.
+
+::: {.callout-important}
+## Scaffold release
+
+The synthetic example runs now. Real-study pages are preparation checkpoints, not completed lessons with biological findings. Expanded teaching content and additional figures will follow after verified data selection.
+:::
+
+[Next: Set up your workspace](00-setup.qmd)

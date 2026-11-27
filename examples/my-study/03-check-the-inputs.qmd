@@ -1,0 +1,11 @@
+# Check the inputs
+
+Run:
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/my-study --output-dir results/my-study --check-only
+```
+
+The command will fail until your two input files exist and satisfy the contract. Compare counts and quality ranges with the source, and justify MAF/INFO thresholds. Setting `summary_scope` to `selected_variants` suppresses global calibration diagnostics; it does not recover the omitted associations.
+
+[Next: Run the analysis](04-run-the-analysis.qmd)

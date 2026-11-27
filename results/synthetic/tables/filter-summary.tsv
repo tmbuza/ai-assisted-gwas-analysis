@@ -1,0 +1,4 @@
+stage	variants	excluded_at_step	excluded_percent_of_previous	retained_percent_of_input
+Input	22000	0	0.0	100.0
+After MAF	16344	5656	25.70909090909091	74.2909090909091
+After MAF + INFO	15760	584	3.573176700930005	71.63636363636364

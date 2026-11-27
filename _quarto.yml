@@ -1,0 +1,54 @@
+project:
+  type: book
+  output-dir: docs
+  resources:
+    - results/synthetic/figures/*.png
+book:
+  title: "AI-Assisted GWAS Analysis with Python"
+  subtitle: "From summary statistics to results you can verify and explain"
+  author: "Teresia Mrema Buza | Complex Data Insights"
+  chapters:
+    - index.qmd
+    - 00-setup.qmd
+    - part: "Synthetic practice"
+      chapters:
+        - examples/synthetic/00-start-here.qmd
+        - examples/synthetic/01-see-the-result.qmd
+        - examples/synthetic/02-meet-the-data.qmd
+        - examples/synthetic/03-check-the-inputs.qmd
+        - examples/synthetic/04-run-the-analysis.qmd
+        - examples/synthetic/05-verify-and-explain.qmd
+        - examples/synthetic/06-export-the-report.qmd
+    - part: "Real study — planned"
+      chapters:
+        - examples/real-study/00-start-here.qmd
+        - examples/real-study/01-see-the-result.qmd
+        - examples/real-study/02-meet-the-data.qmd
+        - examples/real-study/03-check-the-inputs.qmd
+        - examples/real-study/04-run-the-analysis.qmd
+        - examples/real-study/05-verify-and-explain.qmd
+        - examples/real-study/06-export-the-report.qmd
+    - part: "Your own study"
+      chapters:
+        - examples/my-study/00-start-here.qmd
+        - examples/my-study/01-see-the-result.qmd
+        - examples/my-study/02-meet-the-data.qmd
+        - examples/my-study/03-check-the-inputs.qmd
+        - examples/my-study/04-run-the-analysis.qmd
+        - examples/my-study/05-verify-and-explain.qmd
+        - examples/my-study/06-export-the-report.qmd
+  appendices:
+    - 99-appendix.qmd
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: false
+    css: assets/css/cdi.css
+    code-copy: true
+    link-external-newwindow: true
+execute:
+  eval: false
+  echo: true
+  warning: false
+  message: false

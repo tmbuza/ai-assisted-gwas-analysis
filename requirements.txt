@@ -1,0 +1,26 @@
+# AI-Assisted GWAS Analysis with Python
+# Install from the project root: python -m pip install -r requirements.txt
+# Supported starter baseline: Python 3.10+. These are version ranges, not a lockfile.
+
+# Numerical analysis and tabular data: used by the current workflow.
+numpy>=1.26,<3
+pandas>=2.1,<4
+scipy>=1.11,<2
+
+# Static figures: Matplotlib and Seaborn are used by the v2 workflow.
+# Matplotlib can export PNG, PDF and SVG without an additional export package.
+matplotlib>=3.8,<4
+seaborn>=0.13,<1
+
+# Figure-development tools: not yet called by the scaffold scripts.
+plotly>=5.24,<7       # Interactive HTML plots; static export is optional below.
+adjustText>=1.2,<2    # Reduce overlapping variant labels on Matplotlib axes.
+
+# Workflow development: additional imports/analysis must be implemented explicitly.
+statsmodels>=0.14,<1  # Statistical models, diagnostics and multiple-testing utilities.
+pyarrow>=14          # Parquet/Arrow tables for larger source datasets.
+requests>=2.31,<3    # Source downloads with explicit URL/status/checksum handling.
+PyYAML>=6,<7         # Read source metadata such as GWAS-SSF YAML.
+tqdm>=4.66,<5        # Progress reporting for downloads and chunked processing.
+
+# Optional packages and external GWAS tools are documented in TOOLING.md.

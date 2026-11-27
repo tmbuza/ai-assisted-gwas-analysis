@@ -1,0 +1,18 @@
+# Write the report
+
+::: {.callout-important}
+This real-study section is a scaffold. No real dataset or real findings are bundled yet.
+:::
+
+Create `reports/real-study-report.qmd` only after results exist. Include:
+
+1. The real question, citation, accession, population, build and effect units.
+2. Source acquisition, importer, exclusions and analysis parameters.
+3. Verified allele-specific results, with appropriate uncertainty.
+4. Core figures with numerical evidence and study-specific interpretations.
+5. Calibration, selection, confounding and causal limitations.
+6. Input checksums, software versions and exact commands.
+
+The synthetic template supplies a structure, but every synthetic claim, count and image path must be replaced. The final lesson and worked report will be completed after real-data verification.
+
+[Return to the guide overview](../../index.qmd)

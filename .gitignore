@@ -1,0 +1,10 @@
+.venv/
+.quarto/
+_freeze/
+__pycache__/
+*.py[cod]
+.DS_Store
+reports/
+
+/.quarto/
+**/*.quarto_ipynb

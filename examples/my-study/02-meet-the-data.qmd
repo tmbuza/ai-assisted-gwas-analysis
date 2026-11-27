@@ -1,0 +1,9 @@
+# Meet the inputs
+
+Place prepared `summary-statistics.tsv` and `study-metadata.json` in `data/my-study/`. Follow the [field contract](../synthetic/02-meet-the-data.qmd).
+
+Use `templates/study-metadata.json` as a starting point; it is deliberately incomplete. Replace all prompts from source documentation. Never guess the build or effect allele, invent INFO scores, convert odds ratios into quantitative beta, or copy synthetic N.
+
+Keep source files, their checksums and a record of column mappings. Treat missing required measurements as a reason to extend the importer or choose a compatible analysis.
+
+[Next: Check the inputs](03-check-the-inputs.qmd)

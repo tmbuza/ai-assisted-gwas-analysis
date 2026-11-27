@@ -1,0 +1,87 @@
+# Write the report
+
+Create a `reports/` folder. Save a new file as `reports/synthetic-report.qmd`. Copy the template below and complete each bracketed prompt with checked evidence. A ready-to-copy version is also in `templates/synthetic-report.qmd`.
+
+````markdown
+---
+title: "Synthetic GWAS: checked summary-statistics report"
+format:
+  html:
+    toc: true
+---
+
+## Question and data
+
+I inspected 22,000 fictional quantitative-trait variant associations across
+22 simulated autosomes. These are synthetic summaries, not real participants
+or fitted genotype associations. The configured filters retained 15,760 rows.
+
+## Methods
+
+I checked the required fields and study metadata, then applied MAF ≥0.01
+and INFO ≥0.8. I preserved source p-values, calculated beta/SE and 95% Wald
+intervals, and used p≤5×10⁻⁸ as a configurable reference. I used the documented low-frequency/common mixture, varied invented chromosome
+spans and a main high-coverage component with a smaller coverage tail. No LD clumping,
+causal inference, genotype QC or association model fitting was performed.
+
+## Verification
+
+SYN000001 had beta 0.12 per A allele relative to G, SE 0.02, z=6,
+two-sided Wald p≈1.97317529×10⁻⁹, and 95% interval 0.08080072–0.15919928.
+[Record whether the independent verifier agreed.]
+
+## Results
+
+![Synthetic Manhattan plot.](../results/synthetic/figures/manhattan.png)
+
+[Quote one checked association and distinguish variants from independent loci.]
+
+![Synthetic Q–Q plot with an independent-null pointwise envelope.](../results/synthetic/figures/qq.png)
+
+[Describe the pattern and explain the limits of lambda and the envelope.]
+
+![Selected effect estimates and unadjusted 95% intervals.](../results/synthetic/figures/effect-forest.png)
+
+[Name effect alleles and explain selection bias.]
+
+![Sequential variant filtering counts.](../results/synthetic/figures/filter-audit.png)
+
+[Quote before/after counts from filter-summary.tsv.]
+
+### Additional diagnostics
+
+![SE versus sample size with frequency context.](../results/synthetic/figures/precision-sample-size.png)
+
+[Describe N, frequency and precision together; the reference row is an exception.]
+
+![Source and derived normal Wald p-values.](../results/synthetic/figures/p-consistency.png)
+
+The source p-values use the same formula as the derived test, so differences
+of about 3.3×10⁻¹³ on the −log10 scale are numerical rounding, not independent
+biological confirmation.
+
+## Limitations and next checks
+
+All data and coordinates are fictional. Neighbour correlation is simulated,
+not an LD reference. Top variants are not independent loci or causal findings.
+Intervals are unadjusted and selected by p-value. The Q–Q envelope assumes
+independent uniform null p-values and is not simultaneous or LD-adjusted.
+[State one useful next check.]
+
+## Reproducibility
+
+Inputs: data/synthetic/.
+Parameters: config/default.json.
+Outputs, input hashes and versions: results/synthetic/tables/run-record.json.
+[Record the analysis date and code version.]
+````
+
+Render from the project root:
+
+```bash
+quarto render reports/synthetic-report.qmd --to html
+```
+
+Verify that all six referenced figures display and remove unfinished prompts before sharing. The other four figures can be added when they support a specific observation. Learner reports belong in the ignored `reports/` folder; the reusable template remains versioned.
+
+[Next: Real-study preparation](../real-study/00-start-here.qmd)

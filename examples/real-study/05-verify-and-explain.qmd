@@ -1,0 +1,17 @@
+# Verify and explain
+
+::: {.callout-important}
+This real-study section is a scaffold. No real dataset or real findings are bundled yet.
+:::
+
+Choose a retained source variant with a well-documented effect allele and model. Run:
+
+```bash
+python scripts/python/verify_variant.py data/real-study results/real-study SOURCE_VARIANT_ID
+```
+
+Replace the final argument with a real retained ID. The verifier checks saved derived quantities; source p-values can differ legitimately from derived normal Wald p-values. Explain any discrepancy using source methods.
+
+Independently verify a negative beta, an allele pair, one excluded record and a named peak. Confirm whether multiple small-p variants represent correlated candidates. Do not call top rows independent loci without LD-based evidence.
+
+[Next: Write the report](06-export-the-report.qmd)

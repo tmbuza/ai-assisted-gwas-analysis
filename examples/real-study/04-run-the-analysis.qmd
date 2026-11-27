@@ -1,0 +1,15 @@
+# Run the analysis
+
+::: {.callout-important}
+This real-study section is a scaffold. No real dataset or real findings are bundled yet.
+:::
+
+After completing the provenance and validation steps:
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/real-study --output-dir results/real-study
+```
+
+Before publishing, add the real figures to these pages, explain their patterns, and add their PNG paths to the `resources` list in `_quarto.yml`. Verify exact variant counts and all captions. These pages currently make no biological claims.
+
+[Next: Verify and explain](05-verify-and-explain.qmd)

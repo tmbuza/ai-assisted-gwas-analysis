@@ -1,0 +1,13 @@
+# Verify and explain
+
+Choose a retained variant and replace `YOUR_VARIANT_ID`:
+
+```bash
+python scripts/python/verify_variant.py data/my-study results/my-study YOUR_VARIANT_ID
+```
+
+Check beta sign against the effect allele, confidence intervals against SE, and source p-values against the source test definition. Reconcile discrepancies instead of editing outputs to match expectations.
+
+Write observations containing a variant ID, effect allele, units, checked number and limitation. A genome-wide association is not a clinical diagnosis or proof of causation.
+
+[Next: Write the report](06-export-the-report.qmd)

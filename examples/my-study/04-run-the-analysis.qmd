@@ -1,0 +1,13 @@
+# Run the analysis
+
+After successful checks:
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/my-study --output-dir results/my-study
+```
+
+Use `--config path/to/your-config.json` for documented parameter changes. Separate output folders when comparing configurations. Read `run-record.json`, then inspect the figures and full QC table before writing results.
+
+Rendering the guide does not run this command. Your figures are not automatically inserted into lessons; add image links only after verifying them.
+
+[Next: Verify and explain](05-verify-and-explain.qmd)

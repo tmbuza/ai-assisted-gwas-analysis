@@ -1,0 +1,25 @@
+# Check the inputs
+
+Run from the project root:
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/synthetic --output-dir results/synthetic --check-only
+```
+
+For the bundled version expect:
+
+```text
+Input checks passed: 22,000 variant rows; 15,760 retained; 22 autosomes represented.
+```
+
+Checks reject missing required cells, duplicate IDs/coordinates, unsupported alleles, nonfinite values, invalid p-values, nonpositive standard errors, invalid frequency/INFO ranges and inconsistent metadata. The starter supports one biallelic SNV record per genomic position.
+
+Formatting checks cannot establish correct source allele orientation, build, ancestry adjustment, phenotype definition or model validity. Confirm these against study documentation.
+
+## Filtering is explicit
+
+`config/default.json` sets MAF ≥0.01 and INFO ≥0.8. MAF is `min(EAF, 1−EAF)`. These are visible teaching defaults. Record any change and justify it from the study; no filtering is based on p-values.
+
+`--check-only` checks and counts but does not create or refresh results. Invalid rows cause an error. Valid rows failing configured MAF/INFO filters are recorded in the full-run QC table.
+
+[Next: Run the analysis](04-run-the-analysis.qmd)

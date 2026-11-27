@@ -1,0 +1,13 @@
+# Write the report
+
+Create `reports/my-study-report.qmd` using the synthetic report structure. Replace all fictional content with your question, source, counts, verification values, results and limitations. Paths from `reports/` to your figures begin `../results/my-study/figures/`.
+
+```bash
+quarto render reports/my-study-report.qmd --to html
+```
+
+Include Q–Q only if it was appropriate and generated. Open the HTML and check every image, numerical claim and allele label. Keep learner reports out of Git; the provided `.gitignore` ignores `reports/`.
+
+**Ready to share:** another reader can trace the results to the inputs and methods, and can identify which conclusions need replication, LD information or further analysis.
+
+[Return to the guide overview](../../index.qmd)

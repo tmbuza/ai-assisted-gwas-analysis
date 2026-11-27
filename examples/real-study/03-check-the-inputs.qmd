@@ -1,0 +1,17 @@
+# Check the inputs
+
+::: {.callout-important}
+This real-study section is a scaffold. No real dataset or real findings are bundled yet.
+:::
+
+Once verified files exist, use the shared validator:
+
+```bash
+python scripts/python/run_workflow.py --data-dir data/real-study --output-dir results/real-study --check-only
+```
+
+This command is a **future command**; the scaffold intentionally includes no fabricated real-study input file. Expected counts must be filled from the accepted source, not copied from synthetic practice.
+
+Record source-to-prepared row counts and each exclusion. Confirm one phenotype/model/ancestry definition per prepared analysis. Review source harmonization records and the declared genome build.
+
+[Next: Run the analysis](04-run-the-analysis.qmd)
