@@ -1,0 +1,1142 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "AI-Assisted GWAS Analysis with Python",
+    "section": "",
+    "text": "Choose your route\nMove from association tables to results you can check and explain. Learn with synthetic data, repeat the workflow with a published HDL-cholesterol study, then apply it to your own compatible summary statistics.\nStart with Required setup. The shared workflow and reporting pages provide a reference once you know the steps.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>AI-Assisted GWAS Analysis with Python</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#choose-your-route",
+    "href": "index.html#choose-your-route",
+    "title": "AI-Assisted GWAS Analysis with Python",
+    "section": "",
+    "text": "Example\nInputs\nWhat you will learn\n\n\n\n\nSynthetic practice\n22,000 fictional quantitative-trait variant associations\nRead the plots, understand filtering and verify SYN000001\n\n\nGLGC HDL study\nPublished joint GWAS/Metabochip summary statistics\nPreserve source p-values, distinguish reference frequency from study frequency, and explain meta-analysis results\n\n\nYour own study\nYour documented quantitative-trait beta summaries\nMap the input contract, justify settings and produce a checked report",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>AI-Assisted GWAS Analysis with Python</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#what-the-figures-answer",
+    "href": "index.html#what-the-figures-answer",
+    "title": "AI-Assisted GWAS Analysis with Python",
+    "section": "What the figures answer",
+    "text": "What the figures answer\n\nManhattan and regional plots: where are the association signals?\nQ–Q plots: how does the distribution compare with a simple reference?\nEffect estimates and intervals: what are the direction, units and uncertainty?\nFrequency, N and quality summaries: what supports each association and what was excluded?\nPrecision and p-value checks: are the quantities consistent with the declared source model?\n\nTen figure families are saved as PNG only. Every observation should be traced to a saved table. A variant row is not a participant; several associated variants are not automatically independent loci.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>AI-Assisted GWAS Analysis with Python</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#scope",
+    "href": "index.html#scope",
+    "title": "AI-Assisted GWAS Analysis with Python",
+    "section": "Scope",
+    "text": "Scope\nThis guide begins with processed autosomal, biallelic single-nucleotide, quantitative-trait beta summary statistics. It does not fit genotype association models, perform LD clumping, identify causal variants or predict individual risk. Odds ratios, sex chromosomes, indels and new study designs need explicit extensions.\nAI can help explain an error or improve a draft. You define the question and supply the study context; scripts generate traceable evidence; you verify the arithmetic and decide which claims are justified.\nNext: Set up your workspace",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>AI-Assisted GWAS Analysis with Python</span>"
+    ]
+  },
+  {
+    "objectID": "00-setup.html",
+    "href": "00-setup.html",
+    "title": "Required setup",
+    "section": "",
+    "text": "Get the project and open the correct folder\nUse the complete project ZIP supplied with the guide, or open the project repository and choose Code → Download ZIP. Extract it before working.\nIn VS Code choose File → Open Folder and select the folder containing _quarto.yml, requirements.txt, scripts/, data/ and examples/. Open Terminal → New Terminal there. If extraction produced an extra outer folder, open the inner project folder.\nRun every guide command from this main project folder. On macOS/Linux, check with:",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Required setup</span>"
+    ]
+  },
+  {
+    "objectID": "00-setup.html#get-the-project-and-open-the-correct-folder",
+    "href": "00-setup.html#get-the-project-and-open-the-correct-folder",
+    "title": "Required setup",
+    "section": "",
+    "text": "pwd\nls",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Required setup</span>"
+    ]
+  },
+  {
+    "objectID": "00-setup.html#create-a-python-environment",
+    "href": "00-setup.html#create-a-python-environment",
+    "title": "Required setup",
+    "section": "Create a Python environment",
+    "text": "Create a Python environment\nUse Python 3.10 or later. The package resolver selects compatible dependency releases for your Python version; the reference run records the versions actually used.\nOn macOS/Linux:\npython3 -m venv .venv\nsource .venv/bin/activate\nOn Windows PowerShell:\npy -m venv .venv\n.\\.venv\\Scripts\\Activate.ps1\nIf PowerShell blocks activation, use Command Prompt and .venv\\Scripts\\activate.bat, or invoke .venv\\Scripts\\python.exe directly.\nWith the environment active:\npython -m pip install --upgrade pip\npython -m pip install -r requirements.txt\npython -m pip check\npython -c \"import numpy, pandas, scipy, matplotlib, seaborn; print('Analysis packages loaded.')\"\nMatplotlib and Seaborn create the current static figures. Other listed packages support future data handling and exploration; installing them does not implement new methods. requirements-optional.txt is optional. See TOOLING.md for details.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Required setup</span>"
+    ]
+  },
+  {
+    "objectID": "00-setup.html#confirm-the-synthetic-example-works",
+    "href": "00-setup.html#confirm-the-synthetic-example-works",
+    "title": "Required setup",
+    "section": "Confirm the synthetic example works",
+    "text": "Confirm the synthetic example works\npython scripts/python/run_workflow.py --data-dir data/synthetic --output-dir results/synthetic --check-only\npython scripts/python/run_workflow.py --data-dir data/synthetic --output-dir results/synthetic\npython scripts/python/verify_variant.py data/synthetic results/synthetic SYN000001\nThe bundled input retains 15,760 of 22,000 rows. Each comparison printed by the verifier should agree. Reference variant beta is 0.12, SE is 0.02 and z is 6.\nSynthetic inputs are already supplied. Run the following only if you intend to replace them with a regenerated version:\npython scripts/python/prepare_synthetic.py\nKeep input hashes and package versions; a seed alone does not guarantee identical files across all environments.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Required setup</span>"
+    ]
+  },
+  {
+    "objectID": "00-setup.html#render-or-preview-the-guide",
+    "href": "00-setup.html#render-or-preview-the-guide",
+    "title": "Required setup",
+    "section": "Render or preview the guide",
+    "text": "Render or preview the guide\nInstall Quarto separately from Python. Then:\nquarto render\nquarto preview\nOpen the preview address printed in the terminal. Press Ctrl+C to stop. Rendering displays saved images and commands; it does not execute the analysis.\nIf a plot in the guide differs from the one in results/, confirm you are in the correct repository, rerun the analysis, render again, then refresh the browser. _quarto.yml copies the figure resources into docs/.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Required setup</span>"
+    ]
+  },
+  {
+    "objectID": "00-setup.html#troubleshooting",
+    "href": "00-setup.html#troubleshooting",
+    "title": "Required setup",
+    "section": "Troubleshooting",
+    "text": "Troubleshooting\n\n\n\n\n\n\n\nSymptom\nNext check\n\n\n\n\nFile not found\nConfirm the project root and exact filename\n\n\nMissing package\nActivate the environment and reinstall requirements\n\n\nLiteral p-value zero\nObtain a valid source value or source log-p; do not invent a replacement\n\n\nVery small positive p such as 1e-769\nKeep it as text; the workflow computes its log without flooring\n\n\nMissing INFO\nDeclare verified absence in metadata; no quality scores are fabricated\n\n\nLarge real-study run takes longer\nThe workflow reads all prepared variants and writes full compressed audit tables; allow it to finish\n\n\n\nNext: The shared workflow",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Required setup</span>"
+    ]
+  },
+  {
+    "objectID": "01-run-the-workflow.html",
+    "href": "01-run-the-workflow.html",
+    "title": "Run the workflow",
+    "section": "",
+    "text": "Define the analysis before running\nUse this page after setup as a command reference. If this is your first run, follow synthetic practice in order.\nRecord the trait, source, population descriptors, genome build, effect allele and effect units. Decide whether the input contains genome-wide background associations or only selected variants. The latter cannot support global Q–Q or lambda diagnostics.\nThe workflow checks prepared files; it cannot establish that source allele orientation, phenotype processing or upstream model adjustment was correct.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Run the workflow</span>"
+    ]
+  },
+  {
+    "objectID": "01-run-the-workflow.html#use-one-inputoutput-pair",
+    "href": "01-run-the-workflow.html#use-one-inputoutput-pair",
+    "title": "Run the workflow",
+    "section": "Use one input/output pair",
+    "text": "Use one input/output pair\n\n\n\n\n\n\n\n\n\nExample\nInput folder\nOutput folder\nVerification variant\n\n\n\n\nSynthetic\ndata/synthetic\nresults/synthetic\nSYN000001\n\n\nPublished HDL\ndata/glgc-hdl\nresults/glgc-hdl\nrs3764261\n\n\nYour study\ndata/my-study\nresults/my-study\nA retained source ID you choose\n\n\n\nFor any row, substitute its paths into this sequence:\npython scripts/python/run_workflow.py --data-dir data/synthetic --output-dir results/synthetic --check-only\npython scripts/python/run_workflow.py --data-dir data/synthetic --output-dir results/synthetic\npython scripts/python/verify_variant.py data/synthetic results/synthetic SYN000001\n--check-only does not refresh outputs. The full run writes named results and replaces earlier versions. Use a separate output folder when comparing analyses.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Run the workflow</span>"
+    ]
+  },
+  {
+    "objectID": "01-run-the-workflow.html#parameters-are-visible",
+    "href": "01-run-the-workflow.html#parameters-are-visible",
+    "title": "Run the workflow",
+    "section": "Parameters are visible",
+    "text": "Parameters are visible\nconfig/default.json contains the reference p-value, minimum MAF, minimum INFO, number of rows in the effect plot and maximum plotted background points. Change a copy of this file when needed:\npython scripts/python/run_workflow.py --data-dir data/my-study --output-dir results/my-study --config config/my-study.json\nThe default INFO filter is applied only when metadata declares INFO available. For GLGC, it is explicitly not applied. The GLGC frequency filter uses the supplied reference-panel frequency, not a fabricated study frequency.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Run the workflow</span>"
+    ]
+  },
+  {
+    "objectID": "01-run-the-workflow.html#large-files-analysis-and-display-are-different",
+    "href": "01-run-the-workflow.html#large-files-analysis-and-display-are-different",
+    "title": "Run the workflow",
+    "section": "Large files: analysis and display are different",
+    "text": "Large files: analysis and display are different\nAll valid prepared rows enter QC and all retained rows enter summaries, threshold counts, top-variant selection and lambda. Dense scatter plots show all retained p≤1e-5 rows plus a reproducible sample of at most 50,000 remaining background rows. The plotted rows are saved in scatter-display.tsv.\nThe Q–Q plot uses selected ranks from the full sorted p-value distribution. Its expectations and envelope use the full retained count. It does not recompute a Q–Q reference from a hits-enriched scatter sample.\nFor inputs exceeding 100,000 rows, full QC/results tables are compressed as .tsv.gz. Read them with a gzip-aware tool; do not edit them in a spreadsheet. PNGs and small display/summary tables remain easy to inspect.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Run the workflow</span>"
+    ]
+  },
+  {
+    "objectID": "01-run-the-workflow.html#verify-before-explaining",
+    "href": "01-run-the-workflow.html#verify-before-explaining",
+    "title": "Run the workflow",
+    "section": "Verify before explaining",
+    "text": "Verify before explaining\nUse the full table or the provided frozen verification rows, not a figure alone. Check a named variant, a filtering count and one figure observation. For the published example, source meta-analysis p-values legitimately differ from the derived normal Wald calculation.\nThe run record stores metadata, parameters, software versions, input and script hashes, and the plotting policy. Keep source-preparation notes with it. These records describe a run; they do not establish causal interpretation.\nNext: Write the report",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Run the workflow</span>"
+    ]
+  },
+  {
+    "objectID": "02-write-the-report.html",
+    "href": "02-write-the-report.html",
+    "title": "Write the report",
+    "section": "",
+    "text": "A practical structure\nA report should answer the question, show the evidence and explain the limits of the analysis. Aim for a short account that another learner can reproduce.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
+    ]
+  },
+  {
+    "objectID": "02-write-the-report.html#a-practical-structure",
+    "href": "02-write-the-report.html#a-practical-structure",
+    "title": "Write the report",
+    "section": "",
+    "text": "Section\nInclude\n\n\n\n\nQuestion and data\nTrait, source/citation, variant counts, population, genome build and effect units\n\n\nMethods\nPreparation, exclusions, parameters, source test and display policy\n\n\nVerification\nNamed variant, source p text, derived calculations and agreement checks\n\n\nResults\nSelected figures with checked values and source table names\n\n\nLimitations\nRelative to this source, selection, uncertainty, ancestry, LD and causal claims\n\n\nReproducibility\nCommands, paths, input/code hashes, environment and analysis date",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
+    ]
+  },
+  {
+    "objectID": "02-write-the-report.html#create-a-report",
+    "href": "02-write-the-report.html#create-a-report",
+    "title": "Write the report",
+    "section": "Create a report",
+    "text": "Create a report\nCreate reports/ if it does not exist. Save a plain-text QMD there, for example reports/synthetic-report.qmd. Start with the template in templates/ or the final lesson of the corresponding example. Replace every bracketed prompt.\nquarto render reports/synthetic-report.qmd --to html\nPaths in report templates start ../results/ because reports are one folder below the project root. A report does not have to be added to the book chapters in _quarto.yml to render on its own.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
+    ]
+  },
+  {
+    "objectID": "02-write-the-report.html#choose-figures-for-a-reason",
+    "href": "02-write-the-report.html#choose-figures-for-a-reason",
+    "title": "Write the report",
+    "section": "Choose figures for a reason",
+    "text": "Choose figures for a reason\nThe workflow supplies ten figure families, but a report need not repeat them all. Use Manhattan and a regional view to describe location, Q–Q to discuss a distribution, an effect plot for direction/uncertainty, and QC diagnostics where they answer a question. Include a table when exact numbers matter more than a plot.\nExample of checked wording: “SYN000001 had beta 0.12 per A allele relative to G, SE 0.02 and z=6. Its synthetic Wald p-value was approximately 1.97×10⁻⁹. This is a fictional calculation example.”\nFor GLGC, a p-value difference is not automatically an error: the source test is a corrected meta-analysis, whereas the displayed beta/SE check is an approximate normal Wald calculation.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
+    ]
+  },
+  {
+    "objectID": "02-write-the-report.html#use-ai-with-evidence",
+    "href": "02-write-the-report.html#use-ai-with-evidence",
+    "title": "Write the report",
+    "section": "Use AI with evidence",
+    "text": "Use AI with evidence\nA useful prompt is: “Using only these checked variant values and source-method notes, draft a concise descriptive result. Name the effect allele and units. Separate numerical evidence from claims requiring LD, replication or causal analysis.”\nReview every number, allele, citation and limitation. Do not accept invented gene names, independent-locus counts or clinical recommendations.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
+    ]
+  },
+  {
+    "objectID": "02-write-the-report.html#final-review",
+    "href": "02-write-the-report.html#final-review",
+    "title": "Write the report",
+    "section": "Final review",
+    "text": "Final review\n\nDo the figure, input version, table and report all refer to the same run?\nAre exact source p-values preserved when they are below ordinary floating-point range?\nAre reference frequencies and unavailable INFO clearly described?\nIs a count of associated variants distinguished from independent loci?\nAre selection bias and nominal confidence intervals acknowledged?\n\nLearner reports are ignored by Git. Reusable templates, guide pages, scripts, inputs and published guide figures belong to the project.",
+    "crumbs": [
+      "Required setup and workflow",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Write the report</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/00-start-here.html",
+    "href": "examples/synthetic/00-start-here.html",
+    "title": "Synthetic GWAS: start here",
+    "section": "",
+    "text": "What this version teaches\nThe bundled file contains 22,000 fictional variant rows across 22 autosomes. No real people, genotypes, rsIDs or biological gene assignments are included. sample_size is a simulated per-variant value concentrated near a nominal maximum of 20,000, with a smaller lower-coverage component; it is not the number of variants.\nThe generator uses varied invented chromosome spans and marker densities, a low-frequency/common-variant mixture, and three locally denser signal regions. Local latent noise is correlated by distance. INFO and coverage can be lower for lower-frequency variants, and SE depends on N, frequency and INFO. It also includes a fixed reference variant. These are teaching mechanisms, not a real LD reference or a fitted GWAS model. Filtering retains 15,760 variants for the bundled input version.\nFollow the seven pages in order, using the same setup, analysis and verification commands throughout.\nNext: Preview the results\nMost variants have N close to 20,000; a smaller component has lower coverage. The frequency histogram no longer assumes a uniform distribution. These choices create useful diagnostic patterns, without claiming to reproduce a specific population or trait.\nThe fixed reference is an intentional exception to the simulated SE formula. Its beta, SE, EAF, INFO, N and allele pair are preserved for verification.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Synthetic GWAS: start here</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html",
+    "href": "examples/synthetic/01-see-the-result.html",
+    "title": "Preview the results",
+    "section": "",
+    "text": "Manhattan plot\nAll ten figures below come from the bundled synthetic inputs. Every figure is marked synthetic. Numerical values live in results/synthetic/tables/.\nQuestion: Where are the strongest associations?\nEach point is a retained variant. Autosomes alternate contrasting dark blue and orange; these colours distinguish chromosomes and do not encode effect direction or significance; the dashed line marks the configured reference p-value. Several nearby points do not establish several independent loci.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#manhattan-plot",
+    "href": "examples/synthetic/01-see-the-result.html#manhattan-plot",
+    "title": "Preview the results",
+    "section": "",
+    "text": "Manhattan plot: synthetic GWAS summary-statistics example.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#qq-plot",
+    "href": "examples/synthetic/01-see-the-result.html#qq-plot",
+    "title": "Preview the results",
+    "section": "Q–Q plot",
+    "text": "Q–Q plot\nQuestion: How do observed p-values compare with a simple null reference?\n\n\n\nQ–Q plot: synthetic GWAS summary-statistics example.\n\n\nObserved and expected −log10 p-values use all retained variants. The left panel shows the full tail and the right magnifies the central distribution using the same variants. The envelope is 95% pointwise under independent Uniform(0,1) p-values. Correlated variants and true signals limit this reference; it is neither simultaneous nor LD-adjusted.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#effect-estimates-and-intervals",
+    "href": "examples/synthetic/01-see-the-result.html#effect-estimates-and-intervals",
+    "title": "Preview the results",
+    "section": "Effect estimates and intervals",
+    "text": "Effect estimates and intervals\nQuestion: What direction and uncertainty do the smallest-p variants have?\n\n\n\nEffect estimates and intervals: synthetic GWAS summary-statistics example.\n\n\nRow labels include variant ID, chromosome, position, and effect/other alleles. Beta is per copy of the named effect allele, relative to the other allele. Nearby variants may have opposite signs because their named alleles differ; sign comparisons require allele context. Intervals are unadjusted 95% Wald intervals for variants selected by p-value. They are subject to selection bias and are not independent-locus estimates.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#frequency-and-imputation-quality",
+    "href": "examples/synthetic/01-see-the-result.html#frequency-and-imputation-quality",
+    "title": "Preview the results",
+    "section": "Frequency and imputation quality",
+    "text": "Frequency and imputation quality\nQuestion: What measurements are being filtered?\n\n\n\nFrequency and imputation quality: synthetic GWAS summary-statistics example.\n\n\nThe panels show minor allele frequency and INFO distributions. Input and retained MAF histograms use identical bin edges. The low-frequency/common mixture is a teaching choice, not an empirical population estimate. Thresholds are teaching defaults, not universal quality rules. INFO definitions can vary by source pipeline.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#effect-versus-frequency",
+    "href": "examples/synthetic/01-see-the-result.html#effect-versus-frequency",
+    "title": "Preview the results",
+    "section": "Effect versus frequency",
+    "text": "Effect versus frequency\nQuestion: How do estimated effects vary across allele frequencies?\n\n\n\nEffect versus frequency: synthetic GWAS summary-statistics example.\n\n\nOrange points meet the configured p-value reference. Low-frequency estimates can have different precision. This plot does not establish a biological relationship between frequency and effect.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#per-variant-sample-size",
+    "href": "examples/synthetic/01-see-the-result.html#per-variant-sample-size",
+    "title": "Preview the results",
+    "section": "Per-variant sample size",
+    "text": "Per-variant sample size\nQuestion: How much data supports each association?\n\n\n\nPer-variant sample size: synthetic GWAS summary-statistics example.\n\n\nThe synthetic distribution has most variants near nominal N=20,000 and a smaller lower-coverage tail. In real sources, variant-specific N can differ because of missingness or contributing cohorts. Counting variant rows does not count participants. Effective N and actual N must not be conflated when importing studies.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#filtering-audit",
+    "href": "examples/synthetic/01-see-the-result.html#filtering-audit",
+    "title": "Preview the results",
+    "section": "Filtering audit",
+    "text": "Filtering audit\nQuestion: How many variants remain after each step?\n\n\n\nFiltering audit: synthetic GWAS summary-statistics example.\n\n\nCounts and percentages apply MAF first, then INFO. Percentages excluded at each step use the previous step as denominator. A variant failing both criteria is removed once. Invalid inputs stop the run; they are not silently discarded.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#position-only-association-zoom",
+    "href": "examples/synthetic/01-see-the-result.html#position-only-association-zoom",
+    "title": "Preview the results",
+    "section": "Position-only association zoom",
+    "text": "Position-only association zoom\nQuestion: What surrounds the smallest p-value?\n\n\n\nPosition-only association zoom: synthetic GWAS summary-statistics example.\n\n\nThis plot uses ±250 kb around the retained variant with smallest p-value. It has no LD colours, gene tracks or fine-mapping probabilities. Synthetic positions have no biological mapping.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#precision-versus-sample-size",
+    "href": "examples/synthetic/01-see-the-result.html#precision-versus-sample-size",
+    "title": "Preview the results",
+    "section": "Precision versus sample size",
+    "text": "Precision versus sample size\nQuestion: why does higher N not guarantee that every variant has a smaller SE?\n\n\n\nStandard error versus per-variant N, coloured by MAF; SE uses a log scale.\n\n\nSE depends jointly on N, frequency and INFO in this simulation. Colours provide frequency context; this scatter is not a fitted model or a causal test. The fixed reference row is an intentional exception to the simulated formula. Numerical evidence is in precision-display.tsv.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/01-see-the-result.html#source-versus-derived-wald-p-values",
+    "href": "examples/synthetic/01-see-the-result.html#source-versus-derived-wald-p-values",
+    "title": "Preview the results",
+    "section": "Source versus derived Wald p-values",
+    "text": "Source versus derived Wald p-values\nQuestion: do the supplied p-values agree with the beta/SE-derived normal test?\n\n\n\nSource versus derived Wald association strength, with a difference panel.\n\n\nHere, source p-values were generated by the same normal Wald formula, so near-perfect agreement is expected. The maximum difference in −log10(p) is about 3.3×10⁻¹³, consistent with numerical rounding. The difference panel retains a visible scale instead of magnifying that rounding into an apparent substantive discrepancy. These are arithmetic checks, not independent biological validation. Real source tests can differ legitimately; preserve their p-values and inspect the study methods.\nYour task: choose one checked observation for each figure. Explain why a cluster of top variants does not identify independent loci, and why synthetic plots cannot establish a biological finding.\nNext: Meet the data",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Preview the results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/02-meet-the-data.html",
+    "href": "examples/synthetic/02-meet-the-data.html",
+    "title": "Meet the data",
+    "section": "",
+    "text": "data/synthetic/summary-statistics.tsv has one variant association per row. study-metadata.json describes the study context. This is a simplified teaching contract, not a claim of full GWAS-SSF compliance. Keep original files when mapping a source into this format.\n\n\n\n\n\n\n\nField\nMeaning / required constraint\n\n\n\n\nvariant_id\nUnique source identifier; synthetic IDs begin SYN\n\n\nchromosome\nInteger autosome 1–22\n\n\nposition\nPositive integer coordinate in the declared build\n\n\neffect_allele\nSingle uppercase A/C/G/T base to which beta refers\n\n\nother_allele\nDistinct comparison allele\n\n\nbeta\nQuantitative-trait effect estimate per effect allele\n\n\nstandard_error\nPositive standard error on the same beta scale\n\n\np_value\nSource association p-value, strictly greater than 0 and at most 1\n\n\neffect_allele_frequency\nFrequency of the effect allele, between 0 and 1\n\n\nsample_size\nPositive simulated per-variant N\n\n\nimputation_info\nSource imputation score between 0 and 1\n\n\n\nThe metadata records trait, effect units, population, build, source, synthetic status and whether the file is genome-wide or contains selected variants. Missing required measurements must not be invented. A different file may need an explicit importer or an extended analysis contract.\nFor synthetic inputs the build is SYNTHETIC: coordinates and IDs are invented, even though chromosome numbers resemble real autosomes. No genome annotation is justified.\nPalindromic A/T and C/G allele pairs are flagged. They are retained within this single-study inspection; a flag is not evidence that alleles are harmonized across studies. Multi-study harmonization requires source strands, frequencies, build and allele normalization.\nInspect the first rows in your editor. Locate SYN000001 and confirm beta 0.12, standard error 0.02, effect allele A, other allele G, EAF 0.25, N 20,000 and INFO 0.98.\nNext: Check the inputs\nThe two input files are a simplified teaching contract. The real GLGC example uses the same core fields with explicitly declared reference frequency, source-reported N and unavailable INFO. Do not copy those declarations into a new study without verifying them against its source.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Meet the data</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/03-check-the-inputs.html",
+    "href": "examples/synthetic/03-check-the-inputs.html",
+    "title": "Check the inputs",
+    "section": "",
+    "text": "Filtering is explicit\nRun from the project root:\nFor the bundled version expect:\nChecks reject missing required cells, duplicate IDs/coordinates, unsupported alleles, nonfinite values, invalid p-values, nonpositive standard errors, invalid frequency/INFO ranges and inconsistent metadata. The starter supports one biallelic SNV record per genomic position.\nFormatting checks cannot establish correct source allele orientation, build, ancestry adjustment, phenotype definition or model validity. Confirm these against study documentation.\nconfig/default.json sets MAF ≥0.01 and INFO ≥0.8. MAF is min(EAF, 1−EAF). These are visible teaching defaults. Record any change and justify it from the study; no filtering is based on p-values.\n--check-only checks and counts but does not create or refresh results. Invalid rows cause an error. Valid rows failing configured MAF/INFO filters are recorded in the full-run QC table.\nNext: Run the analysis",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Check the inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/04-run-the-analysis.html",
+    "href": "examples/synthetic/04-run-the-analysis.html",
+    "title": "Run the analysis",
+    "section": "",
+    "text": "Outputs to inspect\nThe command overwrites named results in results/synthetic/. Preserve separate folders when comparing configurations.\nTen PNG figures are saved under figures/. The preview explains each one.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Run the analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/04-run-the-analysis.html#outputs-to-inspect",
+    "href": "examples/synthetic/04-run-the-analysis.html#outputs-to-inspect",
+    "title": "Run the analysis",
+    "section": "",
+    "text": "File in tables/\nContents\n\n\n\n\nvariant-qc.tsv\nEvery input row, filter flags and palindromic flags\n\n\nfilter-summary.tsv\nSequential filtering counts\n\n\nvariant-results.tsv\nRetained rows, exact source p text, source/derived log strengths and nominal intervals\n\n\ntop-variants.tsv\nSmallest source p-values; not LD-independent loci\n\n\nmanhattan-display.tsv\nPlot positions and association strengths\n\n\nqq-display.tsv\nExpected/observed values and pointwise null envelope\n\n\nregion-display.tsv\nVariants in the position-only zoom\n\n\nmaf-histogram-display.tsv\nShared frequency bins and exact input/retained counts\n\n\nprecision-display.tsv\nSample size, SE, MAF and INFO for the precision plot\n\n\np-consistency-display.tsv\nSource/derived −log10(p) and their differences\n\n\nanalysis-summary.json\nCounts and calibration diagnostic\n\n\nrun-record.json\nMetadata, configuration, input hashes and software versions",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Run the analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/04-run-the-analysis.html#calculations-and-limits",
+    "href": "examples/synthetic/04-run-the-analysis.html#calculations-and-limits",
+    "title": "Run the analysis",
+    "section": "Calculations and limits",
+    "text": "Calculations and limits\nThe workflow preserves source p-values. It also derives \\(z=\\beta/SE\\) and a two-sided normal Wald p-value for comparison; these need not match p-values from other source models. A discrepancy is a reason to inspect model definitions, not overwrite source results.\nThe default reference is p≤5×10⁻⁸. This is configurable and does not replace a study-specific multiple-testing plan. It does not identify independent loci. A 0.05/number-of-bundled-rows calculation is not substituted for a genome-wide threshold.\nLambda GC is median chi-square(1) transformed from source p-values, divided by the chi-square(1) null median. It is a diagnostic, not proof of confounding or good calibration, and no genomic-control correction is applied. Q–Q and lambda are skipped for metadata declaring selected_variants.\nNext: Verify and explain",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Run the analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/04-run-the-analysis.html#figure-files",
+    "href": "examples/synthetic/04-run-the-analysis.html#figure-files",
+    "title": "Run the analysis",
+    "section": "Figure files",
+    "text": "Figure files\nEach figure is saved once as PNG. On rerun, the workflow removes old PDF/SVG exports for its ten known figure names in the selected output folder.\nThe Manhattan plot alternates dark blue and orange across autosomes. These colours distinguish neighbouring chromosomes; they do not encode significance or effect direction. The dashed grey line shows the p-value reference.\nThe Q–Q figure includes full-tail and central views. Forest labels include position and effect/other alleles; they do not identify independent loci.\nLarge-file display policies are shared with the real case study. All 15,760 synthetic retained rows are displayed because this dataset is below the background cap. Source p-values remain text; the engine saves source and derived Wald log strengths separately. Shared workflow explains the full-file calculations and large-file outputs.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Run the analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/05-verify-and-explain.html",
+    "href": "examples/synthetic/05-verify-and-explain.html",
+    "title": "Verify and explain",
+    "section": "",
+    "text": "Recalculate a named variant\nFor SYN000001, beta is 0.12 and SE is 0.02, so \\(z=6\\). Its approximate reference values are:\nThe verifier uses math.erfc and statistics.NormalDist rather than the workflow’s SciPy calculations. Every comparison should print agrees=True. It checks a retained row; excluded variants remain in variant-qc.tsv.\nA positive beta describes a higher fictional trait per A allele relative to G. It does not mean “harmful”, nor does it identify a causal mechanism. The confidence interval is not adjusted for selecting a small-p variant.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Verify and explain</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/05-verify-and-explain.html#recalculate-a-named-variant",
+    "href": "examples/synthetic/05-verify-and-explain.html#recalculate-a-named-variant",
+    "title": "Verify and explain",
+    "section": "",
+    "text": "Quantity\nValue\n\n\n\n\nTwo-sided normal Wald p-value\n1.97317529008×10⁻⁹\n\n\n−log10(source p-value)\n8.70483433181\n\n\n95% Wald interval\n0.0808007203 to 0.1591992797\n\n\nMAF\n0.25\n\n\n\npython scripts/python/verify_variant.py data/synthetic results/synthetic SYN000001",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Verify and explain</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/05-verify-and-explain.html#trace-a-figure-to-its-evidence",
+    "href": "examples/synthetic/05-verify-and-explain.html#trace-a-figure-to-its-evidence",
+    "title": "Verify and explain",
+    "section": "Trace a figure to its evidence",
+    "text": "Trace a figure to its evidence\n\nCompare the Manhattan peaks with variant-results.tsv. Count variants below the p reference; do not call that the number of independent loci.\nOpen top-variants.tsv. Check whether several entries are near one another on a chromosome.\nCompare input, after-MAF and retained counts in filter-summary.tsv.\nRead lambda and its definition in analysis-summary.json. Explain why simulated true signals and correlation affect interpretation.\nConfirm that the position zoom has no LD estimates or gene assignments.\n\nEvidence sentence: “For fictional variant SYN000001, beta was 0.12 per A allele relative to G, with an unadjusted 95% Wald interval of 0.0808–0.1592 and p≈1.97×10⁻⁹. These simulated results demonstrate calculation and do not support a biological claim.”\nUse AI to improve the explanation only after supplying the checked values, allele definitions and synthetic status.\nNext: Write the report",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Verify and explain</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/05-verify-and-explain.html#version-2-audit-answers",
+    "href": "examples/synthetic/05-verify-and-explain.html#version-2-audit-answers",
+    "title": "Verify and explain",
+    "section": "Version 2 audit answers",
+    "text": "Version 2 audit answers\n\n\n\n\n\n\n\n\n\nStage\nVariants retained\nRemoved at this step\nPercentage of previous step\n\n\n\n\nInput\n22,000\n—\n—\n\n\nAfter MAF ≥0.01\n16,344\n5,656\n25.71%\n\n\nAfter MAF + INFO ≥0.8\n15,760\n584\n3.57%\n\n\n\nOverall, 71.64% of input rows remain. A row failing both criteria is removed once in these sequential counts. These proportions describe this teaching simulation, not an expected exclusion rate for real GWAS.\nThere are 38 retained variants at p≤5×10⁻⁸. This is a variant count, not an independent-locus count. Lambda GC is approximately 1.020763. Explain the strong tail alongside the central Q–Q panel without treating lambda as a pass/fail proof of study validity.",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Verify and explain</span>"
+    ]
+  },
+  {
+    "objectID": "examples/synthetic/06-export-the-report.html",
+    "href": "examples/synthetic/06-export-the-report.html",
+    "title": "Write the report",
+    "section": "",
+    "text": "Create a reports/ folder. Save a new file as reports/synthetic-report.qmd. Copy the template below and complete each bracketed prompt with checked evidence. A ready-to-copy version is also in templates/synthetic-report.qmd.\n---\ntitle: \"Synthetic GWAS: checked summary-statistics report\"\nformat:\n  html:\n    toc: true\n---\n\n## Question and data\n\nI inspected 22,000 fictional quantitative-trait variant associations across\n22 simulated autosomes. These are synthetic summaries, not real participants\nor fitted genotype associations. The configured filters retained 15,760 rows.\n\n## Methods\n\nI checked the required fields and study metadata, then applied MAF ≥0.01\nand INFO ≥0.8. I preserved source p-values, calculated beta/SE and 95% Wald\nintervals, and used p≤5×10⁻⁸ as a configurable reference. I used the documented low-frequency/common mixture, varied invented chromosome\nspans and a main high-coverage component with a smaller coverage tail. No LD clumping,\ncausal inference, genotype QC or association model fitting was performed.\n\n## Verification\n\nSYN000001 had beta 0.12 per A allele relative to G, SE 0.02, z=6,\ntwo-sided Wald p≈1.97317529×10⁻⁹, and 95% interval 0.08080072–0.15919928.\n[Record whether the independent verifier agreed.]\n\n## Results\n\n![Synthetic Manhattan plot.](../results/synthetic/figures/manhattan.png)\n\n[Quote one checked association and distinguish variants from independent loci.]\n\n![Synthetic Q–Q plot with an independent-null pointwise envelope.](../results/synthetic/figures/qq.png)\n\n[Describe the pattern and explain the limits of lambda and the envelope.]\n\n![Selected effect estimates and unadjusted 95% intervals.](../results/synthetic/figures/effect-forest.png)\n\n[Name effect alleles and explain selection bias.]\n\n![Sequential variant filtering counts.](../results/synthetic/figures/filter-audit.png)\n\n[Quote before/after counts from filter-summary.tsv.]\n\n### Additional diagnostics\n\n![SE versus sample size with frequency context.](../results/synthetic/figures/precision-sample-size.png)\n\n[Describe N, frequency and precision together; the reference row is an exception.]\n\n![Source and derived normal Wald p-values.](../results/synthetic/figures/p-consistency.png)\n\nThe source p-values use the same formula as the derived test, so differences\nof about 3.3×10⁻¹³ on the −log10 scale are numerical rounding, not independent\nbiological confirmation.\n\n## Limitations and next checks\n\nAll data and coordinates are fictional. Neighbour correlation is simulated,\nnot an LD reference. Top variants are not independent loci or causal findings.\nIntervals are unadjusted and selected by p-value. The Q–Q envelope assumes\nindependent uniform null p-values and is not simultaneous or LD-adjusted.\n[State one useful next check.]\n\n## Reproducibility\n\nInputs: data/synthetic/.\nParameters: config/default.json.\nOutputs, input hashes and versions: results/synthetic/tables/run-record.json.\n[Record the analysis date and code version.]\nRender from the project root:\nquarto render reports/synthetic-report.qmd --to html\nVerify that all six referenced figures display and remove unfinished prompts before sharing. The other four figures can be added when they support a specific observation. Learner reports belong in the ignored reports/ folder; the reusable template remains versioned.\nNext: The published GLGC study",
+    "crumbs": [
+      "Synthetic practice",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Write the report</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/00-start-here.html",
+    "href": "examples/real-study/00-start-here.html",
+    "title": "GLGC HDL: a published human GWAS",
+    "section": "",
+    "text": "The data path\nThis example analyses the joint GWAS and Metabochip HDL-cholesterol release from the Global Lipids Genetics Consortium (Willer et al. 2013; Global Lipids Genetics Consortium n.d.). It is a full genome-wide association file, not a short list of published hits.\nPreparation excludes 186,081 rows whose reference frequency is unavailable. The analysis then excludes 203,281 rows below the frequency threshold. These are variant counts, not participant counts. No source rows were selected because of their p-values.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>GLGC HDL: a published human GWAS</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/00-start-here.html#the-data-path",
+    "href": "examples/real-study/00-start-here.html#the-data-path",
+    "title": "GLGC HDL: a published human GWAS",
+    "section": "",
+    "text": "Stage\nVariant rows\nMeaning\n\n\n\n\nOriginal release\n2,447,441\nPublished HDL file before this guide’s preparation\n\n\nPrepared input\n2,261,360\nAutosomal SNVs with available source reference frequency\n\n\nRetained analysis\n2,058,079\nPrepared rows meeting reference MAF ≥0.01",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>GLGC HDL: a published human GWAS</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/00-start-here.html#three-important-differences-from-synthetic-practice",
+    "href": "examples/real-study/00-start-here.html#three-important-differences-from-synthetic-practice",
+    "title": "GLGC HDL: a published human GWAS",
+    "section": "Three important differences from synthetic practice",
+    "text": "Three important differences from synthetic practice\n\nFrequency is from a reference panel. It describes 1000 Genomes EUR A1 frequency, not measured frequency across all meta-analysis participants.\nINFO is unavailable. The guide does not invent scores; its INFO filter is explicitly not applied.\nSource p-values are meta-analysis results. A derived beta/SE Wald value is a check on a different calculation and need not reproduce them.\n\nA1 is coded as the trait-increasing allele in this release. Its nonnegative betas do not mean all possible allele substitutions increase HDL.\nThe authors’ association models and meta-analysis are upstream of this guide. We inspect their released summaries; we do not repeat participant QC, refit the models, count LD-independent loci or make causal/clinical claims.\nNext: Preview the results\n\n\n\n\nGlobal Lipids Genetics Consortium. n.d. “Global Lipids Genetics Consortium Results (2013).” Accessed November 27, 2026. https://csg.sph.umich.edu/willer/public/lipids2013/.\n\n\nWiller, Cristen J., Ellen M. Schmidt, Sebanti Sengupta, et al. 2013. “Discovery and Refinement of Loci Associated with Lipid Levels.” Nature Genetics 45: 1274–83. https://doi.org/10.1038/ng.2797.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>GLGC HDL: a published human GWAS</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html",
+    "href": "examples/real-study/01-see-the-result.html",
+    "title": "Preview the GLGC results",
+    "section": "",
+    "text": "Association landscape\nThe figures below come from the verified HDL release and the documented preparation/filtering steps. Read them alongside results/glgc-hdl/tables/. Ten PNG figure families answer different questions.\nAutosomes alternate dark blue and orange. The strongest retained source association is rs247616, chromosome 16 at 56,989,590 on GRCh37, with p=1.15e-802. A full-range panel preserves that extreme value; the detail panel makes weaker signals visible. Triangles mark values above the detail panel’s display limit. Neither panel alters source values.\nThe plot contains all retained rows with p≤1e-5 plus 50,000 reproducibly sampled background rows. Calculations and the count of 3,285 variants at p≤5e-8 use all 2,058,079 retained rows. Do not count visible dots or interpret 3,285 as independent loci.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#association-landscape",
+    "href": "examples/real-study/01-see-the-result.html#association-landscape",
+    "title": "Preview the GLGC results",
+    "section": "",
+    "text": "GLGC HDL Manhattan plot with the full association range and a 0–50 detail view.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#distribution-of-p-values",
+    "href": "examples/real-study/01-see-the-result.html#distribution-of-p-values",
+    "title": "Preview the GLGC results",
+    "section": "Distribution of p-values",
+    "text": "Distribution of p-values\n\n\n\nFull-tail and central GLGC HDL Q–Q views.\n\n\nThe upper tail departs strongly from the simple reference. Lambda GC is 1.018789 for the retained file. These are post-release diagnostics: the source already used genomic control, and the joint design includes a custom array. A lambda near one does not prove absence of confounding or complete calibration.\nPlot ranks are drawn from the full sorted retained file, and expected values use its full count. The shaded band assumes independent uniform null p-values; it is pointwise, not simultaneous or LD-adjusted.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#selected-effect-estimates",
+    "href": "examples/real-study/01-see-the-result.html#selected-effect-estimates",
+    "title": "Preview the GLGC results",
+    "section": "Selected effect estimates",
+    "text": "Selected effect estimates\n\n\n\nTop retained source associations, with positions, effect/other alleles and nominal 95% Wald intervals.\n\n\nThe top twelve rows cluster on chromosome 16. This demonstrates why twelve small-p variants need not be twelve distinct findings. A1 is the increasing allele in this release, so the displayed betas are positive. Their units are the transformed HDL trait scale, not mg/dL. Intervals are derived as beta ±1.96×SE; they do not recreate the corrected meta-analysis test or adjust for selecting top rows.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#frequency-and-unavailable-quality-information",
+    "href": "examples/real-study/01-see-the-result.html#frequency-and-unavailable-quality-information",
+    "title": "Preview the GLGC results",
+    "section": "Frequency and unavailable quality information",
+    "text": "Frequency and unavailable quality information\n\n\n\nReference-frequency distributions and an explicit notice that INFO was not supplied.\n\n\nInput and retained histograms use identical bins. The frequency filter uses 1000 Genomes EUR reference MAF. The right panel intentionally reports unavailable INFO instead of inventing a distribution. Absence of this field does not establish either good or poor imputation quality.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#effect-and-frequency",
+    "href": "examples/real-study/01-see-the-result.html#effect-and-frequency",
+    "title": "Preview the GLGC results",
+    "section": "Effect and frequency",
+    "text": "Effect and frequency\n\n\n\nSource beta versus reference-panel minor allele frequency.\n\n\nOrange points meet the configured source p-value reference. Most smaller effects sit near zero, while some larger effects are visible. The plot is not an estimate of genetic architecture: effect coding, precision, source ascertainment and the display sample matter.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#per-variant-support",
+    "href": "examples/real-study/01-see-the-result.html#per-variant-support",
+    "title": "Preview the GLGC results",
+    "section": "Per-variant support",
+    "text": "Per-variant support\n\n\n\nDistribution of the source-reported per-variant N values.\n\n\nN varies across variants as contributing data differ. The source includes some decimal N values; they are preserved as reported. Do not round them into invented participant counts or assume they are effective N without source confirmation.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#filtering-audit",
+    "href": "examples/real-study/01-see-the-result.html#filtering-audit",
+    "title": "Preview the GLGC results",
+    "section": "Filtering audit",
+    "text": "Filtering audit\n\n\n\nSequential counts for reference-frequency filtering, with INFO explicitly not applied.\n\n\n203,281 prepared rows (8.99%) fail the reference MAF threshold. The third stage removes none because INFO is unavailable. The separate source-preparation audit accounts for the earlier 186,081 rows with unavailable reference frequency.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#precision-with-frequency-context",
+    "href": "examples/real-study/01-see-the-result.html#precision-with-frequency-context",
+    "title": "Preview the GLGC results",
+    "section": "Precision with frequency context",
+    "text": "Precision with frequency context\n\n\n\nStandard error versus source-reported N, coloured by reference MAF.\n\n\nSE varies at similar N. Reference frequency provides useful context, but it is not the study frequency and this scatter does not fit a precision model. Source meta-analysis methods and contributing cohorts also affect interpretation.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#source-p-values-versus-a-derived-wald-calculation",
+    "href": "examples/real-study/01-see-the-result.html#source-p-values-versus-a-derived-wald-calculation",
+    "title": "Preview the GLGC results",
+    "section": "Source p-values versus a derived Wald calculation",
+    "text": "Source p-values versus a derived Wald calculation\n\n\n\nSource association strength compared with the beta/SE-derived normal Wald calculation.\n\n\nThese values do not agree as closely as in synthetic practice. That is expected: the paper describes a weighted Stouffer meta-analysis and genomic control, whereas the check uses the reported beta divided by its SE (Willer et al. 2013). Do not overwrite source p-values with the derived values to force agreement.\nFor rs3764261, source −log10(p) is 768.856985, while derived Wald −log10(p) is 832.466119. Both can be calculated correctly while answering different statistical questions.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/01-see-the-result.html#regional-position-view",
+    "href": "examples/real-study/01-see-the-result.html#regional-position-view",
+    "title": "Preview the GLGC results",
+    "section": "Regional position view",
+    "text": "Regional position view\n\n\n\nRetained associations within 250 kb of rs247616 on chromosome 16.\n\n\nThis view contains 430 retained variants. It locates a strong association cluster but supplies no LD colours, causal probabilities or gene assignments. Build-matched annotation and suitable LD data would be separate follow-up inputs.\nYour task: choose three figures that would support a short report. For each, name a checked number, its table and a limitation.\nNext: Meet the data\n\n\n\n\nWiller, Cristen J., Ellen M. Schmidt, Sebanti Sengupta, et al. 2013. “Discovery and Refinement of Loci Associated with Lipid Levels.” Nature Genetics 45: 1274–83. https://doi.org/10.1038/ng.2797.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Preview the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/02-meet-the-data.html",
+    "href": "examples/real-study/02-meet-the-data.html",
+    "title": "Meet the GLGC data",
+    "section": "",
+    "text": "Identify the exact release\nThe source is the HDL joint GWAS/Metabochip file, jointGwasMc_HDL.txt.gz, linked from the authors’ release page (Global Lipids Genetics Consortium n.d.). The Metabochip-only file is a different analysis. The paper examines several lipid traits; this guide uses HDL only (Willer et al. 2013).\nThe prepared input is data/glgc-hdl/summary-statistics.tsv.gz, accompanied by study-metadata.json. Gzip compression is supported directly; do not rename it to .tsv without decompressing it.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Meet the GLGC data</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/02-meet-the-data.html#source-to-guide-mapping",
+    "href": "examples/real-study/02-meet-the-data.html#source-to-guide-mapping",
+    "title": "Meet the GLGC data",
+    "section": "Source-to-guide mapping",
+    "text": "Source-to-guide mapping\n\n\n\n\n\n\n\n\nSource column\nPrepared field\nPreparation\n\n\n\n\nSNP_hg19\nchromosome, position\nParse hg19/GRCh37 coordinate\n\n\nrsid\nvariant_id\nPreserve rsID; derive coordinate/allele ID where source rsID is unavailable\n\n\nA1, A2\neffect_allele, other_allele\nConvert base letters to uppercase\n\n\nbeta, se\nbeta, standard_error\nPreserve source estimates\n\n\nP-value\np_value\nPreserve text, including extreme scientific notation\n\n\nFreq.A1.1000G.EUR\neffect_allele_frequency\nRetain reference-panel frequency and declare its basis\n\n\nN\nsample_size\nPreserve reported values, including decimals\n\n\nNot supplied\nINFO unavailable\nDo not create a replacement quality score\n\n\n\nThe importer retains 551 valid rows with derived coordinate/allele IDs. A derived ID is a traceable label, not a newly assigned biological rsID.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Meet the GLGC data</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/02-meet-the-data.html#preparation-and-provenance",
+    "href": "examples/real-study/02-meet-the-data.html#preparation-and-provenance",
+    "title": "Meet the GLGC data",
+    "section": "Preparation and provenance",
+    "text": "Preparation and provenance\nThe source has 2,447,441 rows. Preparation excludes 186,081 with unavailable reference frequency, leaving 2,261,360. No p-value selection, chromosome restriction within autosomes or random row sampling is used for preparation.\ndata/provenance/glgc-hdl/preparation-audit.json records counts, source URL and checksums. preparation-exclusions.tsv.gz lists excluded source identifiers and reasons. The original release already excludes some low-N records; this guide cannot recover records the authors did not release.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Meet the GLGC data</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/02-meet-the-data.html#reproduce-the-inputs-when-needed",
+    "href": "examples/real-study/02-meet-the-data.html#reproduce-the-inputs-when-needed",
+    "title": "Meet the GLGC data",
+    "section": "Reproduce the inputs when needed",
+    "text": "Reproduce the inputs when needed\nThe completed package includes the prepared input. Maintainers can fetch the exact source and reproduce it:\npython scripts/python/prepare_glgc.py\nThe download is approximately 59 MB. Its SHA-256 is checked against the verified release; a changed file is rejected for investigation. The original compressed source is cached in ignored source/glgc2013/. Citation and data-use information remain with the source records; this guide does not assign a new license to the authors’ data.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Meet the GLGC data</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/02-meet-the-data.html#values-to-locate",
+    "href": "examples/real-study/02-meet-the-data.html#values-to-locate",
+    "title": "Meet the GLGC data",
+    "section": "Values to locate",
+    "text": "Values to locate\nFind rs3764261: GRCh37 chromosome 16, position 56,993,324; A/C; beta 0.2412; SE 0.0039; source p 1.39e-769; A1 reference frequency 0.2942; reported N 177,533. The p-value is positive even though converting it to an ordinary Python float would underflow.\nNext: Check the inputs\n\n\n\n\nGlobal Lipids Genetics Consortium. n.d. “Global Lipids Genetics Consortium Results (2013).” Accessed November 27, 2026. https://csg.sph.umich.edu/willer/public/lipids2013/.\n\n\nWiller, Cristen J., Ellen M. Schmidt, Sebanti Sengupta, et al. 2013. “Discovery and Refinement of Loci Associated with Lipid Levels.” Nature Genetics 45: 1274–83. https://doi.org/10.1038/ng.2797.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Meet the GLGC data</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/03-check-the-inputs.html",
+    "href": "examples/real-study/03-check-the-inputs.html",
+    "title": "Check the GLGC inputs",
+    "section": "",
+    "text": "What must agree\nFrom the main project folder:\nFor the bundled release expect:\nThe parser calculates source −log10(p) with decimal arithmetic where needed. It rejects literal zero; it does not turn 1.39e-769 into a floor such as 1e-300.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Check the GLGC inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/03-check-the-inputs.html#what-must-agree",
+    "href": "examples/real-study/03-check-the-inputs.html#what-must-agree",
+    "title": "Check the GLGC inputs",
+    "section": "",
+    "text": "IDs and coordinates are unique in the prepared file.\nAllele pairs are distinct uppercase single bases.\nEstimates, SE, frequency and reported N satisfy the documented ranges.\nSource p-value text represents a positive value no greater than one.\nMetadata specifies GRCh37, quantitative beta, reference-panel frequency, reported N and unavailable INFO.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Check the GLGC inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/03-check-the-inputs.html#understand-the-exclusions",
+    "href": "examples/real-study/03-check-the-inputs.html#understand-the-exclusions",
+    "title": "Check the GLGC inputs",
+    "section": "Understand the exclusions",
+    "text": "Understand the exclusions\nPreparation and analysis are different stages. The 186,081 unavailable-frequency exclusions belong to the importer audit. The analysis applies reference MAF ≥0.01 to the remaining rows, removing 203,281 more.\nINFO is declared unavailable, so its threshold is not applied. The empty quality panel is an explicit limitation, not evidence that every variant passes an imputation-quality test. If a different source supplies valid INFO, keep it and apply a justified setting.\nPassing these checks establishes compatibility and arithmetic conditions. It does not validate the original phenotype model, allele harmonization, ancestry adjustment or meta-analysis. Read the paper and source notes for those decisions.\nNext: Run the analysis",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Check the GLGC inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/04-run-the-analysis.html",
+    "href": "examples/real-study/04-run-the-analysis.html",
+    "title": "Run the GLGC analysis",
+    "section": "",
+    "text": "Find the evidence\nThis processes more than two million rows. Allow several minutes and several gigabytes of available memory. Full compressed audit/results tables occupy several hundred MB. Existing named outputs are replaced; use separate output folders when comparing runs.\nThe distribution package contains the figures, prepared input and compact evidence tables. The two large full-row audit/results files are regenerated by this command rather than bundled. Run it before the command-line verification step.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Run the GLGC analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/04-run-the-analysis.html#find-the-evidence",
+    "href": "examples/real-study/04-run-the-analysis.html#find-the-evidence",
+    "title": "Run the GLGC analysis",
+    "section": "",
+    "text": "Output in results/glgc-hdl/\nPurpose\n\n\n\n\nfigures/*.png\nTen figure families, including a full-range/detail Manhattan view\n\n\ntables/variant-qc.tsv.gz\nEvery prepared row, frequency/INFO status and filter flags\n\n\ntables/variant-results.tsv.gz\nEvery retained association and derived quantities\n\n\ntables/top-variants.tsv\nTop twelve source associations, not independent loci\n\n\ntables/filter-summary.tsv\nSequential counts and percentages\n\n\ntables/scatter-display.tsv\nExact plotted dense-scatter rows\n\n\ntables/qq-display.tsv\nSelected full-file ranks and their reference values\n\n\ntables/region-display.tsv\nAll 430 retained rows in the displayed region\n\n\ntables/analysis-summary.json\nFull-file counts and diagnostic definitions\n\n\ntables/run-record.json\nMetadata, parameters, display policy and hashes",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Run the GLGC analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/04-run-the-analysis.html#display-policy-is-explicit",
+    "href": "examples/real-study/04-run-the-analysis.html#display-policy-is-explicit",
+    "title": "Run the GLGC analysis",
+    "section": "Display policy is explicit",
+    "text": "Display policy is explicit\nAll 5,346 retained rows at p≤1e-5 are displayed, together with 50,000 remaining background rows sampled reproducibly. All 2,058,079 retained rows enter threshold counts, top-row selection and lambda. Histogram counts also use the full relevant table.\nThe Q–Q figure selects ranks for drawing from the full sorted file and uses the full count for expectations and the envelope. It does not use the significance-enriched scatter sample for global diagnostics.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Run the GLGC analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/04-run-the-analysis.html#what-the-script-does-not-redo",
+    "href": "examples/real-study/04-run-the-analysis.html#what-the-script-does-not-redo",
+    "title": "Run the GLGC analysis",
+    "section": "What the script does not redo",
+    "text": "What the script does not redo\nIt preserves the authors’ source p-values and beta/SE. It does not repeat their genomic control, reconstruct participant-level models, infer LD-independent loci or assign genes. The additional normal Wald calculation is labelled separately and is not used to replace the source test.\nNext: Verify and explain",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>Run the GLGC analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/05-verify-and-explain.html",
+    "href": "examples/real-study/05-verify-and-explain.html",
+    "title": "Verify and explain the GLGC results",
+    "section": "",
+    "text": "Verify a named association\nAfter the full run:\nThe verifier reads the prepared row and saved results, then uses independent standard-library calculations, including a stable normal-tail approximation for very large z.\nAll saved derived quantities should agree with independent calculations. Agreement checks the arithmetic, not whether the source test should equal the derived test.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Verify and explain the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/05-verify-and-explain.html#verify-a-named-association",
+    "href": "examples/real-study/05-verify-and-explain.html#verify-a-named-association",
+    "title": "Verify and explain the GLGC results",
+    "section": "",
+    "text": "python scripts/python/verify_variant.py data/glgc-hdl results/glgc-hdl rs3764261\n\n\n\n\nQuantity\nChecked value\n\n\n\n\nEffect / other allele\nA / C\n\n\nSource beta\n0.2412\n\n\nSource SE\n0.0039\n\n\nDerived z\n61.8461538462\n\n\nSource p-value text\n1.39e-769\n\n\nSource −log10(p)\n768.856985200\n\n\nDerived normal Wald −log10(p)\n832.466118689\n\n\nNominal 95% Wald interval\n0.2335561405–0.2488438595\n\n\nReference MAF\n0.2942",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Verify and explain the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/05-verify-and-explain.html#explain-the-p-value-difference",
+    "href": "examples/real-study/05-verify-and-explain.html#explain-the-p-value-difference",
+    "title": "Verify and explain the GLGC results",
+    "section": "Explain the p-value difference",
+    "text": "Explain the p-value difference\nThe source uses a corrected meta-analysis result; the paper describes weighted Stouffer meta-analysis and genomic control (Willer et al. 2013). The beta/SE calculation is a normal Wald approximation. Their different p-values are therefore not automatically a programming error.\nChecked wording: “For rs3764261, A relative to C had a source beta of 0.2412 on the transformed HDL scale. The source p-value was 1.39×10⁻⁷⁶⁹. A nominal interval derived from the reported beta and SE was 0.2336–0.2488. This calculation does not identify a causal variant or establish a clinical benefit from raising HDL.”",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Verify and explain the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/05-verify-and-explain.html#verify-the-counts",
+    "href": "examples/real-study/05-verify-and-explain.html#verify-the-counts",
+    "title": "Verify and explain the GLGC results",
+    "section": "Verify the counts",
+    "text": "Verify the counts\n\nSource: 2,447,441 rows.\nExcluded during preparation for unavailable reference frequency: 186,081.\nPrepared input: 2,261,360.\nExcluded by reference MAF: 203,281, or 8.9893% of prepared rows.\nRetained: 2,058,079.\nRetained source p≤5e-8: 3,285 variants.\n\nCheck the importer audit, filtering table and analysis summary separately. The INFO stage is not applied. Do not combine its unavailable status with a claim that all records passed quality assessment.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Verify and explain the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/05-verify-and-explain.html#read-the-regional-evidence",
+    "href": "examples/real-study/05-verify-and-explain.html#read-the-regional-evidence",
+    "title": "Verify and explain the GLGC results",
+    "section": "Read the regional evidence",
+    "text": "Read the regional evidence\nregion-display.tsv contains 430 retained variants within ±250 kb of rs247616. Several strong rows cluster in one region. The plot supplies no LD estimates, so neither the regional row count nor the twelve-row forest plot gives a count of independent signals.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Verify and explain the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/05-verify-and-explain.html#your-evidence-check",
+    "href": "examples/real-study/05-verify-and-explain.html#your-evidence-check",
+    "title": "Verify and explain the GLGC results",
+    "section": "Your evidence check",
+    "text": "Your evidence check\nWrite three observations with an exact value, source table and limitation. Include one observation about source-method context rather than just signal strength. A defensible next step might be build-matched annotation, appropriate LD resources or a replication dataset—not a causal claim from the Manhattan plot.\nNext: Write the report\n\n\n\n\nWiller, Cristen J., Ellen M. Schmidt, Sebanti Sengupta, et al. 2013. “Discovery and Refinement of Loci Associated with Lipid Levels.” Nature Genetics 45: 1274–83. https://doi.org/10.1038/ng.2797.",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>17</span>  <span class='chapter-title'>Verify and explain the GLGC results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/real-study/06-export-the-report.html",
+    "href": "examples/real-study/06-export-the-report.html",
+    "title": "Write the GLGC report",
+    "section": "",
+    "text": "Create reports/glgc-hdl-report.qmd. Start with this template, also supplied in templates/glgc-hdl-report.qmd. Replace every bracketed prompt with checked evidence.\n---\ntitle: \"GLGC HDL: checked summary-statistics analysis\"\nformat:\n  html:\n    toc: true\n---\n\n## Question and source\n\nI inspected the joint GWAS/Metabochip HDL-cholesterol release from\nWiller et al. (2013), doi:10.1038/ng.2797. Prepared coordinates use GRCh37.\nThe authors' source: https://csg.sph.umich.edu/willer/public/lipids2013/.\nI examined association summaries, not participant-level genotypes.\n\n## Preparation and methods\n\nThe source had 2,447,441 variant rows. Preparation excluded 186,081 with\nunavailable reference frequency, leaving 2,261,360. Reference MAF ≥0.01\nretained 2,058,079. Frequencies come from 1000 Genomes EUR, not the complete\nstudy sample. INFO was unavailable and its filter was not applied.\n\nSource p-values, including very small positive values, were preserved as\ntext. I inspected source associations and derived separate normal Wald\nquantities from beta/SE. The source uses corrected meta-analysis results;\nthese need not equal the derived calculation. Beta units are transformed\nHDL units per A1 allele, not mg/dL. A1 is coded as increasing HDL.\n\nDense scatter plots show all retained p≤1e-5 rows plus 50,000 other rows.\nSummary counts and lambda use the full retained file. Q–Q expectations\nuse the full count; the pointwise band assumes an independent null.\n\n## Verification\n\nrs3764261 had A/C, beta 0.2412, SE 0.0039, z=61.8461538462,\nsource p=1.39e-769, source −log10(p)=768.8569852 and derived normal\nWald −log10(p)=832.466118689. Its derived nominal 95% interval was\n0.2335561405–0.2488438595. Reference MAF was 0.2942.\n[Record whether the independent verifier agreed with saved quantities.]\n\n## Results\n\n![Source association landscape with a detail view.](../results/glgc-hdl/figures/manhattan.png)\n\nThe smallest retained source p-value was 1.15e-802 for rs247616 on\nchromosome 16 at 56,989,590. There were 3,285 retained variants at p≤5e-8.\nThis is not a count of independent loci.\n[Add one checked observation from a different region.]\n\n![Full-tail and central Q–Q views.](../results/glgc-hdl/figures/qq.png)\n\nThe tail departed strongly from the simple reference; lambda GC for the\nretained source file was 1.018789. This release already used genomic control,\nand the diagnostic does not prove absence of confounding.\n\n![Selected effect estimates and nominal intervals.](../results/glgc-hdl/figures/effect-forest.png)\n\n[Describe allele coding, transformed units and the nearby positions.]\n\n![Source-versus-derived p-value diagnostics.](../results/glgc-hdl/figures/p-consistency.png)\n\nThe source and derived tests differ. I retained the source p-values and\nused the paper's meta-analysis methods to interpret the discrepancy.\n\n![Reference frequency and unavailable INFO.](../results/glgc-hdl/figures/frequency-info.png)\n\n[Describe the reference-frequency restriction and the unavailable quality field.]\n\n## Limitations and next step\n\nThe analysis uses released summaries and a reference-frequency restriction.\nIt does not repeat the original participant QC, adjustment or meta-analysis.\nNominal intervals are derived from reported beta/SE and are unadjusted for\nselecting top rows. No LD clumping, fine mapping, causal-gene assignment,\nclinical-risk prediction or causal effect of HDL was established.\n[Propose one next analysis with the additional inputs it would require.]\n\n## Reproducibility\n\nInputs: data/glgc-hdl/. Outputs: results/glgc-hdl/.\nPreparation: scripts/python/prepare_glgc.py.\nAudit: data/provenance/glgc-hdl/preparation-audit.json.\nParameters, hashes and versions: results/glgc-hdl/tables/run-record.json.\n[Record analysis date and code version.]\nRender from the project root:\nquarto render reports/glgc-hdl-report.qmd --to html\nOpen the HTML and check all five figure paths. Confirm that the report distinguishes source and derived p-values, reference and study frequencies, variant counts and independent loci. The source paper covers more than this lesson; do not claim to reproduce its entire discovery, fine-mapping or biological analysis.\nKeep the learner report in ignored reports/. Retain the source citation, exact input version and source-preparation audit with any shared result.\nNext: Your own study",
+    "crumbs": [
+      "Human lipid study: GLGC HDL",
+      "<span class='chapter-number'>18</span>  <span class='chapter-title'>Write the GLGC report</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/00-start-here.html",
+    "href": "examples/my-study/00-start-here.html",
+    "title": "Your own study: define the question",
+    "section": "",
+    "text": "Is this workflow suitable?\nUse this route for compatible quantitative-trait beta summary statistics. Complete synthetic practice first, then use the GLGC example to see why source-method context matters.\nRecord the publication/accession, phenotype processing, study design, population descriptors, genome build, effect allele, effect units and source test. Decide whether the file is genome-wide or a selected list.\nA compatible table can still have unsuitable source assumptions. Do not use the finished synthetic or GLGC answers as findings for your study.\nNext: Preview your outputs",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Your own study: define the question</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/00-start-here.html#is-this-workflow-suitable",
+    "href": "examples/my-study/00-start-here.html#is-this-workflow-suitable",
+    "title": "Your own study: define the question",
+    "section": "",
+    "text": "Your input\nDecision\n\n\n\n\nQuantitative-trait beta, positive SE, autosomal SNVs and documented metadata\nPrepare the contract and proceed\n\n\nOdds ratios or log-odds\nExtend the model and labels first; do not relabel them as quantitative beta\n\n\nGenotypes and participant phenotypes\nThis guide starts later; use an appropriate genotype-QC/association pipeline\n\n\nSelected variants only\nUse descriptive plots; Q–Q and lambda will be skipped\n\n\nMissing study definitions or unknown build\nResolve against the original source before interpretation",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>19</span>  <span class='chapter-title'>Your own study: define the question</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/01-see-the-result.html",
+    "href": "examples/my-study/01-see-the-result.html",
+    "title": "Preview your outputs",
+    "section": "",
+    "text": "No own-study figures are displayed until you run and verify your inputs. Use the synthetic and GLGC previews to learn what each plot can answer.\n\n\n\n\n\n\n\n\nFigure\nQuestion\nImportant limit\n\n\n\n\nManhattan\nWhere are source associations concentrated?\nNearby variants can be correlated\n\n\nQ–Q\nHow does the distribution compare with a reference?\nGenome-wide background is required\n\n\nEffect forest\nWhat are direction, units and nominal intervals?\nTop rows are selected and may be nearby\n\n\nFrequency/INFO\nWhich values support filtering?\nFrequency basis and missing scores matter\n\n\nEffect-frequency\nWhat patterns accompany frequency and effect?\nDisplay and source selection affect the picture\n\n\nN / precision\nHow does reported support relate to SE?\nN and frequency do not fully explain the model\n\n\nFiltering audit\nWhat was excluded and why?\nSource preparation and analysis are different stages\n\n\nP consistency\nDoes beta/SE reproduce a particular normal calculation?\nThe source may use another test\n\n\nPosition zoom\nWhat lies around the smallest retained p-value?\nPosition alone supplies neither LD nor genes\n\n\n\nThe engine keeps all rows for calculations and thins only dense scatter backgrounds when needed. Use scatter-display.tsv to identify the displayed points. A long association tail receives a full-range/detail Manhattan view.\nAfter analysis, insert verified figure links into your report. From reports/my-study-report.qmd, paths begin ../results/my-study/figures/. Keep the guide free of another dataset’s images labelled as your study.\nYour task: choose three figures that directly address your question and state one number you will check for each.\nNext: Prepare the inputs",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>20</span>  <span class='chapter-title'>Preview your outputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/02-meet-the-data.html",
+    "href": "examples/my-study/02-meet-the-data.html",
+    "title": "Prepare your inputs",
+    "section": "",
+    "text": "The data contract\nCreate data/my-study/summary-statistics.tsv (or .tsv.gz) and study-metadata.json. Keep original files and a reproducible column-mapping/preparation record.\nMetadata must declare study ID, trait, population, build, quantitative beta, effect units, file scope, source and synthetic status. A starter is supplied in templates/study-metadata.json.\nOptional declarations have specific meanings:",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Prepare your inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/02-meet-the-data.html#the-data-contract",
+    "href": "examples/my-study/02-meet-the-data.html#the-data-contract",
+    "title": "Prepare your inputs",
+    "section": "",
+    "text": "Field\nRequired meaning\n\n\n\n\nvariant_id\nUnique identifier traceable to the source\n\n\nchromosome, position\nInteger autosome 1–22 and positive coordinate in the declared build\n\n\neffect_allele, other_allele\nDistinct uppercase A/C/G/T bases\n\n\nbeta, standard_error\nQuantitative-trait estimate and positive SE on the same scale\n\n\np_value\nPositive source probability ≤1, preserved as text when needed\n\n\neffect_allele_frequency\nFrequency of the named effect allele; state study or reference basis\n\n\nsample_size\nSource-reported positive per-variant N\n\n\nimputation_info\nValid source score in [0,1], when available\n\n\n\n\n\n\ninfo_available: false: verified source absence; INFO is not filtered. Omit its column or use NA throughout. Do not fill it with 1.\nfrequency_basis: describe reference-panel frequency if that is what the source supplies.\nsample_size_type: source_reported: preserve verified source non-integer N. Do not use this to hide malformed data or infer an unknown effective-N definition.\nsummary_scope: selected_variants: suppress global Q–Q/lambda. This does not recover omitted background variants.",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Prepare your inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/02-meet-the-data.html#resolve-source-issues-explicitly",
+    "href": "examples/my-study/02-meet-the-data.html#resolve-source-issues-explicitly",
+    "title": "Prepare your inputs",
+    "section": "Resolve source issues explicitly",
+    "text": "Resolve source issues explicitly\nKeep source p-values even when a different normal test can be derived from beta/SE. Literal zero is not a valid recovered probability; obtain source log-p or higher-precision values instead of inserting a floor. Extreme positive scientific notation is supported.\nResolve missing frequencies, multiple records at a coordinate, ambiguous allele orientation and unsupported variant classes upstream. Record exclusion reasons and counts. This is a teaching contract, not a complete GWAS-SSF importer (GWAS Catalog n.d.).",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Prepare your inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/02-meet-the-data.html#provenance-note",
+    "href": "examples/my-study/02-meet-the-data.html#provenance-note",
+    "title": "Prepare your inputs",
+    "section": "Provenance note",
+    "text": "Provenance note\nRecord citation/accession, source URL/date/hash, license or data-use terms, phenotype/model definition, cohort/sample-size definitions, build, allele mapping, source test, quality metrics and every preparation exclusion. Original data and identifiers should remain traceable.\nNext: Check the inputs\n\n\n\n\nGWAS Catalog. n.d. “GWAS Summary Statistics Format Specification.” Accessed November 27, 2026. https://github.com/gwas-catalog/summary-statistics-standard.",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>21</span>  <span class='chapter-title'>Prepare your inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/03-check-the-inputs.html",
+    "href": "examples/my-study/03-check-the-inputs.html",
+    "title": "Check your inputs",
+    "section": "",
+    "text": "Diagnose the problem rather than silence it\nFrom the project root:\nThe command will fail until your prepared inputs exist. Expect your actual row/retained/chromosome counts; there is no universal reference answer.\nPassing validation does not prove correct phenotype coding, build conversion, allele harmonization, population adjustment or cohort independence. Check those against source documentation.",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Check your inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/03-check-the-inputs.html#diagnose-the-problem-rather-than-silence-it",
+    "href": "examples/my-study/03-check-the-inputs.html#diagnose-the-problem-rather-than-silence-it",
+    "title": "Check your inputs",
+    "section": "",
+    "text": "Error or discrepancy\nAction\n\n\n\n\nMissing/duplicate headers or IDs\nReconcile the source mapping and identifiers\n\n\nRepeated coordinate\nResolve multiallelic or duplicate records upstream\n\n\nInvalid allele pair\nCheck variant class, capitalization and source strand conventions\n\n\nZero/invalid p\nObtain valid original probability or log-p information\n\n\nNonpositive SE\nInvestigate source coding; do not replace with a small constant\n\n\nMissing/invalid frequency\nResolve the source or document exclusions\n\n\nINFO declared unavailable but numbers supplied\nCorrect the metadata or the prepared score field\n\n\nUnsupported effect type/build\nExtend or prepare the appropriate analysis before use",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Check your inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/03-check-the-inputs.html#review-filtering-before-the-full-run",
+    "href": "examples/my-study/03-check-the-inputs.html#review-filtering-before-the-full-run",
+    "title": "Check your inputs",
+    "section": "Review filtering before the full run",
+    "text": "Review filtering before the full run\nInspect config/default.json. Justify its MAF/INFO thresholds for your study. With a custom configuration:\npython scripts/python/run_workflow.py --data-dir data/my-study --output-dir results/my-study --config config/my-study.json --check-only\nDo not remove records solely to force a preferred figure or p-value pattern. Keep a source-to-prepared audit distinct from the analysis filter audit. --check-only does not refresh existing figures.\nNext: Run the analysis",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>22</span>  <span class='chapter-title'>Check your inputs</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/04-run-the-analysis.html",
+    "href": "examples/my-study/04-run-the-analysis.html",
+    "title": "Run your analysis",
+    "section": "",
+    "text": "Inspect the output before writing findings\nAdd --config config/my-study.json if you validated that configuration. Use a new output folder for a substantively different analysis; named files are replaced on rerun.\nFor inputs above 100,000 rows, full QC/results tables use .tsv.gz; smaller display/summary tables remain ordinary TSV. Dense plots use a documented background sample, but numerical summaries use the full retained file.\nQ–Q and lambda are generated only for a declared genome-wide file. If you rerun a selected-variant file into an existing folder, stale Q–Q outputs are removed. The engine writes PNG only and removes its legacy PDF/SVG copies for its known figure names.",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Run your analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/04-run-the-analysis.html#inspect-the-output-before-writing-findings",
+    "href": "examples/my-study/04-run-the-analysis.html#inspect-the-output-before-writing-findings",
+    "title": "Run your analysis",
+    "section": "",
+    "text": "Confirm the input and retained row counts in analysis-summary.json.\nRead filter-summary.tsv and source-preparation notes.\nCheck source metadata, hashes and display policy in run-record.json.\nOpen the PNG figures and the tables that support your chosen observations.\nConfirm that INFO availability, frequency basis, units and effect coding are correctly labelled.",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Run your analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/04-run-the-analysis.html#what-remains-outside-this-run",
+    "href": "examples/my-study/04-run-the-analysis.html#what-remains-outside-this-run",
+    "title": "Run your analysis",
+    "section": "What remains outside this run",
+    "text": "What remains outside this run\nThe script does not fit genotype models, estimate LD, perform clumping/fine mapping, establish replication or assign causal genes. If your question needs one of these, specify the necessary additional inputs and method rather than inferring the answer from an association plot.\nNext: Verify and explain",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>23</span>  <span class='chapter-title'>Run your analysis</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/05-verify-and-explain.html",
+    "href": "examples/my-study/05-verify-and-explain.html",
+    "title": "Verify and explain your results",
+    "section": "",
+    "text": "Check more than a small p-value\nChoose a retained source variant. Replace YOUR_VARIANT_ID:\nThe verifier checks a retained row. If a variant was excluded, inspect the QC table and preparation audit; do not alter the saved filter flag to make it appear in results.",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Verify and explain your results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/05-verify-and-explain.html#check-more-than-a-small-p-value",
+    "href": "examples/my-study/05-verify-and-explain.html#check-more-than-a-small-p-value",
+    "title": "Verify and explain your results",
+    "section": "",
+    "text": "Verify the source allele pair and effect units.\nRecalculate beta/SE, the nominal interval and source −log10(p).\nCompare the derived normal Wald strength with the source test definition.\nTrace one excluded record to its source and filter reason.\nReconcile one count and one plotted value with saved evidence.",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Verify and explain your results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/05-verify-and-explain.html#write-a-defensible-observation",
+    "href": "examples/my-study/05-verify-and-explain.html#write-a-defensible-observation",
+    "title": "Verify and explain your results",
+    "section": "Write a defensible observation",
+    "text": "Write a defensible observation\n“Variant [ID] had beta [value] per [effect allele] relative to [other allele] on [units], with source p [exact value]. The derived nominal interval was [lower, upper]. [State the relevant source-method or selection limitation.]”\nDo not equate positive beta with harm, the nearest gene with the causal gene, or multiple nearby small-p rows with independent discoveries. A source-versus-Wald discrepancy can reflect different tests or correction; investigate before calling it an error.",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Verify and explain your results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/05-verify-and-explain.html#plan-the-next-check",
+    "href": "examples/my-study/05-verify-and-explain.html#plan-the-next-check",
+    "title": "Verify and explain your results",
+    "section": "Plan the next check",
+    "text": "Plan the next check\nChoose a next step that addresses a specific uncertainty: source harmonization review, build-matched annotation, matched LD, replication, a properly specified meta-analysis or another justified method. Explain what it would add. Do not ask AI to invent unavailable evidence.\nNext: Write the report",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>24</span>  <span class='chapter-title'>Verify and explain your results</span>"
+    ]
+  },
+  {
+    "objectID": "examples/my-study/06-export-the-report.html",
+    "href": "examples/my-study/06-export-the-report.html",
+    "title": "Write your report",
+    "section": "",
+    "text": "Create reports/my-study-report.qmd. The template below is also available in templates/my-study-report.qmd. Replace every prompt using your own checked evidence; remove any section that does not apply.\n---\ntitle: \"My GWAS summary-statistics report\"\nformat:\n  html:\n    toc: true\n---\n\n## Question and data\n\n[State the trait, source/citation, population, build, effect units and source test.]\n[Report original, prepared and retained variant counts separately from N.]\n\n## Methods\n\n[Describe the importer, exclusions, MAF/INFO settings and frequency basis.]\n[State whether the source is genome-wide or selected, and describe the plotting policy.]\n[Explain source p preservation and the separate normal Wald check.]\n\n## Verification\n\n[Name a variant, effect/other alleles, beta, SE, source p text, log strength and interval.]\n[Record whether independent verification agreed and explain any source-test difference.]\n\n## Results\n\n![My association landscape.](../results/my-study/figures/manhattan.png)\n\n[Quote checked values and identify their saved table.]\n\n![My selected effect estimates.](../results/my-study/figures/effect-forest.png)\n\n[Discuss units, allele orientation, uncertainty and nearby rows.]\n\n![My filter audit.](../results/my-study/figures/filter-audit.png)\n\n[Explain exclusions, missing quality fields and denominators.]\n\n[Add Q–Q only if it was appropriate and generated. Add other figures only when useful.]\n\n## Limitations and next step\n\n[Discuss source/model, selection, frequency and LD limitations relevant to these data.]\n[Do not claim independent loci, causal genes, clinical risk or causality from these plots.]\n[Name a concrete follow-up and the extra inputs it requires.]\n\n## Reproducibility\n\nInputs: data/my-study/. Outputs: results/my-study/.\nParameters and hashes: results/my-study/tables/run-record.json.\n[Record the preparation script, analysis date, code version and references.]\nRender from the project root:\nquarto render reports/my-study-report.qmd --to html\nOpen the HTML and inspect figure paths, units, allele labels, counts, citations and remaining prompts. A report need not repeat every available figure. Choose evidence that answers your stated question.\nReady to share: another person can trace the numerical claims, reproduce the commands and identify the study-specific limits. Keep the learner report in ignored reports/; maintain reusable templates and source instructions in the project.\nReturn to the guide overview",
+    "crumbs": [
+      "Your own study",
+      "<span class='chapter-number'>25</span>  <span class='chapter-title'>Write your report</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html",
+    "href": "99-appendix.html",
+    "title": "Appendix A — Appendix",
+    "section": "",
+    "text": "Vocabulary for reading a GWAS table",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html#vocabulary-for-reading-a-gwas-table",
+    "href": "99-appendix.html#vocabulary-for-reading-a-gwas-table",
+    "title": "Appendix A — Appendix",
+    "section": "",
+    "text": "Term\nMeaning here\n\n\n\n\nVariant row\nAn association summary for a genomic variant, not a participant\n\n\nGenome build\nCoordinate reference; positions from different builds are not interchangeable\n\n\nEffect allele\nThe allele to which beta and its frequency refer; not automatically minor, reference or harmful\n\n\nBeta\nChange on the stated quantitative-trait scale per copy of the effect allele\n\n\nSE\nStandard error on the beta scale\n\n\nSource p-value\nThe released association-test result, retained separately from derived checks\n\n\nEAF / MAF\nEffect-allele frequency / smaller of EAF and 1−EAF\n\n\nINFO\nA source-defined imputation-quality metric when supplied\n\n\nLD\nCorrelation among variants; position alone does not measure it\n\n\nLocus / causal gene\nA regional or biological interpretation requiring more than a list of small-p rows",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html#reference-arithmetic",
+    "href": "99-appendix.html#reference-arithmetic",
+    "title": "Appendix A — Appendix",
+    "section": "Reference arithmetic",
+    "text": "Reference arithmetic\nFor a quantitative beta estimate and positive SE:\n\\[\nz=\\frac{\\beta}{SE},\\qquad CI_{95\\%}=\\beta\\pm 1.959964\\,SE.\n\\]\nThe derived two-sided normal Wald p-value is \\(2\\Phi(-|z|)\\). It does not establish which test produced a source p-value. Preserve source methods and source values.\nThe plotted strength is \\(-\\log_{10}(p)\\). Smaller p produces a higher point, not necessarily a larger effect. Precision and sample support influence significance.\n\n\n\nVerification row\nz\nSource −log10(p)\nDerived Wald −log10(p)\n\n\n\n\nSYN000001\n6\n8.704834\n8.704834\n\n\nrs3764261\n61.846154\n768.856985\n832.466119\n\n\n\nThe synthetic source uses the same normal formula. The GLGC source uses corrected meta-analysis results (Willer et al. 2013; Global Lipids Genetics Consortium n.d.). Both rows illustrate correct arithmetic; they do not imply the same test definition.\n\nVery small positive p-values\nBinary64 cannot represent every probability in a released GWAS file. The guide retains source p-value strings, using decimal logarithms for extreme values. Thus 1.39e-769 remains a positive source result; it is not replaced by zero or floored at an arbitrary minimum. Read p_value as text when independently inspecting such rows.\nThe verifier uses a stable normal-tail approximation for large z. An ordinary floating-point Wald probability may underflow, while its log remains finite. Compare named log quantities and state their test definitions.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html#frequencies-support-and-missing-quality-fields",
+    "href": "99-appendix.html#frequencies-support-and-missing-quality-fields",
+    "title": "Appendix A — Appendix",
+    "section": "Frequencies, support and missing quality fields",
+    "text": "Frequencies, support and missing quality fields\nMAF is \\(\\min(EAF,1-EAF)\\). Changing the named allele reverses beta and replaces EAF by 1−EAF when the allele pair is properly aligned. It does not change MAF or a two-sided normal test.\nReference-panel frequency is not the frequency measured in every study cohort. The GLGC release supplies 1000 Genomes EUR frequency; the guide labels its basis and records exclusions for unavailable values. Other sources require their own documentation.\nN is a per-variant source field, not the number of association rows. Some GLGC N values contain decimals; the guide preserves reported values without claiming why they are non-integer. It does not assume actual N and effective N are interchangeable.\nIf INFO is absent, metadata explicitly declares that absence and the filter is not applied. A missing distribution is not evidence of good imputation. Never fill an absent quality field with 1 merely to pass validation.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html#filtering-and-display",
+    "href": "99-appendix.html#filtering-and-display",
+    "title": "Appendix A — Appendix",
+    "section": "Filtering and display",
+    "text": "Filtering and display\nThe importer audit describes source-to-prepared transformations. The workflow audit describes MAF/INFO filtering of prepared rows. Their denominators differ; report both.\nSummary calculations use every retained row. Dense scatters retain all p≤1e-5 rows and reproducibly sample at most 50,000 other background rows by default. The exact displayed rows and policy are recorded. Do not estimate variant counts from visible dots.\nFor Q–Q, ranks are selected from the full sorted distribution. With \\(m\\) retained rows and rank \\(i\\), the reference probability is \\((i-0.5)/m\\). The shaded interval uses beta order-statistic quantiles under independent uniform null p-values. It is pointwise, not a simultaneous or LD-adjusted band. Dense points need not imply independent tests.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html#lambda-and-multiple-testing",
+    "href": "99-appendix.html#lambda-and-multiple-testing",
+    "title": "Appendix A — Appendix",
+    "section": "Lambda and multiple testing",
+    "text": "Lambda and multiple testing\nLambda GC is the median chi-square(1) value transformed from source p-values divided by the chi-square(1) null median (Devlin and Roeder 1999). It is a diagnostic, not a correction applied by this guide or a proof of study validity. Source correction, true signal, sample size, variant selection, correlation and model issues influence interpretation.\nThe default p≤5×10⁻⁸ line is a declared reference for this worked example. A new study needs a justified multiple-testing plan. Threshold-crossing variants are not automatically independent loci, and a new threshold is not justified merely by counting a teaching subset.\nA top-variant forest plot has selection bias and nearby rows may be correlated. Its nominal intervals are not simultaneous intervals or intervals adjusted for selection. The GLGC source test is not reconstructed by those intervals.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html#what-requires-additional-evidence",
+    "href": "99-appendix.html#what-requires-additional-evidence",
+    "title": "Appendix A — Appendix",
+    "section": "What requires additional evidence",
+    "text": "What requires additional evidence\n\n\n\n\n\n\n\nCurrent result\nAdditional work before a stronger claim\n\n\n\n\nA regional association cluster\nAppropriate LD and study definitions before counting independent signals\n\n\nA position near a gene\nBuild-matched annotation and biological evidence before causal-gene assignment\n\n\nA small p-value\nEffect units, source method, replication and study limits\n\n\nA trait association\nSeparate causal design before an intervention or clinical conclusion\n\n\nA useful synthetic demonstration\nVerified real data before a biological finding\n\n\n\nSummary-statistics QC benefits from source-level organization, explicit diagnostics and documented decisions (Winkler et al. 2014). The simplified TSV/JSON contract here is not a full GWAS-SSF validator (GWAS Catalog n.d.).",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html#reproducibility-and-scope",
+    "href": "99-appendix.html#reproducibility-and-scope",
+    "title": "Appendix A — Appendix",
+    "section": "Reproducibility and scope",
+    "text": "Reproducibility and scope\nKeep prepared inputs, original source records, importer, parameters, analysis code, environment and report. SHA-256 hashes identify files; they do not validate scientific meaning. Version ranges and a run record do not constitute an exact portable environment lock.\nThe synthetic design is documented in data/provenance/SIMULATION-DESIGN.md. It uses invented coordinates, a frequency mixture, variable coverage and simulated local correlation. Its SE approximation is \\([2N\\,MAF(1-MAF)\\,INFO]^{-1/2}\\) except the fixed reference row. It supplies no empirical LD or genotype-model truth.\nThe real-data case inspects one published HDL release. It does not reproduce all lipid traits, original cohort QC, meta-analysis, LD analysis, enrichment or functional experiments from the paper.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  },
+  {
+    "objectID": "99-appendix.html#references",
+    "href": "99-appendix.html#references",
+    "title": "Appendix A — Appendix",
+    "section": "References",
+    "text": "References\n\n\nDevlin, Bernie, and Kathryn Roeder. 1999. “Genomic Control for\nAssociation Studies.” Biometrics 55: 997–1004. https://doi.org/10.1111/j.0006-341X.1999.00997.x.\n\n\nGlobal Lipids Genetics Consortium. n.d. “Global Lipids Genetics\nConsortium Results (2013).” Accessed November 27, 2026. https://csg.sph.umich.edu/willer/public/lipids2013/.\n\n\nGWAS Catalog. n.d. “GWAS Summary Statistics Format\nSpecification.” Accessed November 27, 2026. https://github.com/gwas-catalog/summary-statistics-standard.\n\n\nWiller, Cristen J., Ellen M. Schmidt, Sebanti Sengupta, et al. 2013.\n“Discovery and Refinement of Loci Associated with Lipid\nLevels.” Nature Genetics 45: 1274–83. https://doi.org/10.1038/ng.2797.\n\n\nWinkler, Thomas W., Felix R. Day, Damien C. Croteau-Chonka, et al. 2014.\n“Quality Control and Conduct of Genome-Wide Association\nMeta-Analyses.” Nature Protocols 9: 1192–212. https://doi.org/10.1038/nprot.2014.071.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Appendix</span>"
+    ]
+  }
+]
